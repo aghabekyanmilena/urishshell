@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/21 16:01:22 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:19:31 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <stdlib.h>
 
 typedef struct s_token	t_token;
+typedef struct s_data	t_data;
+
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
@@ -43,6 +45,11 @@ struct s_token
 	char			*value;
 	t_token_type	type;
 	struct s_token	*next;
+};
+
+struct s_data
+{
+	t_token	*token;
 };
 
 void	tokenize(const char *line);
