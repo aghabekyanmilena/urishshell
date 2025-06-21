@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/20 17:23:15 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:01:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_token	t_token;
 
-/* what enum do it to give names to numbers, it is a special data type 
-that contains a set of named ineteger constants*/
+/* what enum do is to give names to numbers, it is a special data type 
+that contains a set of named ineteger constants */
 
 typedef enum e_token_type
 {

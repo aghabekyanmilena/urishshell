@@ -6,11 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:26:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/20 17:22:37 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:53:53 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenization.h"
+#include "./includes/tokenization.h"
 
 static int	ft_isspace(char c)
 {

@@ -6,9 +6,9 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 17:22:01 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/20 17:22:10 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:54:12 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenization.h"
+#include "./includes/tokenization.h"
 
