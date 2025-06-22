@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 18:57:05 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:21:17 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*read_word(char *line, int *i)
 {
 	int	start = *i;
 
-	while (line[*i] && !ft_isspace(line[*i])
+	while (line[*i] && !isspace(line[*i])
 		&& line[*i] != '|' && line[*i] != '&'
 		&& line[*i] != '<' && line[*i] != '>'
 		&& line[*i] != '"' && line[*i] != '\'')
@@ -47,6 +47,7 @@ char	*read_quoted_string(char *line, int *i, char **env)
 {
 	char	quote;
 	int		start;
+	(void)env;
 
 	quote = line[*i];
 	(*i)++;

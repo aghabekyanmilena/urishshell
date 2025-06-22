@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 18:53:02 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:11:47 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ struct s_data
 
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
-char	*read_quoted_string(char *line, int *i);
+char	*read_quoted_string(char *line, int *i, char **env);
 char	*read_word(char *line, int *i);
 
 

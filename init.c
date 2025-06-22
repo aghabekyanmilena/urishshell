@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 18:53:35 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:21:11 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_tokens(char *line, t_data *data_base, char **env)
 	i = 0;
 	while (line[i])
 	{
-		while (ft_isspace(line[i]))
+		while (isspace(line[i]))
 			i++;
 		if (!line[i])
 			break;
@@ -68,22 +68,22 @@ void	init_tokens(char *line, t_data *data_base, char **env)
 		}
 		else if (line[i] == '>' && line[i + 1] == '>')
 		{
-			add_token(&head, ft_strdup(">>"), APPEND);
+			add_token(&head, strdup(">>"), APPEND);
 			i += 2;
 		}
 		else if (line[i] == '<' && line[i + 1] == '<')
 		{
-			add_token(&head, ft_strdup("<<"), HEREDOC);
+			add_token(&head, strdup("<<"), HEREDOC);
 			i += 2;
 		}
 		else if (line[i] == '>')
 		{
-			add_token(&head, ft_strdup(">"), REDIR_OUT);
+			add_token(&head, strdup(">"), REDIR_OUT);
 			i++;
 		}
 		else if (line[i] == '<')
 		{
-			add_token(&head, ft_strdup("<"), REDIR_IN);
+			add_token(&head, strdup("<"), REDIR_IN);
 			i++;
 		}
 		else
