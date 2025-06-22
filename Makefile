@@ -16,7 +16,7 @@ HEADERS = ./includes/tokenization.h
 
 OBJS_DIR = objects/
 
-SRCS_NAME =	utils.c 
+SRCS_NAME =	init.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

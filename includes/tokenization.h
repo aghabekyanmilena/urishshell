@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/21 18:19:31 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:58:16 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,8 @@ struct s_data
 	t_token	*token;
 };
 
-void	tokenize(const char *line);
-
-// sranq petqa grel
+// init utils
 void	add_token(t_token **head, char *value, t_token_type type);
-char	*read_word(const char *line, int *i);
-char	*read_quoted_string(const char *line, int *i, char quote);
-void	print_tokens(t_token *head);
-void	free_tokens(t_token *head);
 
 
 #endif
