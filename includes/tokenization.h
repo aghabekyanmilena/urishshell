@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 16:58:16 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:53:02 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include "../libft/libft.h"
 
 typedef struct s_token	t_token;
 typedef struct s_data	t_data;
@@ -54,6 +55,8 @@ struct s_data
 
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
+char	*read_quoted_string(char *line, int *i);
+char	*read_word(char *line, int *i);
 
 
 #endif

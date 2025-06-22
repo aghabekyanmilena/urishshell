@@ -16,7 +16,7 @@ HEADERS = ./includes/tokenization.h
 
 OBJS_DIR = objects/
 
-SRCS_NAME =	init.c
+SRCS_NAME =	init.c init_utils.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
@@ -24,14 +24,14 @@ OBJS_NAME = $(SRCS_NAME:.c=.o)
 all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) -lncurses
+	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) -lncurses > /dev/null
 
 $(OBJS_DIR)%.o: %.c $(HEADERS) Makefile
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR) > /dev/null
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 $(LIBS_DIR)/$(READLINE):
-	@./$(LIBS_DIR)/config_readline readline 
+	@./$(LIBS_DIR)/config_readline readline > /dev/null
 
 clean:
 	@$(RM) $(OBJS)

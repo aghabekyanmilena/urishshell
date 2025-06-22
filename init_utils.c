@@ -6,11 +6,12 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 17:11:26 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:57:05 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/tokenization.h"
+#include <string.h>
 
 void	add_token(t_token **head, char *value, t_token_type type)
 {
@@ -39,10 +40,10 @@ char	*read_word(char *line, int *i)
 		&& line[*i] != '<' && line[*i] != '>'
 		&& line[*i] != '"' && line[*i] != '\'')
 		(*i)++;
-	return (ft_strdup(&line[start], *i - start));
+	return (strndup(&line[start], *i - start));
 }
 
-char	*read_quoted_string(char *line, int *i)
+char	*read_quoted_string(char *line, int *i, char **env)
 {
 	char	quote;
 	int		start;

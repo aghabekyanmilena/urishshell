@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 17:23:56 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:53:35 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data_base;
+	(void)argv;
+	(void)argc;
 
 	while (1)
 	{
