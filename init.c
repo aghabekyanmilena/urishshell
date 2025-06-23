@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 23:21:11 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:22:37 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_tokens(char *line, t_data *data_base, char **env)
 			i++;
 		if (!line[i])
 			break;
-		if (line[i] == '\'' || line[i] == '"')
+		if (line[i] == '"')
 		{
 			if (line[i] == '"')
 				type = D_QUOTE;
@@ -104,7 +104,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("enter command: ");
 		if (line && *line != '\0')
 		{
-			init_tokens(line, &data_base, env); // note the &
+			init_tokens(line, &data_base, env);
 			print_tokens(data_base.token);
 		}
 		free(line);

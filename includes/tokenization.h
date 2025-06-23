@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 23:11:47 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:06:04 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
 
 typedef struct s_token	t_token;
 typedef struct s_data	t_data;
-
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */

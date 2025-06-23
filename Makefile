@@ -6,6 +6,7 @@ LIBS_DIR = libraries
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
 LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
+LIB_OBJS = $(LIBFTDIR)/*.o
 
 CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address
 
@@ -29,7 +30,7 @@ $(OBJS_DIR)%.o: %.c $(HEADERS) Makefile
 	@mkdir -p $(OBJS_DIR) > /dev/null
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(LIBFT):
+$(LIB_FT):
 	@$(MAKE) -C $(LIBFTDIR)
 
 $(LIBS_DIR)/$(READLINE):
@@ -38,13 +39,13 @@ $(LIBS_DIR)/$(READLINE):
 
 clean:
 	@$(RM) $(OBJS)
-	$(MAKE) fclean -C $(LIBFTDIR)
+	@$(RM) $(LIB_OBJS)
 
 fclean: clean
 	@$(RM) $(NAME)
 	@rm -rf $(LIBS_DIR)/$(READLINE)
 	@rm -rf $(OBJS_DIR)
-	@rm -rf $(LIBFTDIR)
+	@rm $(LIBFT)
 	@make -s clean -C $(LIBS_DIR)/readline-8.2
 
 config:
