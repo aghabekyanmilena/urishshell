@@ -1,37 +1,37 @@
-CC = cc
-
 NAME = minishell
-READLINE = readline
-LIBS_DIR = libraries
-INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
-LIBFTDIR = libft
-LIBFT = $(LIBFTDIR)/libft.a
-LIB_OBJS = $(LIBFTDIR)/*.o
-
+CC = cc
 CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address
+INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
+LIBFT = libft/libft.a
+HEADERS = ./includes/tokenization.h syntax.h
 
+LIBS_DIR = libraries
+READLINE = readline
 READLINE_LIB_PATH = $(LIBS_DIR)/readline/lib
 
-HEADERS = ./includes/tokenization.h
+SRC_DIR = src
+SYNTAX = $(SRC_DIR)/syntax
+TOKEN = $(SRC_DIR)/token
+
+SRC = \
+		$(TOKEN)/token.c \
+		$(TOKEN)/token_utils.c \
 
 OBJS_DIR = objects/
-
-SRCS_NAME =	init.c init_utils.c
-
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
 all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) -lncurses > /dev/null
+	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses > /dev/null
 
-$(OBJS_DIR)%.o: %.c $(HEADERS) Makefile
+$(OBJS_DIR)%.o: %.c $(HEADERS)
 	@mkdir -p $(OBJS_DIR) > /dev/null
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(LIB_FT):
-	@$(MAKE) -C $(LIBFTDIR)
+$(LIBFT):
+	@make -C libft/
 
 $(LIBS_DIR)/$(READLINE):
 	@echo "Loading required libraries..."
@@ -39,13 +39,13 @@ $(LIBS_DIR)/$(READLINE):
 
 clean:
 	@$(RM) $(OBJS)
-	@$(RM) $(LIB_OBJS)
+	@make -C libft/
 
 fclean: clean
 	@$(RM) $(NAME)
 	@rm -rf $(LIBS_DIR)/$(READLINE)
 	@rm -rf $(OBJS_DIR)
-	@rm $(LIBFT)
+	make fclean -C libft/
 	@make -s clean -C $(LIBS_DIR)/readline-8.2
 
 config:

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/23 16:06:04 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:15:28 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include "../libft/libft.h"
 
 typedef struct s_token	t_token;
 typedef struct s_data	t_data;
@@ -35,8 +36,6 @@ typedef enum e_token_type
 	HEREDOC,		// 5 <<
 	S_AND,			// 6 single and &
 	D_AND,			// 7 double and &&
-	D_QUOTE,		// 8 double quote "
-	S_QUOTE			// 9 single quote '
 }	t_token_type;
 
 struct s_token

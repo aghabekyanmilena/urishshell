@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/23 16:22:37 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:51:49 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,69 +21,62 @@ void	print_tokens(t_token *tok)
 	}
 }
 
-void	init_tokens(char *line, t_data *data_base, char **env)
+void	init_tokens(char *line, t_data *data_base)
 {
 	int		i;
 	t_token	*head = NULL;
-	t_token_type	type;
 
 	i = 0;
 	while (line[i])
 	{
-		while (isspace(line[i]))
+		while (ft_isspace(line[i]))
 			i++;
 		if (!line[i])
-			break;
-		if (line[i] == '"')
-		{
-			if (line[i] == '"')
-				type = D_QUOTE;
-			else
-				type = S_QUOTE;
-			add_token(&head, read_quoted_string(line, &i, env), type);
-		}
+			break ;
 		else if (line[i] == '|')
 		{
 			if (line[i + 1] == '|')
 			{
-				type = D_PIPE;
-				i++;
+				add_token(&head, ft_strdup("||"), D_PIPE);
+				i+=2;
 			}
 			else
-				type = S_PIPE;
-			add_token(&head, strdup("|"), type);
-			i++;
+			{
+				add_token(&head, ft_strdup("|"), S_PIPE);
+				i++;
+			}
 		}
 		else if (line[i] == '&')
 		{
 			if (line[i + 1] == '&')
 			{
-				type = D_AND;
-				i++;
+				add_token(&head, ft_strdup("&&"), D_AND);
+				i+=2;
 			}
 			else
-				type = S_AND;
-			add_token(&head, strdup("&"), type);
-			i++;
+			{
+				add_token(&head, ft_strdup("&"), S_AND);
+				i++;
+			}
 		}
 		else if (line[i] == '>' && line[i + 1] == '>')
 		{
-			add_token(&head, strdup(">>"), APPEND);
+			add_token(&head, ft_strdup(">>"), APPEND);
 			i += 2;
 		}
 		else if (line[i] == '<' && line[i + 1] == '<')
 		{
-			add_token(&head, strdup("<<"), HEREDOC);
+			add_token(&head, ft_strdup("<<"), HEREDOC);
 			i += 2;
 		}
 		else if (line[i] == '>')
 		{
-			add_token(&head, strdup(">"), REDIR_OUT);
+			add_token(&head, ft_strdup(">"), REDIR_OUT);
 			i++;
 		}
 		else if (line[i] == '<')
 		{
-			add_token(&head, strdup("<"), REDIR_IN);
+			add_token(&head, ft_strdup("<"), REDIR_IN);
 			i++;
 		}
 		else
@@ -92,19 +85,22 @@ void	init_tokens(char *line, t_data *data_base, char **env)
 	data_base->token = head;
 }
 
+// mainy jnjel heto
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data_base;
 	(void)argv;
 	(void)argc;
+	(void)env;
 
 	while (1)
 	{
 		line = readline("enter command: ");
 		if (line && *line != '\0')
 		{
-			init_tokens(line, &data_base, env);
+			init_tokens(line, &data_base);
 			print_tokens(data_base.token);
 		}
 		free(line);

@@ -6,12 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/22 23:21:17 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:28:58 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/tokenization.h"
-#include <string.h>
 
 void	add_token(t_token **head, char *value, t_token_type type)
 {
@@ -35,12 +34,11 @@ char	*read_word(char *line, int *i)
 {
 	int	start = *i;
 
-	while (line[*i] && !isspace(line[*i])
+	while (line[*i] && !ft_isspace(line[*i])
 		&& line[*i] != '|' && line[*i] != '&'
-		&& line[*i] != '<' && line[*i] != '>'
-		&& line[*i] != '"' && line[*i] != '\'')
+		&& line[*i] != '<' && line[*i] != '>')
 		(*i)++;
-	return (strndup(&line[start], *i - start));
+	return (ft_strndup(&line[start], *i - start));
 }
 
 char	*read_quoted_string(char *line, int *i, char **env)
@@ -54,7 +52,7 @@ char	*read_quoted_string(char *line, int *i, char **env)
 	start = *i;
 	while (line[*i] && line[*i] != quote)
 		(*i)++;
-	char *result = strndup(&line[start], *i - start);
+	char *result = ft_strndup(&line[start], *i - start);
 	if (line[*i] == quote)
 		(*i)++;
 	return result;
