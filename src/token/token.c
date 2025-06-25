@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/24 16:51:49 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:59:24 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/tokenization.h"
+#include "../includes/tokenization.h"
 
 void	print_tokens(t_token *tok)
 {
@@ -83,26 +83,4 @@ void	init_tokens(char *line, t_data *data_base)
 			add_token(&head, read_word(line, &i), WORD);
 	}
 	data_base->token = head;
-}
-
-// mainy jnjel heto
-
-int	main(int argc, char **argv, char **env)
-{
-	char	*line;
-	t_data	data_base;
-	(void)argv;
-	(void)argc;
-	(void)env;
-
-	while (1)
-	{
-		line = readline("enter command: ");
-		if (line && *line != '\0')
-		{
-			init_tokens(line, &data_base);
-			print_tokens(data_base.token);
-		}
-		free(line);
-	}
 }
