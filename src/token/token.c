@@ -6,20 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/25 15:59:24 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:04:03 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
-
-void	print_tokens(t_token *tok)
-{
-	while (tok)
-	{
-		printf("Type: %d, Value: %s\n", tok->type, tok->value);
-		tok = tok->next;
-	}
-}
 
 void	init_tokens(char *line, t_data *data_base)
 {

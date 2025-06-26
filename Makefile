@@ -59,8 +59,6 @@
 
 # .PHONY: all clean fclean re
 
-
-
 NAME = minishell
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS)
