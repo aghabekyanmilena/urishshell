@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/26 15:02:49 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:41:32 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isspace(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/25 15:54:14 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/28 18:32:44 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct s_token
 struct s_data
 {
 	t_token	*token;
+	char	**env;
 };
 
 // init utils
