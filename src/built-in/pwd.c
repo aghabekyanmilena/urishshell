@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 17:52:37 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 18:08:15 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	builtin_pwd(void)
 {
-	char	cwd[1024];
+	char	*cwd;
 
-	// getcwd fills cwd with the current directory path
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	cwd = getcwd(NULL, 0);
+	if (cwd)
 	{
 		printf("%s\n", cwd);
+		free(cwd);
 		return (0);
 	}
 	else
