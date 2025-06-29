@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 18:57:27 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/06/29 14:52:50 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
-#include "../includes/tokenization.h"
 
-int	builtin_exit(char **args)
+int	builtin_cd(char **args, t_data *data)
 {
-	int	exit_code;
+	char	*dir;
 
-	exit_code = 0;
-	printf("exit\n");
-	if (args[1])
-		exit_code = ft_atoi(args[1]);
-	exit(exit_code);
+	(void)data;
+	dir = args[1];
+	if (!dir)
+		dir = getenv("HOME");
+	if (!dir || chdir(dir) != 0)
+	{
+		perror("cd");
+		return (1);
+	}
+	return (0);
 }

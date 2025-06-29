@@ -22,8 +22,9 @@ SRC = \
 	$(SYNTAX)/operator_check.c \
 	$(BUILTIN)/built_utils.c \
 	$(BUILTIN)/echo.c \
-	$(BUILTIN)/exit_1.c \
-	$(BUILTIN)/env.c
+	$(BUILTIN)/exit.c \
+	$(BUILTIN)/env.c \
+	$(BUILTIN)/cd.c
 
 OBJS_DIR = objects
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))

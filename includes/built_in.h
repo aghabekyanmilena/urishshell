@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 18:54:25 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:53:01 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ int		builtin_exit(char **args);
 
 // env
 int		builtin_env(t_data *data);
+
+// cd
+int		builtin_cd(char **args, t_data *data);
 
 #endif

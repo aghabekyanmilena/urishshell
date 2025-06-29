@@ -6,12 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 18:56:39 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:49:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
-#include "../includes/tokenization.h"
 
 int	builtin_echo(char **args)
 {

@@ -6,12 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:46:33 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 19:16:15 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:53:13 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
-#include "../includes/tokenization.h"
 
 bool	is_builtin(char *cmd)
 {
@@ -30,8 +29,8 @@ int	execute_builtin(t_cmd *cmd, t_data *data)
 {
 	if (!cmd || !cmd->args[0])
 		return (1);
-	// if (!ft_strcmp(cmd->args[0], "cd"))
-		// return (builtin_cd(cmd->args, data));
+	if (!ft_strcmp(cmd->args[0], "cd"))
+		return (builtin_cd(cmd->args, data));
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (builtin_echo(cmd->args));
 	// if (!ft_strcmp(cmd->args[0], "pwd"))
