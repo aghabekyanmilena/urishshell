@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:46:33 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 14:53:13 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/29 17:53:53 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ bool	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "echo")
 		|| !ft_strcmp(cmd, "pwd")
 		|| !ft_strcmp(cmd, "exit")
-		|| !ft_strcmp(cmd, "export")
-		|| !ft_strcmp(cmd, "unset")
+		// || !ft_strcmp(cmd, "export")
+		// || !ft_strcmp(cmd, "unset")
 		|| !ft_strcmp(cmd, "env"));
 }
 
@@ -33,8 +33,8 @@ int	execute_builtin(t_cmd *cmd, t_data *data)
 		return (builtin_cd(cmd->args, data));
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (builtin_echo(cmd->args));
-	// if (!ft_strcmp(cmd->args[0], "pwd"))
-		// return (builtin_pwd());
+	if (!ft_strcmp(cmd->args[0], "pwd"))
+		return (builtin_pwd());
 	if (!ft_strcmp(cmd->args[0], "exit"))
 		return (builtin_exit(cmd->args));
 	// if (!ft_strcmp(cmd->args[0], "export"))

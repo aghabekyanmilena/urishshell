@@ -24,7 +24,8 @@ SRC = \
 	$(BUILTIN)/echo.c \
 	$(BUILTIN)/exit.c \
 	$(BUILTIN)/env.c \
-	$(BUILTIN)/cd.c
+	$(BUILTIN)/cd.c \
+	$(BUILTIN)/pwd.c
 
 OBJS_DIR = objects
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))
