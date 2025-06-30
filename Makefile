@@ -73,13 +73,15 @@ READLINE_LIB_PATH = $(LIBS_DIR)/readline/lib
 SRC_DIR = src
 SYNTAX = $(SRC_DIR)/syntax
 TOKEN = $(SRC_DIR)/token
+PIPEX= $(SRC_DIR)/pipex
 
 SRC = \
 	$(SRC_DIR)/main.c \
 	$(TOKEN)/token.c \
 	$(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c \
-	$(SYNTAX)/operator_check.c
+	$(SYNTAX)/operator_check.c \
+	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c \
 
 OBJS_DIR = objects
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))
@@ -87,7 +89,7 @@ OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))
 all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses
+	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses -g3 -fsanitize=address
 
 $(OBJS_DIR)/%.o: %.c $(HEADERS)
 	@mkdir -p $(dir $@)
@@ -95,6 +97,9 @@ $(OBJS_DIR)/%.o: %.c $(HEADERS)
 
 $(LIBFT):
 	@make -C libft/
+
+$(PIPEX):
+	@make -C pipex/
 
 $(LIBS_DIR)/$(READLINE):
 	@echo "Loading required libraries..."

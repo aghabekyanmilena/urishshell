@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/25 15:54:14 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:58:44 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef struct s_token	t_token;
 typedef struct s_data	t_data;
+typedef struct s_command	t_cmd;
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
@@ -37,6 +38,11 @@ typedef enum e_token_type
 	HEREDOC,		// 5 <<
 	S_AND,			// 6 single and &
 	D_AND,			// 7 double and &&
+	// added these four
+	INFILE,			// after <
+	LIMITER,		// after <<
+	OUTFILE,		// after >
+	OUTFILE_APPEND,	// after >>
 }	t_token_type;
 
 struct s_token
@@ -46,10 +52,22 @@ struct s_token
 	struct s_token	*next;
 };
 
+struct s_command
+{
+	char				*value;
+	t_token_type		type;
+	struct s_command	*next;
+};
+
+
 struct s_data
 {
 	t_token	*token;
+	char	**env;
+	int		pipes_count;//piperi hamar
 };
+
+#include "pipex.h"
 
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
