@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 14:49:22 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:29:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	builtin_echo(char **args)
 {
-	int	i;
-	int	n_flag;
+	int		i;
+	int		n_flag;
 
 	i = 1;
 	n_flag = 0;
@@ -26,7 +26,18 @@ int	builtin_echo(char **args)
 	}
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		
+		char	*str;
+		size_t	len = ft_strlen(args[i]);
+		if ((args[i][0] == '\'' || args[i][0] == '"') && args[i][len - 1] == args[i][0])
+			str = ft_substr(args[i], 1, len - 2);
+		else
+			str = ft_strdup(args[i]);
+		if (str)
+		{
+			printf("%s", str);
+			free(str);
+		}
 		if (args[i + 1])
 			printf(" ");
 		i++;

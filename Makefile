@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS)
+CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS) -g3 -fsanitize=address
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
 LIBFT = libft/libft.a
 HEADERS = includes/tokenization.h includes/syntax.h includes/built_in.h
@@ -25,7 +25,8 @@ SRC = \
 	$(BUILTIN)/exit.c \
 	$(BUILTIN)/env.c \
 	$(BUILTIN)/cd.c \
-	$(BUILTIN)/pwd.c
+	$(BUILTIN)/pwd.c \
+	$(BUILTIN)/export.c
 
 OBJS_DIR = objects
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))

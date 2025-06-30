@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 17:41:32 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:39:14 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int nb, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_bzero(void *ptr, size_t n);
+
+// new
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+
 
 #endif

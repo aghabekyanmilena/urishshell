@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 17:54:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:42:42 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ int		builtin_cd(char **args, t_data *data);
 
 // pwd
 int		builtin_pwd(void);
+
+// export
+int builtin_export(char **args, t_data *data);
 
 #endif

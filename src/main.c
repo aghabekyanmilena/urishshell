@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:34:28 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 17:39:27 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:06:57 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minishell: ");
 		if (!line)
 			break;
-		if (line == NULL) // esi ctrl + D masna ibr bayc mi dzev srtovs chi
-		{
-			printf("exit\n");
-			rl_clear_history();
-			exit(0);
-		}
+		// if (line == NULL) // esi ctrl + D masna ibr bayc mi dzev srtovs chi
+		// {
+		// 	printf("exit\n");
+		// 	rl_clear_history();
+		// 	exit(0);
+		// }
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
