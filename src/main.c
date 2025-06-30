@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:34:28 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 15:10:05 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:55:32 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,35 @@ void no_pipe(t_pipex *pipex)
 	// 	err_exit("Error forking\n", pipex, 1);
 	if (pipex->pid[pipex->current_cmd] == 0)
 	{
+		dup2(pipex->infile, STDIN_FILENO);
+		dup2(pipex->outfile, STDOUT_FILENO);
+		if (pipex->infile != 0)
+			close(pipex->infile);
+		if (pipex->outfile != 1)
+			close(pipex->outfile);
 		execute_cmd(pipex);
 	}
+	if (pipex->infile != 0)
+		close(pipex->infile);
+	if (pipex->outfile != 1)
+		close(pipex->outfile);
+}
+
+void	free_cmd(t_cmd **cmd)
+{
+	t_cmd	*current;
+	t_cmd	*next;
+
+	if (cmd == NULL || *cmd == NULL)
+		return ;
+	current = *cmd;
+	while (current != NULL)
+	{
+		next = current-> next;
+		free(current->value);
+		current = next;
+	}
+	*cmd = NULL;
 }
 
 void	commands(t_cmd *cmd, t_pipex *pipex)
@@ -62,7 +89,6 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 		pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	else
 		pipex->outfile = 1;
-
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -99,13 +125,14 @@ void	pipex_start(t_data *db, t_token *token)
 		commands(cmd, &pipex);
 		if (db->pipes_count == 0)
 			no_pipe(&pipex);
-		else if (pipex.current_cmd == 0 && db->pipes_count != 0)
+		else if (pipex.current_cmd == 0)
 			first(&pipex);
 		else if (pipex.current_cmd == pipex.count_cmd - 1)
 			last(&pipex);
 		else
 			mid(&pipex);
 		free(cmd_line);
+		free_cmd(&cmd);
 		free_double(pipex.cmd);
 		(pipex.current_cmd)++;
 	}
@@ -131,7 +158,6 @@ int	main(int argc, char **argv, char **env)
 	t_data	data_base;
 	(void)argv;
 	(void)argc;
-	// (void)env;
 
 	data_base.env = env;
 	while (1)
@@ -143,7 +169,6 @@ int	main(int argc, char **argv, char **env)
 			print_tokens(data_base.token);
 			if (check_syntax_errors(data_base.token))
 				return (1);
-			// if (data_base.pipes_count != 0)
 			pipex_start(&data_base, data_base.token);
 		}
 		add_history(line);

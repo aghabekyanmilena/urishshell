@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 11:59:53 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:45:10 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	init_tokens(char *line, t_data *data_base)
 			break ;
 		else if (line[i] == '|')
 		{
-			data_base->pipes_count++;
+			(data_base->pipes_count)++;
 			if (line[i + 1] == '|')
 			{
 				add_token(&head, ft_strdup("||"), D_PIPE);

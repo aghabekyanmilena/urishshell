@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/06/30 14:53:09 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:58:26 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	bash_script(t_pipex *pipex)
 {
-	char	*m;
+	// char	*m;
 
 	if (access(pipex->cmd[0], F_OK | X_OK) == 0)
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
-	m = ft_strjoin("command not found: ", pipex->cmd[pipex->current_cmd]);
+	// m = ft_strjoin("command not found: ", pipex->cmd[pipex->current_cmd]);
 	// ft_putstr_fd(m, 2);
-	free(m);
+	// free(m);
 	// err_exit("\n", pipex, 0);
 }
 
@@ -70,8 +70,9 @@ void	mid(t_pipex *pipex)
 		execute_cmd(pipex);
 	}
 	close(pipex->fds[0]);
+	close(fders[1]);
 	pipex->fds[0] = fders[0];
-	close(pipex->fds[1]);
+	// close(pipex->fds[1]);
 }
 
 void	first(t_pipex *pipex)
@@ -87,13 +88,15 @@ void	first(t_pipex *pipex)
 		close(pipex->fds[0]);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->fds[1], STDOUT_FILENO);
-		// close(pipex->infile);
+		if (pipex->infile != 0)
+			close(pipex->infile);
 		close(pipex->fds[1]);
 		execute_cmd(pipex);
 	}
-	close(pipex->infile);
+	if (pipex->infile != 0)
+		close(pipex->infile);
 	close(pipex->fds[1]);
-	pipex->infile = pipex->fds[0];
+	// pipex->infile = pipex->fds[0];
 }
 
 void	last(t_pipex *pipex)
@@ -106,9 +109,11 @@ void	last(t_pipex *pipex)
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		close(pipex->fds[0]);
-		// close(pipex->outfile);
+		if (pipex->outfile != 1)
+			close(pipex->outfile);
 		execute_cmd(pipex);
 	}
 	close(pipex->fds[0]);
-	close(pipex->outfile);
+	if (pipex->outfile != 1)
+		close(pipex->outfile);
 }
