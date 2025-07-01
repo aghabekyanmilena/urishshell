@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:34:28 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 15:55:32 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:19:58 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,20 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	t_cmd *cpy;
 
 	cpy = cmd;
-	while (cpy && cpy->type != INFILE)
+	pipex->infile = 0;
+	pipex->outfile = 1;
+	while (cpy)
+	{
+		if (cpy->type == INFILE)
+			pipex->infile = open(cpy->value, O_RDONLY);
+		else if (cpy->type == OUTFILE)
+			pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		else if (cpy->type == OUTFILE_APPEND)
+			pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		else if (cpy->type == LIMITER)
+			pipex->limiter = ft_strdup(cpy->value);
 		cpy = cpy->next;
-	if (cpy && cpy->type == INFILE)
-		pipex->infile = open(cpy->value, O_RDONLY);
-	else
-		pipex->infile = 0;
-	cpy = cmd;
-	while (cpy && cpy->type != OUTFILE && cpy->type != OUTFILE_APPEND)
-		cpy = cpy->next;
-	if (cpy && cpy->type == OUTFILE)
-		pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	else if (cpy && cpy->type == OUTFILE_APPEND)
-		pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	else
-		pipex->outfile = 1;
+	}
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -123,6 +122,8 @@ void	pipex_start(t_data *db, t_token *token)
 			cpy = cpy->next;
 		pipex.cmd = ft_split(cmd_line, ' ');
 		commands(cmd, &pipex);
+		if (pipex.limiter)
+			read_here_doc(&pipex, pipex.limiter);
 		if (db->pipes_count == 0)
 			no_pipe(&pipex);
 		else if (pipex.current_cmd == 0)
@@ -131,6 +132,8 @@ void	pipex_start(t_data *db, t_token *token)
 			last(&pipex);
 		else
 			mid(&pipex);
+		if (pipex.limiter != NULL)
+			unlink(TMP_FILE);
 		free(cmd_line);
 		free_cmd(&cmd);
 		free_double(pipex.cmd);

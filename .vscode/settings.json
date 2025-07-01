@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"pipex.h": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"get_next_line.h": "c"
 	}
 }

@@ -81,7 +81,7 @@ SRC = \
 	$(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c \
 	$(SYNTAX)/operator_check.c \
-	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c \
+	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c \
 
 OBJS_DIR = objects
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))
@@ -98,8 +98,8 @@ $(OBJS_DIR)/%.o: %.c $(HEADERS)
 $(LIBFT):
 	@make -C libft/
 
-$(PIPEX):
-	@make -C pipex/
+# $(PIPEX):
+# 	@make -C pipex/
 
 $(LIBS_DIR)/$(READLINE):
 	@echo "Loading required libraries..."

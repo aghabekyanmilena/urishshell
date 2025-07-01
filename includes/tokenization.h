@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 13:58:44 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:21:56 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ typedef enum e_token_type
 	HEREDOC,		// 5 <<
 	S_AND,			// 6 single and &
 	D_AND,			// 7 double and &&
-	// added these four
-	INFILE,			// after <
-	LIMITER,		// after <<
-	OUTFILE,		// after >
-	OUTFILE_APPEND,	// after >>
+	INFILE,			// 8 after <
+	LIMITER,		// 9 after <<
+	OUTFILE,		// 10 after >
+	OUTFILE_APPEND,	// 11 after >>
 }	t_token_type;
 
 struct s_token

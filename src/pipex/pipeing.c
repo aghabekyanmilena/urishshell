@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/06/30 15:58:26 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:57:40 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	mid(t_pipex *pipex)
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
-	// close(pipex->fds[1]);
 }
 
 void	first(t_pipex *pipex)
@@ -96,7 +95,6 @@ void	first(t_pipex *pipex)
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
-	// pipex->infile = pipex->fds[0];
 }
 
 void	last(t_pipex *pipex)

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/06/30 13:41:52 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:20:48 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ typedef struct s_pipex
 	int				fds[2];
 	int				*pid;
 	char			**path;
-	// char			**argv;
-	// int				argc;
 	char			**env;
 	int				infile;
 	int				outfile;
+	char			*limiter;
 	char			**cmd;
 	int				current_cmd;
 	int				count_cmd;
@@ -38,6 +37,7 @@ typedef struct s_pipex
 
 // void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
+void	read_here_doc(t_pipex *heredoc, char *limiter);
 void	check_files(char *infile, char *outfile, t_pipex *pipex);
 void	err_exit(char *message, t_pipex *pipex, int k);
 void	free_double(char **s);
