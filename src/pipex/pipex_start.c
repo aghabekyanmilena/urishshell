@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   taza_ban.c                                         :+:      :+:    :+:   */
+/*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 19:03:28 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:24:38 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	add_cmd(t_cmd **head, char *value, t_token_type type)
 {
@@ -57,22 +57,25 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		close(pipex->outfile);
 }
 
-void	free_cmd(t_cmd **cmd)
+void free_cmd(t_cmd **cmd)
 {
-	t_cmd	*current;
-	t_cmd	*next;
+	t_cmd *tmp;
+	t_cmd *next;
 
-	if (cmd == NULL || *cmd == NULL)
-		return ;
-	current = *cmd;
-	while (current != NULL)
+	if (!cmd || !*cmd)
+		return;
+	tmp = *cmd;
+	while (tmp)
 	{
-		next = current-> next;
-		free(current->value);
-		current = next;
+		next = tmp->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
 	}
 	*cmd = NULL;
 }
+
 
 void	commands(t_cmd *cmd, t_pipex *pipex)
 {
@@ -81,6 +84,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	cpy = cmd;
 	pipex->infile = 0;
 	pipex->outfile = 1;
+	pipex->limiter = NULL;
 	while (cpy)
 	{
 		if (cpy->type == INFILE)
@@ -93,6 +97,16 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			pipex->limiter = ft_strdup(cpy->value);
 		cpy = cpy->next;
 	}
+}
+
+void	free_struct(t_pipex *pipex)
+{
+	if (!pipex)
+		return;
+	free_double(pipex->path);
+	free(pipex->pid);
+	free(pipex->limiter);
+	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -146,6 +160,5 @@ void	pipex_start(t_data *db, t_token *token)
 	i = 0;
 	while (i < pipex.count_cmd)
 		waitpid(pipex.pid[i++], &status, 0);
-	free_double(pipex.path);
-	free(pipex.pid);
+	free_struct(&pipex);
 }

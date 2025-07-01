@@ -20,7 +20,7 @@ SRC = \
 	$(TOKEN)/token.c $(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c $(SYNTAX)/operator_check.c  \
 	$(BUILTIN)/built_utils.c $(BUILTIN)/echo.c $(BUILTIN)/exit.c $(BUILTIN)/env.c $(BUILTIN)/cd.c $(BUILTIN)/pwd.c $(BUILTIN)/export.c $(BUILTIN)/unset.c \
-	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c $(PIPEX)/taza_ban.c\
+	$(PIPEX)/pipex_start.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c \
 
 
 OBJS_DIR = objects
@@ -29,7 +29,8 @@ OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))
 all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses -g3 -fsanitize=address
+	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses 
+#-g3 -fsanitize=address
 
 $(OBJS_DIR)/%.o: %.c $(HEADERS)
 	@mkdir -p $(dir $@)

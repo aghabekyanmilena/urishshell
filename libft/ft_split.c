@@ -3,58 +3,126 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 12:23:26 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/01/18 15:22:59 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/01/22 16:51:48 by atseruny          #+#    #+#             */
+/*   Updated: 2025/03/25 20:05:25 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_toklen(const char *s, char c)
+static int	count_words(char *s, char c)
 {
-	size_t	ret;
+	int	i;
+	int	cnt;
 
-	ret = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			++ret;
-			while (*s && *s != c)
-				++s;
-		}
-		else
-			++s;
-	}
-	return (ret);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**ret;
-	size_t	i;
-	size_t	len;
-
-	if (!s)
-		return (0);
 	i = 0;
-	ret = malloc(sizeof(char *) * (ft_toklen(s, c) + 1));
-	if (!ret)
-		return (0);
-	while (*s)
+	cnt = 0;
+	while (s[i] != '\0')
 	{
-		if (*s != c)
+		if (s[i] != c)
 		{
-			len = 0;
-			while (*s && *s != c && ++len)
-				++s;
-			ret[i++] = ft_substr(s - len, 0, len);
+			cnt++;
+			while (s[i] != '\0' && s[i] != c)
+				i++;
 		}
 		else
-			++s;
+			i++;
 	}
-	ret[i] = 0;
-	return (ret);
+	return (cnt);
 }
+
+void	ft_free(char **s, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i <= j)
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
+
+static int	len_malloc(char *s, char **str, char c, int i)
+{
+	int	cnt;
+	int	j;
+
+	j = 0;
+	while (s[i] != '\0')
+	{
+		cnt = 0;
+		if (s[i] != c)
+			while (s[i] != '\0' && s[i++] != c)
+				cnt++;
+		else
+			i++;
+		if (cnt != 0)
+		{
+			str[j] = (char *)malloc((cnt + 1) * sizeof(char));
+			if (!str[j])
+			{
+				ft_free(str, j);
+				return (0);
+			}
+			j++;
+		}
+	}
+	return (1);
+}
+
+static void	ktr(char *s, char **str, char c, int i)
+{
+	int	j;
+	int	cnt;
+
+	j = 0;
+	while (s[i] != '\0')
+	{
+		cnt = 0;
+		if (s[i] != c)
+		{
+			while (s[i] != '\0' && s[i] != c)
+			{
+				str[j][cnt] = s[i++];
+				cnt++;
+			}
+		}
+		else
+			i++;
+		if (cnt != 0)
+			str[j++][cnt] = '\0';
+	}
+	str[j] = NULL;
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int		j;
+	int		k;
+	char	**str;
+
+	j = count_words((char *)s, c);
+	str = (char **)malloc((j + 1) * sizeof(char *));
+	if (!str)
+		return (NULL);
+	k = len_malloc((char *)s, str, c, 0);
+	if (k == 0)
+		return (NULL);
+	ktr((char *)s, str, c, 0);
+	return (str);
+}
+// int main()
+// {
+//     char *s="aa ";
+//     char **s1=ft_split(s,' ');
+//     int i=0;
+//     while (i<2)
+//     {
+//         printf("%s\n", s1[i]);
+//         i++;
+//     }
+// }
