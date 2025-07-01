@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 18:30:48 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:38:01 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ struct s_data
 {
 	t_token	*token;
 	char	**env;
+	int		pipes_count;
 };
 
 #include "pipex.h"
