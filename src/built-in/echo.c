@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 15:29:48 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/06/30 16:39:23 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	builtin_echo(char **args)
 	}
 	while (args[i])
 	{
-		
 		char	*str;
 		size_t	len = ft_strlen(args[i]);
 		if ((args[i][0] == '\'' || args[i][0] == '"') && args[i][len - 1] == args[i][0])
