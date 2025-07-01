@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 12:35:00 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:31:20 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		ft_isalnum(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isspace(int c);
-int		ft_strcmp(const char *s1, const char *s2); // this line
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
@@ -55,5 +55,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int nb, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_bzero(void *ptr, size_t n);
+
+// new
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+
 
 #endif
