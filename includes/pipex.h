@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/01 18:20:48 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:56:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include "built_in.h"
 
 # define TMP_FILE "/tmp/heredoc.tmp"
 
@@ -35,18 +36,16 @@ typedef struct s_pipex
 	int				count_cmd;
 }					t_pipex;
 
-// void	pipex_start(t_data *db, t_token *token);
+void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, char *limiter);
 void	check_files(char *infile, char *outfile, t_pipex *pipex);
 void	err_exit(char *message, t_pipex *pipex, int k);
 void	free_double(char **s);
-void	first(t_pipex *pipex);
-void	last(t_pipex *pipex);
-void	mid(t_pipex *pipex);
+void	first(t_pipex *pipex, t_data *data_base);
+void	last(t_pipex *pipex, t_data *data_base);
+void	mid(t_pipex *pipex, t_data *data_base);
 void	execute_cmd(t_pipex *pipex);
-void	here_doc(int argc, char **argv, char **env, t_pipex *heredoc);
-int		ft_strcmp_for_limiter(char *s1, char *s2);
 char	*ft_join(char *s1, char *s2, char ch);
 
 #endif

@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror $(INC_DIRS) #-g3 -fsanitize=address
 INC_DIRS = -I./includes -I./$(LIBS_DIR)/$(READLINE)/include
 LIBFT = libft/libft.a
-HEADERS = includes/tokenization.h includes/syntax.h includes/built_in.h
+HEADERS = includes/tokenization.h includes/syntax.h includes/built_in.h includes/pipex.h
 
 LIBS_DIR = libraries
 READLINE = readline
@@ -16,11 +16,11 @@ PIPEX= $(SRC_DIR)/pipex
 BUILTIN = $(SRC_DIR)/built-in
 
 SRC = \
-	$(SRC_DIR)/main_milena.c \
+	$(SRC_DIR)/main.c \
 	$(TOKEN)/token.c $(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c $(SYNTAX)/operator_check.c  \
 	$(BUILTIN)/built_utils.c $(BUILTIN)/echo.c $(BUILTIN)/exit.c $(BUILTIN)/env.c $(BUILTIN)/cd.c $(BUILTIN)/pwd.c $(BUILTIN)/export.c $(BUILTIN)/unset.c \
-	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c \
+	$(PIPEX)/pipex.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c $(PIPEX)/taza_ban.c\
 
 
 OBJS_DIR = objects

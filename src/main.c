@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_milen.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 18:35:45 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:58:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	t_data	data_base;
-	t_cmd	cmd;
 
 	(void)argc;
 	(void)argv;
@@ -84,16 +83,10 @@ int	main(int argc, char **argv, char **env)
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
-			print_tokens(data_base.token);
+			// print_tokens(data_base.token);
 			if (check_syntax_errors(data_base.token))
 				return (1);
-			cmd.args = ft_split(line, ' ');
-			cmd.next = NULL;
-			if (is_builtin(cmd.args[0]))
-				execute_builtin(&cmd, &data_base);
-			else
-				printf("not a built-in command\n");
-			free_array(cmd.args);
+			pipex_start(&data_base, data_base.token);
 			free_tokens(data_base.token); // esi nora
 		}
 		add_history(line);

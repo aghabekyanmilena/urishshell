@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 15:32:23 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:56:16 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@
 #include <unistd.h>
 #include "tokenization.h"
 
-typedef struct s_cmd
-{
-	char	**args;
-	char	*infile;
-	char	*outfile;
-	int		append;
-	int		pipe_in;
-	int		pipe_out;
-	struct s_cmd *next;
-}	t_cmd;
+// typedef struct s_cmd
+// {
+// 	char	**args;
+// 	char	*infile;
+// 	char	*outfile;
+// 	int		append;
+// 	int		pipe_in;
+// 	int		pipe_out;
+// 	struct s_cmd *next;
+// }	t_cmd;
 
 // utils
 bool	is_builtin(char *cmd);
-int		execute_builtin(t_cmd *cmd, t_data *data);
+int		execute_builtin(char **args, t_data *data);
 
 // echo
 int		builtin_echo(char **args);

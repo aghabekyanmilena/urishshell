@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:27 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/01 18:21:36 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:59:31 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init(t_data *db, t_pipex *pipex)
 
 	i = 0;
 	pipex->cmd = NULL;
+	pipex->limiter = NULL;
 	pipex->path = NULL;
 	while (db->env[i])
 	{

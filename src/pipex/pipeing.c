@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/01 14:57:40 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:03:18 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	execute_cmd(t_pipex *pipex)
 	// err_exit("\n", pipex, 0);
 }
 
-void	mid(t_pipex *pipex)
+void	mid(t_pipex *pipex, t_data *data_base)
 {
 	int	fders[2];
 
@@ -67,14 +67,20 @@ void	mid(t_pipex *pipex)
 		dup2(fders[1], STDOUT_FILENO);
 		close(pipex->fds[0]);
 		close(fders[1]);
-		execute_cmd(pipex);
+		if (is_builtin(pipex->cmd[0]))
+		{
+			execute_builtin(pipex->cmd, data_base);
+			exit(0);
+		}
+		else
+			execute_cmd(pipex);
 	}
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
 }
 
-void	first(t_pipex *pipex)
+void	first(t_pipex *pipex, t_data *data_base)
 {
 	pipe(pipex->fds);
 	// if (pipe(pipex->fds) == -1)
@@ -90,14 +96,20 @@ void	first(t_pipex *pipex)
 		if (pipex->infile != 0)
 			close(pipex->infile);
 		close(pipex->fds[1]);
-		execute_cmd(pipex);
+		if (is_builtin(pipex->cmd[0]))
+		{
+			execute_builtin(pipex->cmd, data_base);
+			exit(0);
+		}
+		else
+			execute_cmd(pipex);
 	}
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
 }
 
-void	last(t_pipex *pipex)
+void	last(t_pipex *pipex, t_data *data_base)
 {
 	pipex->pid[pipex->current_cmd] = fork();
 	// if (pipex->pid[pipex->current_cmd] == -1)
@@ -109,7 +121,13 @@ void	last(t_pipex *pipex)
 		close(pipex->fds[0]);
 		if (pipex->outfile != 1)
 			close(pipex->outfile);
-		execute_cmd(pipex);
+		if (is_builtin(pipex->cmd[0]))
+		{
+			execute_builtin(pipex->cmd, data_base);
+			exit(0);
+		}
+		else
+			execute_cmd(pipex);
 	}
 	close(pipex->fds[0]);
 	if (pipex->outfile != 1)
