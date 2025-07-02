@@ -14,6 +14,7 @@ SYNTAX = $(SRC_DIR)/syntax
 TOKEN = $(SRC_DIR)/token
 PIPEX= $(SRC_DIR)/pipex
 BUILTIN = $(SRC_DIR)/built-in
+SIGNALS = $(SRC_DIR)/signals
 
 SRC = \
 	$(SRC_DIR)/main.c \

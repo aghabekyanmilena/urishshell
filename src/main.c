@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 16:51:23 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/02 21:20:57 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../includes/tokenization.h"
 #include "../includes/syntax.h"
 #include "../includes/built_in.h"
+#include "../includes/signals.h"
 
 void	print_tokens(t_token *tok)
 {
@@ -67,6 +68,11 @@ void	free_tokens(t_token *head)
 	}
 }
 
+void handle_sigint(int sig)
+{
+	printf("dfghjk%d\n", sig);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -78,8 +84,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishell: ");
+		init_signals();
 		if (!line)
-			break;
+			break; // esi henc ctrl+D a, petqa senc lini
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
