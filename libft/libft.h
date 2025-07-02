@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 18:31:20 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/02 17:22:30 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
+
+typedef struct s_list
+{
+	int				data;
+	struct s_list	*next;
+} t_list;
 
 int		ft_atoi(const char *str);
 int		ft_isalpha(int c);
@@ -58,6 +64,7 @@ void	ft_bzero(void *ptr, size_t n);
 
 // new
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
-
+// t_list	*sort_list(t_list* lst, int (*cmp)(int, int));
+void	sort_env(char **env);
 
 #endif
