@@ -6,15 +6,16 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 21:20:57 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:57:21 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/tokenization.h"
 #include "../includes/syntax.h"
 #include "../includes/built_in.h"
 #include "../includes/signals.h"
+
+void handle_shlvl(t_data *data);
 
 void	print_tokens(t_token *tok)
 {
@@ -68,10 +69,21 @@ void	free_tokens(t_token *head)
 	}
 }
 
-void handle_sigint(int sig)
+char **copy_env(char **envp)
 {
-	printf("dfghjk%d\n", sig);
+	int i = 0;
+	while (envp[i])
+		i++;
+
+	char **copy = malloc(sizeof(char *) * (i + 1));
+	if (!copy)
+		return (NULL);
+	for (int j = 0; j < i; j++)
+		copy[j] = ft_strdup(envp[j]);
+	copy[i] = NULL;
+	return copy;
 }
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -80,11 +92,13 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	data_base.env = env;
+	// data_base.env = env;
+	data_base.env = copy_env(env);
+	handle_shlvl(&data_base);
+	
 	while (1)
 	{
 		line = readline("minishell: ");
-		init_signals();
 		if (!line)
 			break; // esi henc ctrl+D a, petqa senc lini
 		if (line && *line != '\0')

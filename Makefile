@@ -17,7 +17,7 @@ BUILTIN = $(SRC_DIR)/built-in
 SIGNALS = $(SRC_DIR)/signals
 
 SRC = \
-	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/main.c $(SRC_DIR)/shlvl.c \
 	$(TOKEN)/token.c $(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c $(SYNTAX)/operator_check.c  \
 	$(BUILTIN)/built_utils.c $(BUILTIN)/echo.c $(BUILTIN)/exit.c $(BUILTIN)/env.c $(BUILTIN)/cd.c $(BUILTIN)/pwd.c $(BUILTIN)/export.c $(BUILTIN)/unset.c \
