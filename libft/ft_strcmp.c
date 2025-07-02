@@ -6,10 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:40:52 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/28 17:41:04 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:50:47 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 
 int	ft_strcmp(char *s1, char *s2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 23:24:38 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/02 16:50:20 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,38 @@ void	add_cmd(t_cmd **head, char *value, t_token_type type)
 
 void no_pipe(t_pipex *pipex, t_data *data_base)
 {
+	int inf=0 ;
+	int out = 1;
+	if (pipex->infile != 0)
+		inf = dup(0);
+	if (pipex->outfile != 1)
+		out = dup(1);
+	if (is_builtin(pipex->cmd[0]))
+	{
+		pipex->pid[pipex->current_cmd]= 0;
+		if (pipex->infile != 0)
+		{
+			dup2(pipex->infile, STDIN_FILENO);
+			close(pipex->infile);
+		}
+		if (pipex->outfile != 1)
+		{
+			dup2(pipex->outfile, STDOUT_FILENO);
+			close(pipex->outfile);
+		}
+		execute_builtin(pipex->cmd, data_base);
+		if (inf != 0)
+		{	
+			dup2(inf, STDIN_FILENO);
+			close(inf);
+		}
+		if (out != 1)
+		{
+			dup2(out, STDOUT_FILENO);
+			close(out);
+		}
+		return ;
+	}
 	pipex->pid[pipex->current_cmd] = fork();
 	// if (pipex->pid[pipex->current_cmd] == -1)
 	// 	err_exit("Error forking\n", pipex, 1);
@@ -39,17 +71,13 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	{
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
+
 		if (pipex->infile != 0)
 			close(pipex->infile);
 		if (pipex->outfile != 1)
 			close(pipex->outfile);
-		if (is_builtin(pipex->cmd[0]))
-		{
-			execute_builtin(pipex->cmd, data_base);
-			exit(0);
-		}
-		else
-			execute_cmd(pipex);
+		execute_cmd(pipex);
+		exit(1);
 	}
 	if (pipex->infile != 0)
 		close(pipex->infile);
@@ -158,7 +186,7 @@ void	pipex_start(t_data *db, t_token *token)
 		(pipex.current_cmd)++;
 	}
 	i = 0;
-	while (i < pipex.count_cmd)
+	while (pipex.pid[i])
 		waitpid(pipex.pid[i++], &status, 0);
 	free_struct(&pipex);
 }

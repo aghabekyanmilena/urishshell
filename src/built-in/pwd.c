@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 18:08:15 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:50:27 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ int	builtin_pwd(void)
 		perror("pwd");
 		return (1);
 	}
+	return (1);
 }
