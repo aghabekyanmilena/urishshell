@@ -6,18 +6,20 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 23:56:53 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:53:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 #define TOKENIZATION_H
 
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
+#include <errno.h>
 #include "../libft/libft.h"
 
 typedef struct s_token	t_token;
