@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 23:57:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:20:58 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "../includes/signals.h"
 
 void handle_shlvl(t_data *data);
+char *get_env(char **env, const char *key);
+void update_env(t_data *data, const char *key, const char *value);
 
 void	print_tokens(t_token *tok)
 {
@@ -84,7 +86,6 @@ char **copy_env(char **envp)
 	return copy;
 }
 
-
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -92,12 +93,14 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+
 	// data_base.env = env;
 	data_base.env = copy_env(env);
 	handle_shlvl(&data_base);
-	
+
 	while (1)
 	{
+		init_signal();
 		line = readline("minishell: ");
 		if (!line)
 			break; // esi henc ctrl+D a, petqa senc lini

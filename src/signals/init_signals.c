@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 18:07:26 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 16:12:06 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/03 16:32:42 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-#define SIGNALS_H
+#include "../includes/signals.h"
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "tokenization.h"
+static void	handling_signal(int signal)
+{
+	if (signal == SIGQUIT)
+		(void)0;
+	else if (signal == SIGINT)
+		printf("\nminishell: ");
+}
 
-void	handle_exec(int signal);
-void	init_signal(void);
+void	handle_exec(int signal)
+{
+	if (signal ==SIGQUIT)
+		printf("Quit (core dumped)\n");
+	else
+		printf("\n");
+}
 
-#endif
+void	init_signal(void)
+{
+	signal(SIGINT, &handling_signal);
+	signal(SIGQUIT, SIG_IGN);
+}

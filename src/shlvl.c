@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 00:53:22 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:27:02 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	is_numeric(const char *str)
 	return 1;
 }
 // esi env-i mej gtnuma key@ u =ic heto dra hamapatasxan valuen return anum
-static char *get_env(char **env, const char *key)
+/*ESI PETQA JNJEL U UXAKI VORTEX VOR IRAN OGTAGORCEL EM SOVORAKAN (GETENV) ANEM*/
+char *get_env(char **env, const char *key)
 {
 	size_t len = ft_strlen(key);
 	int	i = 0;
@@ -41,7 +42,7 @@ static char *get_env(char **env, const char *key)
 }
 
 // update a anum env-n ete vary ka replace a anum ete chka avelacnuma
-static void update_env(t_data *data, const char *key, const char *value)
+void update_env(t_data *data, const char *key, const char *value)
 {
 	int idx = find_env_var_index(data->env, key);
 	char *new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);

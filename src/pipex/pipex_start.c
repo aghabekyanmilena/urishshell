@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 16:50:20 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:37:16 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void	pipex_start(t_data *db, t_token *token)
 	cmd = NULL;
 	cpy = token;
 	init(db, &pipex);
+	signal(SIGINT, &handle_exec);
+	signal(SIGQUIT, &handle_exec); // avelacnel 131
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (cpy == NULL)

@@ -22,6 +22,7 @@ SRC = \
 	$(SYNTAX)/syntax_check.c $(SYNTAX)/operator_check.c  \
 	$(BUILTIN)/built_utils.c $(BUILTIN)/echo.c $(BUILTIN)/exit.c $(BUILTIN)/env.c $(BUILTIN)/cd.c $(BUILTIN)/pwd.c $(BUILTIN)/export.c $(BUILTIN)/unset.c \
 	$(PIPEX)/pipex_start.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c \
+	$(SIGNALS)/init_signals.c 
 
 
 OBJS_DIR = objects

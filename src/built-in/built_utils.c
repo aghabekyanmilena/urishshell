@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:46:33 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 16:50:31 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:07:03 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	execute_builtin(char **args, t_data *data)
 	if (!ft_strcmp(args[0], "echo"))
 		return (builtin_echo(args));
 	if (!ft_strcmp(args[0], "pwd"))
-		return (builtin_pwd());
+		return (builtin_pwd(data));
 	if (!ft_strcmp(args[0], "exit"))
 		return (builtin_exit(args));
 	if (!ft_strcmp(args[0], "export"))
