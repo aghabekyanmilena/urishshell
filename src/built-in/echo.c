@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/30 16:39:23 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:09:53 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,15 @@ int	builtin_echo(char **args)
 	while (args[i])
 	{
 		char	*str;
-		size_t	len = ft_strlen(args[i]);
-		if ((args[i][0] == '\'' || args[i][0] == '"') && args[i][len - 1] == args[i][0])
-			str = ft_substr(args[i], 1, len - 2);
-		else
-			str = ft_strdup(args[i]);
+		// size_t	len = ft_strlen(args[i]);
+		str = ft_strdup(args[i]);
 		if (str)
 		{
 			printf("%s", str);
 			free(str);
 		}
-		if (args[i + 1])
-			printf(" ");
+		// if (args[i + 1])
+		// 	printf(" ");
 		i++;
 	}
 	if (!n_flag)

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 14:29:16 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:10:44 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	main(int argc, char **argv, char **env)
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
+			if (check_syntax_errors(data_base.token))
+				return (1);
+			pipex_start(&data_base, data_base.token);
 			print_tokens(data_base.token);
-			// if (check_syntax_errors(data_base.token))
-			// 	return (1);
-			// pipex_start(&data_base, data_base.token);
-			// free_tokens(data_base.token); // esi nora
+			free_tokens(data_base.token); // esi nora
 		}
 		add_history(line);
 		free(line);

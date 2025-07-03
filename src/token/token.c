@@ -6,12 +6,78 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 19:24:57 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:42:42 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
 
+void	chakert_hanel(t_data *db)
+{
+	t_token	*cpy;
+	char	*value;
+	char	*before;
+	char	*after;
+	char	*inside;
+	int		i;
+	int		j;
+
+	cpy = db->token;
+	before = ft_strdup("");
+	while (cpy)
+	{
+		i = 0;
+		value = cpy->value;
+		while (value[i])
+		{
+			if (value[i] == '"' && value[i + 1])
+			{
+				i++;
+				j = 0;
+				while (value[i + j] && value[i + j] != '"')
+					j++;
+				free(before);
+				before = ft_substr(value, 0, i - 1);
+				inside = ft_substr(value, i, j);
+				after = ft_strjoin(before, inside);
+				free(before);
+				free(inside);
+				inside = ft_substr(value, i + j + 1, ft_strlen(value) - i - j - 2);
+				before = ft_strjoin(after, inside);
+				free(inside);
+				free(after);
+				i += j - 1;
+				free(cpy->value);
+				cpy->value = ft_strdup(before);
+			}
+			else if (value[i] == '\'')
+			{
+				i++;
+				j = 0;
+				while (value[i + j] && value[i + j] != '\'')
+					j++;
+				free(before);
+				before = ft_substr(value, 0, i - 1);
+				inside = ft_substr(value, i, j);
+				after = ft_strjoin(before, inside);
+				free(before);
+				free(inside);
+				inside = ft_substr(value, i + j + 1, ft_strlen(value) - i - j - 2);
+				before = ft_strjoin(after, inside);
+				free(inside);
+				free(after);
+				i += j - 1;
+				free(cpy->value);
+				cpy->value = ft_strdup(before);
+			}
+			else
+				i++;
+			
+		}
+		cpy = cpy->next;
+	}
+	
+}
 
 void	dollar_bacel(t_data *db)
 {
@@ -22,7 +88,6 @@ void	dollar_bacel(t_data *db)
 	char	*free_anel;
 	char	*start;
 	char	*end;
-	
 
 	cpy = db->token;
 	while (cpy)
@@ -30,6 +95,12 @@ void	dollar_bacel(t_data *db)
 		i = 0;
 		while (cpy->value[i])
 		{
+			if (cpy->value[i] == '\'')
+			{
+				i++;
+				while (cpy->value[i] && cpy->value[i] != '\'')
+					i++;
+			}
 			if (cpy->value[i] == '$' && cpy->value[i + 1] != '\0')
 			{
 				i++;
@@ -38,7 +109,8 @@ void	dollar_bacel(t_data *db)
 					 && cpy->value[i + k] != '@' && cpy->value[i + k] != '#' && cpy->value[i + k] != '$' \
 					 && cpy->value[i + k] != '%' && cpy->value[i + k] != '^' && cpy->value[i + k] != '-' \
 					 && cpy->value[i + k] != '+' && cpy->value[i + k] != '=' && cpy->value[i + k] != '/' \
-					 && cpy->value[i + k] != '.' && cpy->value[i + k] != ':' && cpy->value[i + k] != '!')
+					 && cpy->value[i + k] != '.' && cpy->value[i + k] != ':' && cpy->value[i + k] != '!' \
+					 && cpy->value[i + k] != '"' && cpy->value[i + k] != '\'')
 					k++;
 				free_anel = ft_substr(cpy->value, i, k);
 				bacac = ft_strdup(getenv(free_anel));
@@ -73,7 +145,7 @@ void	init_tokens_sharunak(t_data *data_base)
 				cpy->type = S_PIPE;
 			else
 				return;
-				// error
+			(data_base->pipes_count)++; // error
 		}
 		else if (ft_strcmp(cpy->value, "<") == 0)
 		{
@@ -144,6 +216,15 @@ void	chakert_check(char *line, t_data *data_base)
 					return;
 					//error
 			}
+			else if (all[i + j] == '\'')
+			{
+				j++;
+				while (all[i + j] && all[i + j] != '\'')
+					j++;
+				if (all[i + j] != '\'')
+					return;
+					//error
+			}
 			j++;
 			if  (!all[i + j] || ft_isspace(all[i + j]))
 			{
@@ -163,51 +244,7 @@ void	init_tokens(char *line, t_data *data_base)
 	i = 0;
 	chakert_check(line, data_base);
 	data_base->pipes_count = 0;
-	
-	// while (line[i])
-	// {
-		
-		// while (ft_isspace(line[i]))
-		// 	i++;
-		// if (!line[i])
-		// 	break ;
-		// else if (line[i] == '|')
-		// {
-		// 	(data_base->pipes_count)++;
-		// 	add_token(&head, ft_strdup("|"), S_PIPE);
-		// 	i++;
-		// }
-		// else if (line[i] == '&')
-		// {
-		// 	add_token(&head, ft_strdup("&"), S_AND);
-		// 	i++;
-		// }
-		// else if (line[i] == '>')
-		// {
-		// 	if (line[i + 1] == '>')
-		// 	{
-		// 		add_token(&head, ft_strdup(">>"), APPEND);
-		// 		i++;
-		// 	}
-		// 	else
-		// 		add_token(&head, ft_strdup(">"), REDIR_OUT);
-		// 	i++;
-		// }
-		// else if (line[i] == '<')
-		// {
-		// 	if (line[i + 1] == '<')
-		// 	{
-		// 		add_token(&head, ft_strdup("<<"), HEREDOC);
-		// 		i++;
-		// 	}
-		// 	else
-		// 		add_token(&head, ft_strdup("<"), REDIR_IN);
-		// 	i++;
-		// }
-		// else
-		// 	add_token(&head, read_word(line, &i), WORD);
-	// }
-	// data_base->token = head;
 	init_tokens_sharunak(data_base);
 	dollar_bacel(data_base);
+	chakert_hanel(data_base);
 }
