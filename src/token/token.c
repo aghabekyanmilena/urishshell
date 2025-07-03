@@ -3,72 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 20:42:42 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/04 00:18:18 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
 
+void	redirnery(t_data *db)
+{
+	t_token *cpy;
+	t_token *prev;
+
+
+	prev = data_base->token;
+	cpy = prev->next;
+	while (cpy)
+	{
+		if (ft_strncmp(cpy->value, "<<", 2) == 0)
+		{
+			//write new function to add inside the tokens
+		}
+		cpy = cpy->next;
+	}
+	
+}
+
+char *get_env(char **env, const char *key)
+{
+	size_t len = ft_strlen(key);
+	int	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
+			return env[i] + len + 1;
+		i++;
+	}
+	return (NULL);
+}
+
 void	chakert_hanel(t_data *db)
 {
 	t_token	*cpy;
-	char	*value;
 	char	*before;
 	char	*after;
 	char	*inside;
+	char	quote;
 	int		i;
 	int		j;
 
 	cpy = db->token;
-	before = ft_strdup("");
+	before = NULL;
 	while (cpy)
 	{
 		i = 0;
-		value = cpy->value;
-		while (value[i])
+		while (cpy->value[i] != '\0')
 		{
-			if (value[i] == '"' && value[i + 1])
+			j = 0;
+			if (cpy->value[i] == '"' || cpy->value[i] == '\'')
 			{
+				quote = cpy->value[i];
 				i++;
-				j = 0;
-				while (value[i + j] && value[i + j] != '"')
+				while (cpy->value[i + j] && cpy->value[i + j] != quote)
 					j++;
-				free(before);
-				before = ft_substr(value, 0, i - 1);
-				inside = ft_substr(value, i, j);
+				if (i != 0)
+					before = ft_substr(cpy->value, 0, i - 1);
+				inside = ft_substr(cpy->value, i, j);
 				after = ft_strjoin(before, inside);
 				free(before);
 				free(inside);
-				inside = ft_substr(value, i + j + 1, ft_strlen(value) - i - j - 2);
+				inside = ft_substr(cpy->value, i + j + 1, ft_strlen(cpy->value) - i - j + 1);
 				before = ft_strjoin(after, inside);
 				free(inside);
 				free(after);
 				i += j - 1;
 				free(cpy->value);
 				cpy->value = ft_strdup(before);
-			}
-			else if (value[i] == '\'')
-			{
-				i++;
-				j = 0;
-				while (value[i + j] && value[i + j] != '\'')
-					j++;
 				free(before);
-				before = ft_substr(value, 0, i - 1);
-				inside = ft_substr(value, i, j);
-				after = ft_strjoin(before, inside);
-				free(before);
-				free(inside);
-				inside = ft_substr(value, i + j + 1, ft_strlen(value) - i - j - 2);
-				before = ft_strjoin(after, inside);
-				free(inside);
-				free(after);
-				i += j - 1;
-				free(cpy->value);
-				cpy->value = ft_strdup(before);
 			}
 			else
 				i++;
@@ -113,7 +126,9 @@ void	dollar_bacel(t_data *db)
 					 && cpy->value[i + k] != '"' && cpy->value[i + k] != '\'')
 					k++;
 				free_anel = ft_substr(cpy->value, i, k);
-				bacac = ft_strdup(getenv(free_anel));
+				bacac = ft_strdup(get_env(db->env, free_anel));
+				if (!bacac)
+					bacac = ft_strdup("");
 				start = ft_substr(cpy->value, 0, i - 1);
 				free(free_anel);
 				free_anel = ft_strjoin(start, bacac);
@@ -126,7 +141,7 @@ void	dollar_bacel(t_data *db)
 				free(cpy->value);
 				cpy->value = bacac;
 			}
-			i++;;
+			i++;
 		}
 		cpy = cpy->next;
 	}
@@ -137,6 +152,7 @@ void	init_tokens_sharunak(t_data *data_base)
 	t_token *cpy;
 
 	cpy = data_base->token;
+	data_base->pipes_count = 0;
 	while (cpy)
 	{
 		if (ft_strcmp(cpy->value, "|") == 0)
@@ -145,7 +161,8 @@ void	init_tokens_sharunak(t_data *data_base)
 				cpy->type = S_PIPE;
 			else
 				return;
-			(data_base->pipes_count)++; // error
+				// error
+			(data_base->pipes_count)++;
 		}
 		else if (ft_strcmp(cpy->value, "<") == 0)
 		{
@@ -198,6 +215,7 @@ void	chakert_check(char *line, t_data *data_base)
 	i = 0;
 	all = ft_strdup(line);
 	i = 0;
+	
 	while (all[i])
 	{
 		j = 0;
@@ -239,12 +257,9 @@ void	chakert_check(char *line, t_data *data_base)
 
 void	init_tokens(char *line, t_data *data_base)
 {
-	int		i;
-
-	i = 0;
 	chakert_check(line, data_base);
-	data_base->pipes_count = 0;
-	init_tokens_sharunak(data_base);
 	dollar_bacel(data_base);
 	chakert_hanel(data_base);
+	redirnery(data_base);
+	init_tokens_sharunak(data_base);
 }

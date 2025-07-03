@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 20:10:44 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/04 00:07:58 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,6 @@ void	free_array(char **arr)
 		free(arr[i++]);
 	free(arr);
 }
-
-// void    free_cmd(t_cmd **cmd)
-// {
-//     t_cmd    *current;
-//     t_cmd    *next;
-
-//     if (cmd == NULL || *cmd == NULL)
-//         return ;
-//     current = *cmd;
-//     while (current != NULL)
-//     {
-//         next = current-> next;
-//         if (current->limiter != NULL)
-//             free(current->limiter);
-//         free(current->value);
-//         current = next;
-//     }
-//     *cmd = NULL;
-// }
-
 
 void	free_tokens(t_token *head)
 {

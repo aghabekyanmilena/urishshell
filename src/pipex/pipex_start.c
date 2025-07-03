@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 16:50:20 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 00:08:55 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_cmd(t_cmd **head, char *value, t_token_type type)
 
 void no_pipe(t_pipex *pipex, t_data *data_base)
 {
-	int inf=0 ;
+	int inf = 0 ;
 	int out = 1;
 	if (pipex->infile != 0)
 		inf = dup(0);
