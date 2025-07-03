@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 18:43:51 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:15:13 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	dollar_bacel(t_data *db)
 					k++;
 				free_anel = ft_substr(cpy->value, i, k);
 				bacac = ft_strdup(getenv(free_anel));
-				// printf("%s\n", bacac);
 				start = ft_substr(cpy->value, 0, i - 1);
 				free(free_anel);
 				free_anel = ft_strjoin(start, bacac);
@@ -54,14 +53,11 @@ void	dollar_bacel(t_data *db)
 				free(end);
 				free(cpy->value);
 				cpy->value = bacac;
-				// break;
 			}
 			i++;;
 		}
 		cpy = cpy->next;
-		
 	}
-	
 }
 
 void	init_tokens_sharunak(t_data *data_base)
@@ -95,6 +91,43 @@ void	init_tokens_sharunak(t_data *data_base)
 	}
 }
 
+char	*chakert_check(char *line)
+{
+	int		i;
+	int		count;
+	char	*line2;
+	char	*all;
+
+	i = 0;
+	count = 0;
+	all = ft_strdup(line);
+	while (line[i] != '\0')
+	{
+		if (line[i] == '"')
+			count++;
+		i++;
+	}
+	while (count % 2 == 1)
+	{
+		i = 0;
+		line2 = readline("> ");
+		if (!line2)
+			break;
+		while (line2[i])
+		{
+			if (line2[i] == '"')
+				count++;
+			i++;
+		}
+		if (ft_strcmp(all, line) != 0)
+			free(all);
+		all = ft_strjoin(line, line2);
+		free(line);
+		free(line2);
+	}
+	return all;
+}
+
 void	init_tokens(char *line, t_data *data_base)
 {
 	int		i;
@@ -102,6 +135,7 @@ void	init_tokens(char *line, t_data *data_base)
 
 	i = 0;
 	data_base->pipes_count = 0;
+	line = chakert_check(line);
 	while (line[i])
 	{
 		while (ft_isspace(line[i]))
