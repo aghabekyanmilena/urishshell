@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:04:53 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/25 16:00:32 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:29:30 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 bool	is_operator(t_token_type type)
 {
-	return (type == S_PIPE || type == D_PIPE
-			|| type == S_AND || type == D_AND);
+	return (type == S_PIPE);
 }
 
 bool	is_redir(t_token_type type)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 18:38:01 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:28:41 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,14 @@ typedef enum e_token_type
 {
 	WORD,			// 0
 	S_PIPE,			// 1 single pipe |
-	D_PIPE,			// 2 double pipe ||
-	REDIR_IN,		// 3 <
-	REDIR_OUT,		// 4 >
+	REDIR_IN,		// 2 <
+	REDIR_OUT,		// 3 >
 	APPEND,			// 4 >>
 	HEREDOC,		// 5 <<
-	S_AND,			// 6 single and &
-	D_AND,			// 7 double and &&
-	INFILE,			// 8 after <
-	LIMITER,		// 9 after <<
-	OUTFILE,		// 10 after >
-	OUTFILE_APPEND,	// 11 after >>
+	INFILE,			// 6 after <
+	LIMITER,		// 7 after <<
+	OUTFILE,		// 9 after >
+	OUTFILE_APPEND,	// 10 after >>
 }	t_token_type;
 
 struct s_token
