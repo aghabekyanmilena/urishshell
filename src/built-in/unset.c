@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:05:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 15:53:51 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 23:35:33 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_unset_error(char *arg)
 {
 	write(2, "unset: `", 9);
 	write(2, arg, strlen(arg));
-	write(2, "`: not a valid identifier\n", 27);
+	write(2, "': not a valid identifier\n", 27);
 }
 
 static int	valid_identifier(const char *name)
