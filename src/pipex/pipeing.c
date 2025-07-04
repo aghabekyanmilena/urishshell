@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/01 19:03:18 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:57:24 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	execute_cmd(t_pipex *pipex)
 {
 	int		j;
 	char	*full_path;
-	// char	*m;
-
 	j = 0;
 	if (pipex->path != NULL)
 	{
@@ -44,10 +42,7 @@ void	execute_cmd(t_pipex *pipex)
 		}
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
 	}
-	// m = ft_strjoin("command not found: ", pipex->cmd[pipex->current_cmd]);
-	// ft_putstr_fd(m, 2);
-	// free(m);
-	// err_exit("\n", pipex, 0);
+	exit(1);
 }
 
 void	mid(t_pipex *pipex, t_data *data_base)

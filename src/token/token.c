@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 14:05:21 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:51:18 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,13 +225,14 @@ void	chakert_check(char *line, t_data *data_base)
 				new_line = ft_substr(all, i, j);
 				add_token(&head, ft_strdup(new_line), WORD);
 				free(new_line);
+
 			}
 
 		}
 		i += j;
 	}
 	free(all);
-	free_tokens(data_base);
+	// free_tokens(data_base);
 	data_base->token = head;
 }
 

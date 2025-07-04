@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 00:08:55 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:56:00 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void	free_struct(t_pipex *pipex)
 	free_double(pipex->path);
 	free(pipex->pid);
 	free(pipex->limiter);
-	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)
