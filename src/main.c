@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 00:07:58 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 13:56:08 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	free_tokens(t_token *head)
+void	free_tokens(t_data *db)
 {
 	t_token *tmp;
+	t_token	*head;
+
+	head = db->token;
 	while (head)
 	{
 		tmp = head->next;
@@ -45,6 +48,7 @@ void	free_tokens(t_token *head)
 		free(head);
 		head = tmp;
 	}
+	db->token = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -63,11 +67,14 @@ int	main(int argc, char **argv, char **env)
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
-			if (check_syntax_errors(data_base.token))
+			if (check_syntax_errors(&data_base))
+			{
+				free(line);
 				return (1);
-			pipex_start(&data_base, data_base.token);
+			}
 			print_tokens(data_base.token);
-			free_tokens(data_base.token); // esi nora
+			pipex_start(&data_base, data_base.token);
+			free_tokens(&data_base);
 		}
 		add_history(line);
 		free(line);

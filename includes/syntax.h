@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 17:16:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/25 15:30:09 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:05:07 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 #include "tokenization.h"
 
-bool	is_operator(t_token_type type);
+void	free_tokens(t_data *db);
+void	syntax_error(t_data *db, t_token *token);
 bool	is_redir(t_token_type type);
-bool	check_syntax_errors(t_token *tokens);
+bool	check_syntax_errors(t_data *db);
 
 #endif
