@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:13:15 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/02 17:49:59 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 21:34:51 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	sort_env(char **env)
 {
 	int		i;
 	char	*tmp;
-	int counter = 0;
+	int		len;
+	int		counter;
 
-	int len = 0;
+	len = 0;
+	counter = 0;
 	while (env[len])
 		len++;
 	while (counter < len)

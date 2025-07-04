@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:01:49 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 00:08:45 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 21:33:47 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 char	*ft_strcat(char *dest, const char *src)
 {
-	int	i = 0;
-	int	j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (dest[i])
 		i++;
 	while (src[j])
