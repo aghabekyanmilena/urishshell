@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 17:13:13 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/02 17:13:15 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/02 17:49:59 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built_in.h"
+#include "libft.h"
 
-static int	is_digital(char *str)
+void	sort_env(char **env)
 {
-	int	i;
+	int		i;
+	char	*tmp;
+	int counter = 0;
 
-	i = 0;
-	while (str[i])
+	int len = 0;
+	while (env[len])
+		len++;
+	while (counter < len)
 	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
+		i = 0;
+		while (i < len - 1)
+		{
+			if (ft_strcmp(env[i], env[i + 1]) > 0)
+			{
+				tmp = env[i];
+				env[i] = env[i + 1];
+				env[i + 1] = tmp;
+			}
+			i++;
+		}
+		counter++;
 	}
-	return (1);
-}
-
-int	builtin_exit(char **args)
-{
-	int	exit_code;
-
-	exit_code = 0;
-	printf("exit\n");
-	if (args[1])
-	{
-		if (!is_digital(args[1]))
-			printf("minishell: exit: %s: numeric argument required\n", args[1]);
-		exit_code = ft_atoi(args[1]);
-	}
-	exit(exit_code);
 }

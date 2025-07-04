@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 17:40:30 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:40:27 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,41 @@ static void	no_arg_case(char **args, t_data *data)
 	{
 		int i = 0;
 		while (data->env && data->env[i])
+			i++;
+		char **env_copy = malloc(sizeof(char *) * (i + 1));
+		if (!env_copy)
+			return;
+		int j = 0;
+		while (j < i)
 		{
-			char *equal = ft_strchr(data->env[i], '=');
+			env_copy[j] = ft_strdup(data->env[j]);
+			j++;
+		}
+		env_copy[i] = NULL;
+		sort_env(env_copy);
+		j = 0;
+		while (env_copy[j])
+		{
+			char *equal = ft_strchr(env_copy[j], '=');
 			if (equal)
 			{
-				int key_len = equal - data->env[i];
+				int key_len = equal - env_copy[j];
 				write(1, "declare -x ", 11);
-				write(1, data->env[i], key_len);
+				write(1, env_copy[j], key_len);
 				write(1, "=\"", 2);
 				write(1, equal + 1, ft_strlen(equal + 1));
 				write(1, "\"\n", 2);
-			}
+			}	
 			else
 			{
 				write(1, "declare -x ", 11);
-				write(1, data->env[i], ft_strlen(data->env[i]));
+				write(1, env_copy[j], ft_strlen(env_copy[j]));
 				write(1, "\n", 1);
 			}
-			i++;
+			free(env_copy[j]);
+			j++;
 		}
+		free(env_copy);
 	}
 }
 
@@ -103,9 +119,9 @@ int builtin_export(char **args, t_data *data)
 		ft_strncpy(var_name, args[i], name_len);
 		var_name[name_len] = '\0';
 		ft_strncpy(var_name, args[i], equal_sign - args[i]);
-		int idx = find_env_var_index(data->env, var_name);
-		if (idx >= 0)
-			data->env[idx] = ft_strdup(args[i]);
+		int index = find_env_var_index(data->env, var_name);
+		if (index >= 0)
+			data->env[index] = ft_strdup(args[i]);
 		else
 		{
 			int len = 0;

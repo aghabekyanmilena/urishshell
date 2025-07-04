@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 13:54:18 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 16:15:57 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
-
-char	*get_env(char **env, const char *key)
-{
-	size_t len = ft_strlen(key);
-	int	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
-			return env[i] + len + 1;
-		i++;
-	}
-	return (NULL);
-}
 
 void	dollar_bacel(t_data *db)
 {

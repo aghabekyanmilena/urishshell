@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:35:25 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/03 16:32:42 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built_in.h"
+#include "../includes/signals.h"
 
-char *get_env(char **env, const char *key);
-
-int	builtin_pwd(t_data *data)
+static void	handling_signal(int signal)
 {
-	char *cwd;
+	if (signal == SIGQUIT)
+		(void)0;
+	else if (signal == SIGINT)
+		printf("\nminishell: ");
+}
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-	{
-		printf("%s\n", cwd);
-		free(cwd);
-	}
+void	handle_exec(int signal)
+{
+	if (signal ==SIGQUIT)
+		printf("Quit (core dumped)\n");
 	else
-	{
-		char *pwd = get_env(data->env, "PWD");
-		if (pwd)
-			printf("%s\n", pwd);
-		else
-			printf("pwd: error retrieving current directory\n");
-	}
-	return (0);
+		printf("\n");
+}
+
+void	init_signal(void)
+{
+	signal(SIGINT, &handling_signal);
+	signal(SIGQUIT, SIG_IGN);
 }

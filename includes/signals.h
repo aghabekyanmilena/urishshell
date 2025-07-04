@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:35:25 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/02 18:07:26 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/03 16:12:06 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built_in.h"
+#ifndef SIGNALS_H
+#define SIGNALS_H
 
-char *get_env(char **env, const char *key);
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "tokenization.h"
 
-int	builtin_pwd(t_data *data)
-{
-	char *cwd;
+void	handle_exec(int signal);
+void	init_signal(void);
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-	{
-		printf("%s\n", cwd);
-		free(cwd);
-	}
-	else
-	{
-		char *pwd = get_env(data->env, "PWD");
-		if (pwd)
-			printf("%s\n", pwd);
-		else
-			printf("pwd: error retrieving current directory\n");
-	}
-	return (0);
-}
+#endif

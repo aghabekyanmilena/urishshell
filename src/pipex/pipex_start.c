@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 15:56:00 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:14:33 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void	pipex_start(t_data *db, t_token *token)
 	cmd = NULL;
 	cpy = token;
 	init(db, &pipex);
+	signal(SIGINT, &handle_exec);
+	signal(SIGQUIT, &handle_exec); // avelacnel 131
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (cpy == NULL)

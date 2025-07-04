@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 17:13:13 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/02 23:58:31 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/03 00:07:55 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/built_in.h"
+#include "libft.h"
 
-static int	is_digital(char *str)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	int i = 0;
+	while (src[i] != '\0')
 	{
-		if (!ft_isdigit(str[i]))
-			return (0);
+		dest[i] = src[i];
 		i++;
 	}
-	return (1);
-}
-
-int	builtin_exit(char **args)
-{
-	int	exit_code;
-
-	exit_code = 0;
-	printf("exit\n");
-	if (args[1])
-	{
-		if (!is_digital(args[1]))
-			printf("minishell: exit: %s: numeric argument required\n", args[1]);
-		exit_code = ft_atoi(args[1]);
-	}
-	exit(exit_code);
+	dest[i] = '\0';
+	return (dest);
 }

@@ -2,6 +2,7 @@
 	"files.associations": {
 		"pipex.h": "c",
 		"ranges": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"tokenization.h": "c"
 	}
 }

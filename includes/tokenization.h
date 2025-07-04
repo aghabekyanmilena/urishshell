@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 13:54:32 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 16:14:00 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 #define TOKENIZATION_H
 
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
+#include <errno.h>
 #include "../libft/libft.h"
 
 typedef struct s_token	t_token;
@@ -68,8 +70,6 @@ struct s_data
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
 void	init_tokens(char *line, t_data *data_base);
-void	dollar_bacel(t_data *db);
-char	*get_env(char **env, const char *key);
 
 // free
 void	free_tokens(t_data *db);

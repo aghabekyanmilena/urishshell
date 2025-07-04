@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 18:31:20 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/03 00:14:43 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_bzero(void *ptr, size_t n);
 
 // new
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
-
+void	sort_env(char **env);
+char	*ft_strcpy(char *dest, const char *src);
+char	*ft_strcat(char *dest, const char *src);
 
 #endif

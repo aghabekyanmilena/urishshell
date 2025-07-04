@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 13:56:08 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 16:14:47 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/tokenization.h"
 #include "../includes/syntax.h"
 #include "../includes/built_in.h"
+#include "../includes/signals.h"
+
+void handle_shlvl(t_data *data);
+char *get_env(char **env, const char *key);
+void update_env(t_data *data, const char *key, const char *value);
 
 void	print_tokens(t_token *tok)
 {
@@ -51,6 +55,21 @@ void	free_tokens(t_data *db)
 	db->token = NULL;
 }
 
+char **copy_env(char **envp)
+{
+	int i = 0;
+	while (envp[i])
+		i++;
+
+	char **copy = malloc(sizeof(char *) * (i + 1));
+	if (!copy)
+		return (NULL);
+	for (int j = 0; j < i; j++)
+		copy[j] = ft_strdup(envp[j]);
+	copy[i] = NULL;
+	return copy;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -58,12 +77,17 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	data_base.env = env;
+
+	// data_base.env = env;
+	data_base.env = copy_env(env);
+	handle_shlvl(&data_base);
+
 	while (1)
 	{
+		init_signal();
 		line = readline("minishell: ");
 		if (!line)
-			break;
+			break; // esi henc ctrl+D a, petqa senc lini
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
