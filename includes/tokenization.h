@@ -6,24 +6,24 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:32:47 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:50:52 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
-#define TOKENIZATION_H
+# define TOKENIZATION_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <errno.h>
-#include "../libft/libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <unistd.h>
+# include <errno.h>
+# include "../libft/libft.h"
 
-typedef struct s_token	t_token;
-typedef struct s_data	t_data;
+typedef struct s_token		t_token;
+typedef struct s_data		t_data;
 typedef struct s_command	t_cmd;
 
 /* what enum do is to give names to numbers, it is a special data type 
@@ -57,7 +57,6 @@ struct s_command
 	struct s_command	*next;
 };
 
-
 struct s_data
 {
 	t_token	*token;
@@ -65,7 +64,7 @@ struct s_data
 	int		pipes_count;
 };
 
-#include "pipex.h"
+# include "pipex.h"
 
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);

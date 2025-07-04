@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 16:32:42 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:51:49 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	handling_signal(int signal)
 
 void	handle_exec(int signal)
 {
-	if (signal ==SIGQUIT)
+	if (signal == SIGQUIT)
 		printf("Quit (core dumped)\n");
 	else
 		printf("\n");

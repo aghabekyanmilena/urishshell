@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:05:02 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/03 17:29:41 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 21:31:54 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	read_here_doc(t_pipex *heredoc, char *limiter)
 		if (!str || ft_strcmp(limiter, str) == 0)
 		{
 			free(str);
-			break;
+			break ;
 		}
 		write(heredoc->infile, str, ft_strlen(str));
 		write(heredoc->infile, "\n", 1);

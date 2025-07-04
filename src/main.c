@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:47 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 21:25:26 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "../includes/built_in.h"
 #include "../includes/signals.h"
 
-void handle_shlvl(t_data *data);
-char *get_env(char **env, const char *key);
-void update_env(t_data *data, const char *key, const char *value);
+void	handle_shlvl(t_data *data);
+char	*get_env(char **env, const char *key);
+void	update_env(t_data *data, const char *key, const char *value);
 
 void	print_tokens(t_token *tok)
 {
@@ -30,10 +30,11 @@ void	print_tokens(t_token *tok)
 
 void	free_array(char **arr)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!arr)
-		return;
+		return ;
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
@@ -41,7 +42,7 @@ void	free_array(char **arr)
 
 void	free_tokens(t_data *db)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	t_token	*head;
 
 	head = db->token;
@@ -55,19 +56,23 @@ void	free_tokens(t_data *db)
 	db->token = NULL;
 }
 
-char **copy_env(char **envp)
+char	**copy_env(char **envp)
 {
-	int i = 0;
+	int		i;
+	int		j;
+	char	**copy;
+
+	i = 0;
 	while (envp[i])
 		i++;
-
-	char **copy = malloc(sizeof(char *) * (i + 1));
+	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
 		return (NULL);
-	for (int j = 0; j < i; j++)
+	j = -1;
+	while (++j < i)
 		copy[j] = ft_strdup(envp[j]);
 	copy[i] = NULL;
-	return copy;
+	return (copy);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -77,17 +82,14 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-
-	// data_base.env = env;
 	data_base.env = copy_env(env);
 	handle_shlvl(&data_base);
-
 	while (1)
 	{
 		init_signal();
 		line = readline("minishell: ");
 		if (!line)
-			break; // esi henc ctrl+D a, petqa senc lini
+			break ;
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);

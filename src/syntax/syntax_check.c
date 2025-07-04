@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 13:46:54 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/04 20:52:08 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	is_redir(t_token_type type)
 {
 	return (type == REDIR_IN || type == REDIR_OUT
-			|| type == HEREDOC || type == APPEND);
+		|| type == HEREDOC || type == APPEND);
 }
 
 void	syntax_error(t_data *db, t_token *token)
