@@ -294,7 +294,7 @@ int rl_completion_query_items = 100;
 int _rl_page_completions = 1;
 
 /* The basic list of characters that signal a break between words for the
-   completer routine.  The contexts of this variable is what breaks words
+   completer routine.  The contents of this variable is what breaks words
    in the shell, i.e. " \t\n\"\\'`@$><=" */
 const char *rl_basic_word_break_characters = " \t\n\"\\'`@$><=;|&{("; /* }) */
 
@@ -302,7 +302,7 @@ const char *rl_basic_word_break_characters = " \t\n\"\\'`@$><=;|&{("; /* }) */
 const char *rl_basic_quote_characters = "\"'";
 
 /* The list of characters that signal a break between words for
-   rl_complete_internal.  The default list is the contexts of
+   rl_complete_internal.  The default list is the contents of
    rl_basic_word_break_characters.  */
 const char *rl_completer_word_break_characters = 0;
 
@@ -2469,7 +2469,7 @@ rl_filename_completion_function (const char *text, int state)
   if (state == 0)
     {
       /* If we were interrupted before closing the directory or reading
-	 all of its contexts, close it. */
+	 all of its contents, close it. */
       if (directory)
 	{
 	  closedir (directory);

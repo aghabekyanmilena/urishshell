@@ -312,7 +312,7 @@ _rl_start_using_history (void)
   _rl_history_search_pos = -99;		/* some random invalid history position */
 }
 
-/* Free the contexts (and containing structure) of a HIST_ENTRY. */
+/* Free the contents (and containing structure) of a HIST_ENTRY. */
 void
 _rl_free_history_entry (HIST_ENTRY *entry)
 {

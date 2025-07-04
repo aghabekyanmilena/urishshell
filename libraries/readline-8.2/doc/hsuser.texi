@@ -230,7 +230,7 @@ to the current history list.  These are lines appended to the history
 file since the beginning of the current Bash session.
 
 @item -r
-Read the history file and append its contexts to
+Read the history file and append its contents to
 the history list.
 
 @item -w

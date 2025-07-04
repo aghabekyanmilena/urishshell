@@ -69,7 +69,7 @@ eval { ($T2H_USER = (getpwuid ($<))[6]) =~ s/,.*//;}; # Who am i
 #+++############################################################################
 #                                                                              #
 # Initialization                                                               #
-# Pasted context of File $(srcdir)/texi2html.init: Default initializations     # 
+# Pasted content of File $(srcdir)/texi2html.init: Default initializations     # 
 #                                                                              #
 #---############################################################################
 
@@ -213,7 +213,7 @@ $T2H_OPTIONS -> {top_file} =
 
 
 # -toc_file
-# uses file of this name for table of contexts file
+# uses file of this name for table of contents file
 # extension is manipulated appropriately, if necessary.
 # If empty, <basename of document>_toc.html is used
 $T2H_TOC_FILE = '';
@@ -386,7 +386,7 @@ $T2H_OPTIONS -> {lang} =
 };
 
 # -l2h
-# if set, uses latex2html for generation of math context 
+# if set, uses latex2html for generation of math content 
 $T2H_L2H = '';
 $T2H_OPTIONS -> {l2h} =
 {
@@ -411,7 +411,7 @@ $T2H_OPTIONS -> {l2h_l2h} =
 
 # -l2h_skip
 # if set, skips actual call to latex2html tries to reuse previously generated 
-# context, instead
+# content, instead
 $T2H_L2H_SKIP = '';
 $T2H_OPTIONS -> {l2h_skip} =
 {
@@ -505,8 +505,8 @@ $T2H_HREF_DIR_INSTEAD_FILE = '';
 $T2H_WORDS_EN =
 {
  # titles  of pages
- 'ToC_Title' => 'Table of contexts',
- 'Overview_Title' => 'Short Table of contexts',
+ 'ToC_Title' => 'Table of Contents',
+ 'Overview_Title' => 'Short Table of Contents',
  'Index_Title' => 'Index',
  'About_Title' => 'About this document',
  'Footnotes_Title' => 'Footnotes',
@@ -516,7 +516,7 @@ $T2H_WORDS_EN =
 # If necessary, we could extend this as follows: 
 #  # text for buttons
 #  'Top_Button' => 'Top',
-#  'ToC_Button' => 'contexts',
+#  'ToC_Button' => 'Contents',
 #  'Overview_Button' => 'Overview',
 #  'Index_button' => 'Index',
 #  'Back_Button' => 'Back',
@@ -667,8 +667,8 @@ $MONTH_NAMES =
 # href, html-name, node-name of
 # This     -- current section (resp. html page)
 # Top      -- top page ($T2H_TOP_FILE)
-# contexts -- Table of contexts
-# Overview -- Short table of contexts
+# Contents -- Table of contents
+# Overview -- Short table of contents
 # Index    -- Index page
 # About    -- page which explain "navigation buttons"
 # First    -- first node 
@@ -691,8 +691,8 @@ $MONTH_NAMES =
 # $T2H_THISDOC{author}    -- author as set by @author
 # 
 # and pointer to arrays of lines which need to be printed by t2h_print_lines 
-# $T2H_OVERVIEW      -- lines of short table of contexts
-# $T2H_TOC           -- lines of table of contexts
+# $T2H_OVERVIEW      -- lines of short table of contents
+# $T2H_TOC           -- lines of table of contents
 # $T2H_TOP           -- lines of Top texinfo node 
 # $T2H_THIS_SECTION  -- lines of 'This' section
 
@@ -743,7 +743,7 @@ sub T2H_DEFAULT_print_section
 
 ###################################################################
 # Layout of top-page I recommend that you use @ifnothtml, @ifhtml,
-# @html within the Top texinfo node to specify context of top-level
+# @html within the Top texinfo node to specify content of top-level
 # page. 
 #
 # If you enclose everything in @ifnothtml, then title, subtitle,
@@ -767,12 +767,12 @@ sub T2H_DEFAULT_print_Top
 
   # for redefining navigation buttons use:
   # local $T2H_BUTTONS = [...];
-  # as it is, 'Top', 'contexts', 'Index', 'About' are printed
+  # as it is, 'Top', 'Contents', 'Index', 'About' are printed
   local $T2H_BUTTONS = \@T2H_MISC_BUTTONS;
   &$T2H_print_Top_header($fh);
   if ($T2H_THIS_SECTION)
   {
-    # if top-level node has context, then print it with extra header
+    # if top-level node has content, then print it with extra header
     print $fh "<H1>$T2H_NAME{Top}</H1>"
       unless ($T2H_HAS_TOP_HEADING);
     t2h_print_lines($fh, $T2H_THIS_SECTION)
@@ -857,7 +857,7 @@ sub T2H_DEFAULT_print_misc
   (
    'FastBack', 'FastForward', ' ', 
    ' ', ' ', ' ', ' ',
-   'Top', 'contexts', 'Index', 'About', 
+   'Top', 'Contents', 'Index', 'About', 
   );
 
 sub T2H_DEFAULT_print_chapter_header
@@ -922,11 +922,11 @@ $T2H_AUTHORS
 <HEAD>
 <TITLE>$longtitle</TITLE>
 
-<META NAME="description" context="$longtitle">
-<META NAME="keywords" context="$longtitle">
-<META NAME="resource-type" context="document">
-<META NAME="distribution" context="global">
-<META NAME="Generator" context="$THISPROG">
+<META NAME="description" CONTENT="$longtitle">
+<META NAME="keywords" CONTENT="$longtitle">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="$THISPROG">
 $T2H_EXTRA_HEAD
 </HEAD>
 
@@ -1009,18 +1009,18 @@ EOT
   (
    'Back', 'Forward', ' ', 'FastBack', 'Up', 'FastForward',  
    ' ', ' ', ' ', ' ',
-   'Top', 'contexts', 'Index', 'About', 
+   'Top', 'Contents', 'Index', 'About', 
   );
 
 # buttons for misc stuff
-@T2H_MISC_BUTTONS = ('Top', 'contexts', 'Index', 'About');
+@T2H_MISC_BUTTONS = ('Top', 'Contents', 'Index', 'About');
 
 # insert here name of icon images for buttons 
 # Icons are used, if $T2H_ICONS and resp. value are set
 %T2H_ACTIVE_ICONS =
   (
    'Top',      '',
-   'contexts', '',
+   'Contents', '',
    'Overview', '',
    'Index',    '',
    'Back',     '',
@@ -1040,7 +1040,7 @@ EOT
 %T2H_PASSIVE_ICONS =
   (
    'Top',      '',
-   'contexts', '',
+   'Contents', '',
    'Overview', '',
    'Index',    '',
    'Back',     '',
@@ -1068,7 +1068,7 @@ sub T2H_DEFAULT_button_icon_img
 %T2H_NAVIGATION_TEXT =
   (
    'Top',      'Top',
-   'contexts', 'contexts',
+   'Contents', 'Contents',
    'Overview', 'Overview',
    'Index',    'Index',
    ' ',        ' &nbsp; ',
@@ -1162,7 +1162,7 @@ sub T2H_DEFAULT_print_toc_frame
   my $fh = shift;
   &$T2H_print_page_head($fh);
   print $fh <<EOT;
-<H2>context</H2>
+<H2>Content</H2>
 EOT
   print $fh map {s/HREF=/target=\"main\" HREF=/; $_;} @stoc_lines;
   print $fh "</BODY></HTML>\n";
@@ -1266,8 +1266,8 @@ EOT
 %T2H_BUTTONS_GOTO =
   (
    'Top',      'cover (top) of document',
-   'contexts', 'table of contexts',
-   'Overview', 'short table of contexts',
+   'Contents', 'table of contents',
+   'Overview', 'short table of contents',
    'Index',    'concept index',
    'Back',     'previous section in reading order',
    'FastBack', 'previous or up-and-previous section ',
@@ -1284,7 +1284,7 @@ EOT
 %T2H_BUTTONS_EXAMPLE = 
 (
    'Top',      ' &nbsp; ',
-   'contexts', ' &nbsp; ',
+   'Contents', ' &nbsp; ',
    'Overview', ' &nbsp; ',
    'Index',    ' &nbsp; ',
    'Back',     '1.2.2',
@@ -1459,7 +1459,7 @@ $NETSCAPE_HTML = 1;
 $PAPERSIZE = "a4";
 
 # Replace "english" with another language in order to tell LaTeX2HTML that you 
-# want some generated section titles (eg "Table of contexts" or "References")
+# want some generated section titles (eg "Table of Contents" or "References")
 # to appear in a different language. Currently only "english" and "french"
 # is supported but it is very easy to add your own. See the example in the
 # file "latex2html.config" 
@@ -1478,7 +1478,7 @@ require "$ENV{T2H_HOME}/texi2html.init"
 #+++############################################################################
 #                                                                              #
 # Initialization                                                               #
-# Pasted context of File $(srcdir)/MySimple.pm: Command-line processing        #
+# Pasted content of File $(srcdir)/MySimple.pm: Command-line processing        #
 #                                                                              #
 #---############################################################################
 
@@ -2036,9 +2036,9 @@ $complex_format_map->{smallformat} = $complex_format_map->{smalldisplay};
 	    # useless
 	    'detailmenu', 1,
             'direntry', 1,
-	    'contexts', 1,
-	    'shortcontexts', 1,
-	    'summarycontexts', 1,
+	    'contents', 1,
+	    'shortcontents', 1,
+	    'summarycontents', 1,
 	    'footnotestyle', 1,
 	    'end ifclear', 1,
 	    'end ifset', 1,
@@ -2368,11 +2368,11 @@ else
   undef $T2H_SPLIT;
 }
 
-$docu_doc = "$docu_name.$docu_ext";		# document's contexts
+$docu_doc = "$docu_name.$docu_ext";		# document's contents
 $docu_doc_file = "$docu_rdir$docu_doc";
 if ($T2H_SPLIT) 
 {
-  $docu_toc  = $T2H_TOC_FILE || "${docu_name}_toc.$docu_ext"; # document's table of contexts
+  $docu_toc  = $T2H_TOC_FILE || "${docu_name}_toc.$docu_ext"; # document's table of contents
   $docu_stoc = "${docu_name}_ovr.$docu_ext"; # document's short toc
   $docu_foot = "${docu_name}_fot.$docu_ext"; # document's footnotes
   $docu_about = "${docu_name}_abt.$docu_ext"; # about this document
@@ -2505,7 +2505,7 @@ sub l2h_Init
 # 
 # First stage: Generation of Latex file
 # Initialize with: l2h_InitToLatex
-# Add context with: l2h_ToLatex($text) --> HTML placeholder comment
+# Add content with: l2h_ToLatex($text) --> HTML placeholder comment
 # Finish with: l2h_FinishToLatex
 # 
 
@@ -2596,7 +2596,7 @@ sub l2h_FinishToLatex
     print L2H_LATEX $l2h_latex_closing;
     close(L2H_LATEX);
   }
-  print "# l2h: finished to latex ($l2h_cached_count cached, $reused reused, $l2h_latex_count contexts)\n" if ($T2H_VERBOSE);
+  print "# l2h: finished to latex ($l2h_cached_count cached, $reused reused, $l2h_latex_count contents)\n" if ($T2H_VERBOSE);
   unless ($l2h_latex_count)
   {
     l2h_Finish();
@@ -2680,10 +2680,10 @@ sub getcwd {
 
 
 ##########################
-# Third stage: Extract generated contexts from latex2html run
+# Third stage: Extract generated contents from latex2html run
 # Initialize with: l2h_InitFromHtml
 #   open $l2h_html_file for reading
-#   reads in contexts into array indexed by numbers
+#   reads in contents into array indexed by numbers
 #   return 1,  on success -- 0, otherwise
 # Extract Html code with: l2h_FromHtml($text)
 #   replaces in $text all previosuly inserted comments by generated html code
@@ -2693,7 +2693,7 @@ sub getcwd {
 
 sub l2h_InitFromHtml
 {
-  local($h_line, $h_context, $count, %l2h_img);
+  local($h_line, $h_content, $count, %l2h_img);
 
   if (! open(L2H_HTML, "<${l2h_html_file}"))
   {
@@ -2709,22 +2709,22 @@ sub l2h_InitFromHtml
     if ($h_line =~ /^<!-- l2h_begin $l2h_name ([0-9]+) -->/)
     {
       $count = $1;
-      $h_context = "";
+      $h_content = "";
       while ($h_line = <L2H_HTML>)
       {
 	if ($h_line =~ /^<!-- l2h_end $l2h_name $count -->/)
 	{
-	  chomp $h_context;
-	  chomp $h_context;
+	  chomp $h_content;
+	  chomp $h_content;
 	  $l2h_html_count++;
-	  $h_context = l2h_ToCache($count, $h_context);
-	  $l2h_from_html[$count] = $h_context;
-	  $h_context = '';
+	  $h_content = l2h_ToCache($count, $h_content);
+	  $l2h_from_html[$count] = $h_content;
+	  $h_content = '';
 	  last;
 	}
-	$h_context = $h_context.$h_line;
+	$h_content = $h_content.$h_line;
       }
-      if ($hcontext)
+      if ($hcontent)
       {
 	print "$ERROR Warning l2h: l2h_end $l2h_name $count not found\n" 
 	  if ($T2H_VERBOSE);
@@ -2733,7 +2733,7 @@ sub l2h_InitFromHtml
       }
     }
   }
-  print "# l2h: Got $l2h_html_count of $l2h_latex_count html contexts\n"
+  print "# l2h: Got $l2h_html_count of $l2h_latex_count html contents\n"
     if ($T2H_VERBOSE);
 
   close(L2H_HTML);
@@ -2777,7 +2777,7 @@ sub l2h_ExtractFromHtml
     local($l_l2h, $_);
 
     $l2h_extract_error++;
-    print "$ERROR l2h: can't extract context $count from html\n" 
+    print "$ERROR l2h: can't extract content $count from html\n" 
       if ($T2H_VERBOSE);
     # try simple (ordinary) substition (without l2h)
     $l_l2h = $T2H_L2H;
@@ -2794,7 +2794,7 @@ sub l2h_ExtractFromHtml
   {
     # now we have been incorrectly called
     $l2h_range_error++;
-    print "$ERROR l2h: Request of $count context which is out of valide range [0,$l2h_latex_count)\n";
+    print "$ERROR l2h: Request of $count content which is out of valide range [0,$l2h_latex_count)\n";
     return "<!-- l2h: ". __LINE__ . " out of range count $count -->"
       if ($T2H_DEBUG & $DEBUG_L2H);
     return "<!-- l2h: out of range count $count -->";
@@ -2900,8 +2900,8 @@ $maximage = 1;
 sub l2h_ToCache
 {
   my $count = shift;
-  my $context = shift;
-  my @images = ($context =~ /SRC="(.*?)"/g);
+  my $content = shift;
+  my @images = ($content =~ /SRC="(.*?)"/g);
   my ($src, $dest);
 
   for $src (@images)
@@ -2925,10 +2925,10 @@ sub l2h_ToCache
       $l2h_img{$src} = $dest;
       unlink "$docu_rdir$src" unless ($DEBUG & DEBUG_L2H);
     }
-    $context =~ s/$src/$dest/g;
+    $content =~ s/$src/$dest/g;
   }
-  $l2h_cache{$l2h_to_latex[$count]} = $context;
-  return $context;
+  $l2h_cache{$l2h_to_latex[$count]} = $content;
+  return $content;
 }
 
 
@@ -2939,8 +2939,8 @@ sub l2h_ToCache
 #---############################################################################
 
 @lines = ();				# whole document
-@toc_lines = ();			# table of contexts
-@stoc_lines = ();			# table of contexts
+@toc_lines = ();			# table of contents
+@stoc_lines = ();			# table of contents
 $curlevel = 0;				# current level in TOC
 $node = '';				# current node name
 $node_next = '';                        # current node next name               
@@ -3414,11 +3414,11 @@ INPUT_LINE: while ($_ = &next_line) {
 	    }
 	    while (/\{([^\{\}]*)\}/) {
 		# this is a {} construct
-		($before, $contexts, $after) = ($`, $1, $');
+		($before, $contents, $after) = ($`, $1, $');
 		# protect spaces
-		$contexts =~ s/\s+/$;9/g;
+		$contents =~ s/\s+/$;9/g;
 		# restore $_ protecting {}
-		$_ = "$before$;7$contexts$;8$after";
+		$_ = "$before$;7$contents$;8$after";
 	    }
 	    @args = split(/\s+/, &protect_html($_));
 	    foreach (@args) {
@@ -4484,7 +4484,7 @@ for $key (keys %T2H_THISDOC)
 # if no sections, then simply print document as is
 unless (@sections)
 {
-  print "# Writing context into $docu_top_file \n" if $T2H_VERBOSE;
+  print "# Writing content into $docu_top_file \n" if $T2H_VERBOSE;
   open(FILE, "> $docu_top_file") 
     || die "$ERROR: Can't open $docu_top_file for writing: $!\n";
 
@@ -4524,7 +4524,7 @@ else
 }
 
 $node2href{Top} = $T2H_HREF{Top};
-$T2H_HREF{contexts} = $docu_toc.'#SEC_contexts' if @toc_lines;
+$T2H_HREF{Contents} = $docu_toc.'#SEC_Contents' if @toc_lines;
 $T2H_HREF{Overview} = $docu_stoc.'#SEC_OVERVIEW' if @stoc_lines;
 
 # settle on index
@@ -4548,7 +4548,7 @@ print "# Using '" . clean_name($T2H_INDEX_CHAPTER) . "' as index page\n"
    'First',   clean_name($sec2node{$sections[0]}),
    'Last',    clean_name($sec2node{$sections[$#sections]}),
    'About',    $T2H_WORDS->{$T2H_LANG}->{'About_Title'},
-   'contexts', $T2H_WORDS->{$T2H_LANG}->{'ToC_Title'},
+   'Contents', $T2H_WORDS->{$T2H_LANG}->{'ToC_Title'},
    'Overview', $T2H_WORDS->{$T2H_LANG}->{'Overview_Title'},
    'Index' ,   clean_name($T2H_INDEX_CHAPTER),
    'Top',      clean_name($T2H_TOP_HEADING || $T2H_THISDOC{'title'} || $T2H_THISDOC{'shorttitle'}),
@@ -4775,8 +4775,8 @@ if (@toc_lines)
   print "# writing Toc in $docu_toc_file...\n" if $T2H_VERBOSE;
   open (FILE, "> $docu_toc_file") || die "$ERROR: Can't open $docu_toc_file for writing: $!\n"
       if $T2H_SPLIT;
-  $T2H_HREF{This} = $T2H_HREF{contexts};
-  $T2H_NAME{This} = $T2H_NAME{contexts};
+  $T2H_HREF{This} = $T2H_HREF{Contents};
+  $T2H_NAME{This} = $T2H_NAME{Contents};
   $T2H_THIS_SECTION = \@toc_lines;
   &$T2H_print_Toc(\*FILE);
   close(FILE) if $T2H_SPLIT;

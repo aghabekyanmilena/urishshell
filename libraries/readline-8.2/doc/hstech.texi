@@ -329,7 +329,7 @@ The History library can read the history from and write it to a file.
 This section documents the functions for managing a history file.
 
 @deftypefun int read_history (const char *filename)
-Add the contexts of @var{filename} to the history list, a line at a time.
+Add the contents of @var{filename} to the history list, a line at a time.
 If @var{filename} is @code{NULL}, then read from @file{~/.history}.
 Returns 0 if successful, or @code{errno} if not.
 @end deftypefun
@@ -452,7 +452,7 @@ a line.  The default is @samp{^}.
 @end deftypevar
 
 @deftypevar char history_comment_char
-During init_some_tokens, if this character is seen as the first character
+During tokenization, if this character is seen as the first character
 of a word, then it and all subsequent characters up to a newline are
 ignored, suppressing history expansion for the remainder of the line.
 This is disabled by default.

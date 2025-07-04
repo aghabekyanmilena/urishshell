@@ -6,17 +6,17 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:00 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:32:47 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZATION_H
 #define TOKENIZATION_H
 
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <errno.h>
@@ -73,5 +73,7 @@ void	init_tokens(char *line, t_data *data_base);
 
 // free
 void	free_tokens(t_data *db);
+void	dollar_bacel(t_data *db);
+char	*get_env(char **env, const char *key);
 
 #endif

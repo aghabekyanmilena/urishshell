@@ -343,7 +343,7 @@ HISTORY(3)                 Library Functions Manual                 HISTORY(3)
        This section documents the functions for managing a history file.
 
        [4mint[24m [1mread_history [22m([4mconst[24m [4mchar[24m [4m*filename[24m)
-       Add the contexts of [4mfilename[24m to the history list, a line at a time.  If
+       Add the contents of [4mfilename[24m to the history list, a line at a time.  If
        [4mfilename[24m  is [1mNULL[22m, then read from [4m~/.history[24m.  Returns 0 if successful,
        or [1merrno [22mif not.
 
@@ -436,7 +436,7 @@ HISTORY(3)                 Library Functions Manual                 HISTORY(3)
        line.  The default is [1m^[22m.
 
        [4mchar[24m [1mhistory_comment_char[0m
-       During init_some_tokens, if this character is seen as the  first  character
+       During tokenization, if this character is seen as the  first  character
        of  a  word,  then it and all subsequent characters up to a newline are
        ignored, suppressing history expansion for the remainder of  the  line.
        This is disabled by default.

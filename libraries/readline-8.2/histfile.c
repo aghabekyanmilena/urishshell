@@ -250,7 +250,7 @@ history_tempfile (const char *filename)
   return ret;
 }
   
-/* Add the contexts of FILENAME to the history list, a line at a time.
+/* Add the contents of FILENAME to the history list, a line at a time.
    If FILENAME is NULL, then read from ~/.history.  Returns 0 if
    successful, or errno if not. */
 int

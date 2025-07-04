@@ -154,11 +154,11 @@ static int _rl_col_width (const char *, int, int, int);
    automatically wrapping line update.  Careful attention needs
    to be paid to the vertical position variables. */
 
-/* Keep two buffers; one which reflects the current contexts of the
-   screen, and the other to draw what we think the new contexts should
+/* Keep two buffers; one which reflects the current contents of the
+   screen, and the other to draw what we think the new contents should
    be.  Then compare the buffers, and make whatever changes to the
    screen itself that we should.  Finally, make the buffer that we
-   just drew into be the one which reflects the current contexts of the
+   just drew into be the one which reflects the current contents of the
    screen, and place the cursor where it belongs.
 
    Commands that want to can fix the display themselves, and then let
@@ -969,7 +969,7 @@ rl_redisplay (void)
   prompt_lines_estimate = lpos / _rl_screenwidth;
 
   /* what if lpos is already >= _rl_screenwidth before we start drawing the
-     contexts of the command line? */
+     contents of the command line? */
   if (lpos >= _rl_screenwidth)
     {
       temp = 0;
@@ -1810,7 +1810,7 @@ update_line (char *old, char *old_face, char *new, char *new_face, int current_l
 		{
 		  /* We have written as many bytes from new as we need to
 		     consume the first character of old. Fix up `old' so it
-		     reflects the new screen contexts.  We use +1 in the
+		     reflects the new screen contents.  We use +1 in the
 		     memmove call to copy the trailing NUL. */
 		  /* (strlen(old+oldbytes) == (omax - oldbytes - 1)) */
 
@@ -1875,7 +1875,7 @@ update_line (char *old, char *old_face, char *new, char *new_face, int current_l
       if (bytes_to_insert < local_prompt_len)	/* ??? */
 	goto dumb_update;
 
-      /* output the prompt, output the line contexts, clear the rest */
+      /* output the prompt, output the line contents, clear the rest */
       _rl_output_some_chars (nfd, local_prompt_len);
       if (mb_cur_max > 1 && rl_byte_oriented == 0)
 	_rl_last_c_pos = prompt_physical_chars;
@@ -2710,7 +2710,7 @@ rl_redraw_prompt_last_line (void)
 /* Move the cursor from _rl_last_c_pos to NEW, which are buffer indices.
    (Well, when we don't have multibyte characters, _rl_last_c_pos is a
    buffer index.)
-   DATA is the contexts of the screen line of interest; i.e., where
+   DATA is the contents of the screen line of interest; i.e., where
    the movement is being done.
    DATA is always the visible line or the invisible line */
 static void
@@ -2747,7 +2747,7 @@ _rl_move_cursor_relative (int new, const char *data, const char *dataf)
 	  cpos_adjusted = 1;
 	  adjust = 0;
 	}
-      /* 2.  prompt_string + line contexts */
+      /* 2.  prompt_string + line contents */
       else if (new > local_prompt_len && local_prompt && memcmp (data, local_prompt, local_prompt_len) == 0)
 	{
 	  dpos = prompt_physical_chars + _rl_col_width (data, local_prompt_len, new, 1);
@@ -3497,7 +3497,7 @@ _rl_col_width (const char *str, int start, int end, int flags)
   /* 1.  prompt string */
   if (flags && start == 0 && end == local_prompt_len && memcmp (str, local_prompt, local_prompt_len) == 0)
     return (prompt_physical_chars + wrap_offset);
-  /* 2.  prompt string + line contexts */
+  /* 2.  prompt string + line contents */
   else if (flags && start == 0 && local_prompt_len > 0 && end > local_prompt_len && local_prompt && memcmp (str, local_prompt, local_prompt_len) == 0)
     {
       tmp = prompt_physical_chars + wrap_offset;

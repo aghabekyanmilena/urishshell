@@ -550,7 +550,7 @@ READLINE(3)                Library Functions Manual                READLINE(3)
 
        Non-incremental  searches read the entire search string before starting
        to search for matching history lines.  The search string may  be  typed
-       by the user or be part of the contexts of the current line.
+       by the user or be part of the contents of the current line.
 
 [1mEDITING COMMANDS[0m
        The  following  is  a list of the names of the commands and the default
@@ -852,7 +852,7 @@ READLINE(3)                Library Functions Manual                READLINE(3)
 
    [1mMiscellaneous[0m
        [1mre-read-init-file (C-x C-r)[0m
-              Read in the contexts of the [4minputrc[24m file,  and  incorporate  any
+              Read in the contents of the [4minputrc[24m file,  and  incorporate  any
               bindings or variable assignments found there.
        [1mabort (C-g)[0m
               Abort  the  current editing command and ring the terminal's bell

@@ -299,7 +299,7 @@ These variables are available to function writers.
 
 @deftypevar {char *} rl_line_buffer
 This is the line gathered so far.  You are welcome to modify the
-contexts of the line, but see @ref{Allowing Undoing}.  The
+contents of the line, but see @ref{Allowing Undoing}.  The
 function @code{rl_extend_line_buffer} is available to increase
 the memory allocated to @code{rl_line_buffer}.
 @end deftypevar
@@ -492,7 +492,7 @@ setting @var{rl_input_available_hook} as well.
 
 @deftypevar {rl_voidfunc_t *} rl_redisplay_function
 If non-zero, Readline will call indirectly through this pointer
-to update the display with the current contexts of the editing buffer.
+to update the display with the current contents of the editing buffer.
 By default, it is set to @code{rl_redisplay}, the default Readline
 redisplay function (@pxref{Redisplay}).
 @end deftypevar
@@ -1008,7 +1008,7 @@ that text.
 @subsection Redisplay
 
 @deftypefun void rl_redisplay (void)
-Change what's displayed on the screen to reflect the current contexts
+Change what's displayed on the screen to reflect the current contents
 of @code{rl_line_buffer}.
 @end deftypefun
 
@@ -1032,7 +1032,7 @@ It should be used after setting @var{rl_already_prompted}.
 @end deftypefun
 
 @deftypefun int rl_clear_visible_line (void)
-Clear the screen lines corresponding to the current line's contexts.
+Clear the screen lines corresponding to the current line's contents.
 @end deftypefun
 
 @deftypefun int rl_reset_line_state (void)
@@ -1253,7 +1253,7 @@ environment variable is used.
 
 @deftypefun int rl_save_state (struct readline_state *sp)
 Save a snapshot of Readline's internal state to @var{sp}.
-The contexts of the @var{readline_state} structure are documented
+The contents of the @var{readline_state} structure are documented
 in @file{readline.h}.
 The caller is responsible for allocating the structure.
 @end deftypefun
@@ -1261,7 +1261,7 @@ The caller is responsible for allocating the structure.
 @deftypefun int rl_restore_state (struct readline_state *sp)
 Restore Readline's internal state to that stored in @var{sp}, which must
 have been saved by a call to @code{rl_save_state}.
-The contexts of the @var{readline_state} structure are documented
+The contents of the @var{readline_state} structure are documented
 in @file{readline.h}.
 The caller is responsible for freeing the structure.
 @end deftypefun
@@ -1272,7 +1272,7 @@ allocated by @code{malloc}.
 @end deftypefun
 
 @deftypefun void rl_replace_line (const char *text, int clear_undo)
-Replace the contexts of @code{rl_line_buffer} with @var{text}.
+Replace the contents of @code{rl_line_buffer} with @var{text}.
 The point and mark are preserved, if possible.
 If @var{clear_undo} is non-zero, the undo list associated with the
 current line is cleared.
@@ -2418,7 +2418,7 @@ COMMAND commands[] = @{
   @{ "quit", com_quit, "Quit using Fileman" @},
   @{ "rename", com_rename, "Rename FILE to NEWNAME" @},
   @{ "stat", com_stat, "Print out statistics on FILE" @},
-  @{ "view", com_view, "View the contexts of FILE" @},
+  @{ "view", com_view, "View the contents of FILE" @},
   @{ (char *)NULL, (rl_icpfunc_t *)NULL, (char *)NULL @}
 @};
 
@@ -2576,9 +2576,9 @@ initialize_readline ()
   rl_attempted_completion_function = fileman_completion;
 @}
 
-/* Attempt to complete on the contexts of TEXT.  START and END bound the
+/* Attempt to complete on the contents of TEXT.  START and END bound the
    region of rl_line_buffer that contains the word to complete.  TEXT is
-   the word to complete.  We can use the entire contexts of rl_line_buffer
+   the word to complete.  We can use the entire contents of rl_line_buffer
    in case we want to do some simple parsing.  Return the array of matches,
    or NULL if there aren't any. */
 char **

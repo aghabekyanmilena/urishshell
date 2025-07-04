@@ -42,7 +42,7 @@
  * establishing a formal standard in this area. At the moment, the
  * decision which Not East Asian (Neutral) characters should be
  * represented by double-width glyphs cannot yet be answered by
- * applying a simple rule from the Unicode database context. Setting
+ * applying a simple rule from the Unicode database content. Setting
  * up a proper standard for the behavior of UTF-8 character terminals
  * will require a careful analysis not only of each Unicode character,
  * but also of each presentation form, something the author of these

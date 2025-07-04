@@ -218,7 +218,7 @@ Makefile.in,{doc,examples,shlib}/Makefile.in
 				   3/11
 				   ----
 doc/Makefile.in
-	- removed references to HTMLTOC, since separate HTML table-of-contexts
+	- removed references to HTMLTOC, since separate HTML table-of-contents
 	  files are no longer created
 
 examples/Makefile.in

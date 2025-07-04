@@ -88,7 +88,7 @@ char history_expansion_char = '!';
    a line.  This is usually `^'. */
 char history_subst_char = '^';
 
-/* During init_some_tokens, if this character is seen as the first character
+/* During tokenization, if this character is seen as the first character
    of a word, then it, and all subsequent characters up to a newline are
    ignored.  For a Bourne shell, this should be '#'.  Bash special cases
    the interactive comment character to not be a comment delimiter. */
@@ -313,7 +313,7 @@ get_history_event (const char *string, int *caller_index, int delimiting_quote)
 /* Function for extracting single-quoted strings.  Used for inhibiting
    history expansion within single quotes. */
 
-/* Extract the contexts of STRING as if it is enclosed in single quotes.
+/* Extract the contents of STRING as if it is enclosed in single quotes.
    SINDEX, when passed in, is the offset of the character immediately
    following the opening single quote; on exit, SINDEX is left pointing
    to the closing single quote.  FLAGS currently used to allow backslash

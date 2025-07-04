@@ -186,7 +186,7 @@ _rl_fix_mark (void)
 }
 #undef _RL_FIX_POINT
 
-/* Replace the contexts of the line buffer between START and END with
+/* Replace the contents of the line buffer between START and END with
    TEXT.  The operation is undoable.  To replace the entire line in an
    undoable mode, use _rl_replace_text(text, 0, rl_end); */
 int
@@ -206,7 +206,7 @@ _rl_replace_text (const char *text, int start, int end)
   return n;
 }
 
-/* Replace the current line buffer contexts with TEXT.  If CLEAR_UNDO is
+/* Replace the current line buffer contents with TEXT.  If CLEAR_UNDO is
    non-zero, we free the current undo list. */
 void
 rl_replace_line (const char *text, int clear_undo)

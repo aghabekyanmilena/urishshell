@@ -312,8 +312,8 @@ ensure_dir ()
 }
 
 
-# error g_exit_status LINE1 LINE2... - Report an error and exit with
-#   failure if g_exit_status is non-null.
+# error EXIT_STATUS LINE1 LINE2... - Report an error and exit with
+#   failure if EXIT_STATUS is non-null.
 error ()
 {
   error_status="$1"
@@ -379,7 +379,7 @@ verbose ()
 
 #  Handling lists.
 #
-# list_append LIST-NAME ELEM - Append ELEM to (the contexts of) LIST-NAME.
+# list_append LIST-NAME ELEM - Append ELEM to (the contents of) LIST-NAME.
 list_append ()
 {
   list_name="$1"
@@ -1517,7 +1517,7 @@ check_recorder_support ()
 }
 
 # Check tex supports \openout traces in log
-check_tok_openout_in_log_support ()
+check_openout_in_log_support ()
 {
   verbose "Checking TeX \openout in log support..."
   make_openout_test "" log
@@ -1578,7 +1578,7 @@ decide_aux_files_method ()
     yesmaybe)
       if check_recorder_support; then
         set_aux_files_from_fls
-      elif check_tok_openout_in_log_support; then
+      elif check_openout_in_log_support; then
         set_aux_files_from_log
       else
         error 1 "TeX neither supports -recorder nor outputs \\openout lines in its log file"
@@ -1586,7 +1586,7 @@ decide_aux_files_method ()
       ;;
 
     nomaybe)
-      if check_tok_openout_in_log_support; then
+      if check_openout_in_log_support; then
         set_aux_files_from_log
       elif check_recorder_support; then
         set_aux_files_from_fls
@@ -1952,7 +1952,7 @@ do
   ensure_dir "$build_dir" "$t2ddir"
 
   # Sometimes there are incompatibilities between auxiliary files for
-  # DVI and PDF.  The contexts can also change whether we work on PDF
+  # DVI and PDF.  The contents can also change whether we work on PDF
   # and/or DVI.  So keep separate spaces for each.
   workdir=$t2ddir/`out_lang_tex`
   ensure_dir "$workdir"

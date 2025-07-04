@@ -3,7 +3,7 @@
  * $Date: 2001/09/11 06:19:36 $
  * $Author: vyzo $
  *
- * contexts: A streambuf which uses the GNU readline library for line I/O
+ * Contents: A streambuf which uses the GNU readline library for line I/O
  * (c) 2001 by Dimitris Vyzovitis [vyzo@media.mit.edu]
  *
  * This program is free software; you can redistribute it and/or modify

@@ -329,7 +329,7 @@ search string, any remembered search string is used.
 
 Non-incremental searches read the entire search string before starting
 to search for matching history lines.  The search string may be
-typed by the user or be part of the contexts of the current line.
+typed by the user or be part of the contents of the current line.
 
 @node Readline Init File
 @section Readline Init File
@@ -1738,7 +1738,7 @@ Print the last keyboard macro defined in a format suitable for the
 @ftable @code
 
 @item re-read-init-file (C-x C-r)
-Read in the contexts of the @var{inputrc} file, and incorporate
+Read in the contents of the @var{inputrc} file, and incorporate
 any bindings or variable assignments found there.
 
 @item abort (C-g)
