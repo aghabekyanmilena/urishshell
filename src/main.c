@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 17:07:00 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:07:53 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				free(line);
 				return (1);
-			}\
+			}
 			// print_tokens(data_base.token);
 			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
