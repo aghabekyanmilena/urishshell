@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 21:33:41 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:56:34 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,6 @@ void	pipex_start(t_data *db, t_token *token)
 	init(db, &pipex);
 	signal(SIGINT, &handle_exec);
 	signal(SIGQUIT, &handle_exec); // avelacnel 131
-
-	// signal(SIGINT, &heredoc_case);
-	// signal(SIGQUIT, &heredoc_case);
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (cpy == NULL)
@@ -196,3 +193,14 @@ void	pipex_start(t_data *db, t_token *token)
 		waitpid(pipex.pid[i++], &status, 0);
 	free_struct(&pipex);
 }
+
+
+// signal(SIGINT, &heredoc_case);
+// signal(SIGQUIT, &heredoc_case);
+/* erb pid == 0 et jamanak petqa kanchel
+signal(SIGINT, heredoc_case) vor chisht dzev durs ga heredocic
+heto petqa hamel kanchel init_signalsy
+
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	init_signals();     senc mi bana petq*/
