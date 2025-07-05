@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:25:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 00:14:43 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 15:50:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int nb, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_bzero(void *ptr, size_t n);
+int		count_words(char *s, char c);
 
 // new
 char	*ft_strncpy(char *dest, char *src, unsigned int n);

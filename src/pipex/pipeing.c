@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:19 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:07:18 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	execute_cmd(t_pipex *pipex)
 		}
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
 	}
+	///qani vor execve chi linum inqy pti durs ga command not found
 	exit(1);
 }
 

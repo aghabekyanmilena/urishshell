@@ -6,16 +6,25 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:27:03 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/06/29 14:49:26 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:49:24 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
 
-int	builtin_env(t_data *data)
+int	builtin_env(char **args, t_data *data)
 {
 	int	i;
+	int	j;
 
+	j = -1;
+	while (args[j])
+		j++;
+	if (j > 1)
+	{
+		printf ("aaaaaaaaa\n"); //error handle case
+		return (1);
+	}
 	i = 0;
 	while (data->env && data->env[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 20:50:52 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:35:21 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_command	t_cmd;
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
+
+// int	g_exit_status = 0; // global variable for exit codes
 
 typedef enum e_token_type
 {

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 17:13:13 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 15:53:02 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ static int	is_digital(char *str)
 int	builtin_exit(char **args)
 {
 	int	exit_code;
-
+	int	i;
+	
 	exit_code = 0;
 	printf("exit\n");
+	i = 0;
+	while (args[i])
+		i++;
+	if (i > 1)
+		printf("A\n");
 	if (args[1])
 	{
 		if (!is_digital(args[1]))

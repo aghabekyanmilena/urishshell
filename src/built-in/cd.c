@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:38:04 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:50:05 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int builtin_cd(char **args, t_data *data)
 	char	*dir;
 	char	*oldpwd;
 	char	*cwd;
+	int		i;
 
+	i = 0;
+	while (args[i])
+		i++;
+	if (i > 1)
+		printf("jhdsf\n"); // petqa error code (minishell: cd: too many arguments)
 	if (args[1])
 		dir = args[1];
 	else

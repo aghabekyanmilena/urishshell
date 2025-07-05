@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:46:33 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:07:03 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:45:51 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	execute_builtin(char **args, t_data *data)
 	if (!ft_strcmp(args[0], "unset"))
 		return (builtin_unset(args, data));
 	if (!ft_strcmp(args[0], "env"))
-		return (builtin_env(data));
+		return (builtin_env(args, data));
 	return (1);
 }
