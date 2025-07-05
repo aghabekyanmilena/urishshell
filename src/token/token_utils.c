@@ -3,24 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:15:57 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 16:29:00 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
 
-void	dollar_bacel(t_data *db)
+void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 {
-	t_token	*cpy;
-	int		i;
 	int		k;
 	char	*bacac;
 	char	*free_anel;
 	char	*start;
 	char	*end;
+	
+	if (cpy->value[*i] == '$' && cpy->value[*i + 1] != '\0')
+	{
+		(*i)++;
+		k = 0;
+		while (cpy->value[*i + k] != '\0' && !ft_isspace(cpy->value[*i + k]) && cpy->value[*i + k] != '~' \
+			&& cpy->value[*i + k] != '@' && cpy->value[*i + k] != '#' && cpy->value[*i + k] != '$' \
+			&& cpy->value[*i + k] != '%' && cpy->value[*i + k] != '^' && cpy->value[*i + k] != '-' \
+			&& cpy->value[*i + k] != '+' && cpy->value[*i + k] != '=' && cpy->value[*i + k] != '/' \
+			&& cpy->value[*i + k] != '.' && cpy->value[*i + k] != ':' && cpy->value[*i + k] != '!' \
+			&& cpy->value[*i + k] != '"' && cpy->value[*i + k] != '\'')
+			k++;
+		free_anel = ft_substr(cpy->value, *i, k);
+		bacac = ft_strdup(get_env(db->env, free_anel));
+		if (!bacac)
+			bacac = ft_strdup("");
+		start = ft_substr(cpy->value, 0, *i - 1);
+		free(free_anel);
+		free_anel = ft_strjoin(start, bacac);
+		free(start);
+		free(bacac);
+		end = ft_substr(cpy->value, *i + k, ft_strlen(cpy->value) - *i - k);
+		bacac = ft_strjoin(free_anel, end);
+		free(free_anel);
+		free(end);
+		free(cpy->value);
+		cpy->value = bacac;
+	}
+	else 
+		(*i)++;
+}
+
+void	dollar_bacel(t_data *db)
+{
+	t_token	*cpy;
+	int		i;
 
 	cpy = db->token;
 	while (cpy)
@@ -34,34 +68,18 @@ void	dollar_bacel(t_data *db)
 				while (cpy->value[i] && cpy->value[i] != '\'')
 					i++;
 			}
-			if (cpy->value[i] == '$' && cpy->value[i + 1] != '\0')
+			else if (cpy->value[i] == '"')
 			{
 				i++;
-				k = 0;
-				while (cpy->value[i + k] != '\0' && !ft_isspace(cpy->value[i + k]) && cpy->value[i + k] != '~' \
-					 && cpy->value[i + k] != '@' && cpy->value[i + k] != '#' && cpy->value[i + k] != '$' \
-					 && cpy->value[i + k] != '%' && cpy->value[i + k] != '^' && cpy->value[i + k] != '-' \
-					 && cpy->value[i + k] != '+' && cpy->value[i + k] != '=' && cpy->value[i + k] != '/' \
-					 && cpy->value[i + k] != '.' && cpy->value[i + k] != ':' && cpy->value[i + k] != '!' \
-					 && cpy->value[i + k] != '"' && cpy->value[i + k] != '\'')
-					k++;
-				free_anel = ft_substr(cpy->value, i, k);
-				bacac = ft_strdup(get_env(db->env, free_anel));
-				if (!bacac)
-					bacac = ft_strdup("");
-				start = ft_substr(cpy->value, 0, i - 1);
-				free(free_anel);
-				free_anel = ft_strjoin(start, bacac);
-				free(start);
-				free(bacac);
-				end = ft_substr(cpy->value, i + k, ft_strlen(cpy->value) - i - k);
-				bacac = ft_strjoin(free_anel, end);
-				free(free_anel);
-				free(end);
-				free(cpy->value);
-				cpy->value = bacac;
+				while (cpy->value[i] && cpy->value[i] != '"')
+					check_dollar_existance(cpy, db, &i);
 			}
-			i++;
+			else
+			{
+				while (cpy->value[i])
+					check_dollar_existance(cpy, db, &i);
+			}
+			
 		}
 		cpy = cpy->next;
 	}
