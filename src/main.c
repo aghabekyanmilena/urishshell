@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 18:24:34 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:31:35 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../includes/signals.h"
 
 int ERR_NO = 0;
-
 
 void handle_shlvl(t_data *data);
 char *get_env(char **env, const char *key);
@@ -87,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 		init_signal();
 		line = readline("urishshell: ");
 		if (!line)
-			break; // esi henc ctrl+D a, petqa senc lini
+			break;
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 17:56:10 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:40:48 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		if (pipex->outfile != 1)
 			close(pipex->outfile);
 		execute_cmd(pipex);
-		exit(1);
 	}
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);
+	ERR_NO = 0;
 }
 
 void free_cmd(t_cmd **cmd)
@@ -116,7 +116,16 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	while (cpy)
 	{
 		if (cpy->type == INFILE)
+		{
 			pipex->infile = open(cpy->value, O_RDONLY);
+			if (pipex->infile == -1)
+			{
+				ft_putstr_fd(cpy->value, 2);
+				ft_putendl_fd(": No such file or directory", 2);
+				ERR_NO = 1;
+				return ;
+			}
+		}
 		else if (cpy->type == OUTFILE)
 			pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		else if (cpy->type == OUTFILE_APPEND)
@@ -125,6 +134,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			pipex->limiter = ft_strdup(cpy->value);
 		cpy = cpy->next;
 	}
+	ERR_NO = 0;
 }
 
 void	free_struct(t_pipex *pipex)
@@ -169,6 +179,13 @@ void	pipex_start(t_data *db, t_token *token)
 			cpy = cpy->next;
 		pipex.cmd = ft_split(cmd_line, ' ');
 		commands(cmd, &pipex);
+		if (ERR_NO != 0)
+		{
+			free(cmd_line);
+			free_cmd(&cmd);
+			free_double(pipex.cmd);
+			return ;
+		}
 		if (pipex.limiter != NULL)
 			read_here_doc(&pipex, pipex.limiter);
 		if (db->pipes_count == 0)
@@ -187,7 +204,7 @@ void	pipex_start(t_data *db, t_token *token)
 		(pipex.current_cmd)++;
 	}
 	i = 0;
-	while (pipex.pid[i])
+	while (pipex.pid[i] != 0)
 	{
 		waitpid(pipex.pid[i++], &status, 0);
 		if (WIFEXITED(status))

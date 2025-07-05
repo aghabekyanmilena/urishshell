@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/05 18:09:06 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:39:43 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	execute_cmd(t_pipex *pipex)
 
 	//esi errori orinak a
 	ERR_NO = 127;
-	ft_putstr_fd("command not found: ", 2);
-	ft_putendl_fd(pipex->cmd[0], 2);
+	ft_putstr_fd(pipex->cmd[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
 	exit(ERR_NO);
 }
 
@@ -79,6 +79,8 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
+	ERR_NO = 0;
+
 }
 
 void	first(t_pipex *pipex, t_data *data_base)
@@ -108,6 +110,8 @@ void	first(t_pipex *pipex, t_data *data_base)
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
+	ERR_NO = 0;
+
 }
 
 void	last(t_pipex *pipex, t_data *data_base)
@@ -133,4 +137,6 @@ void	last(t_pipex *pipex, t_data *data_base)
 	close(pipex->fds[0]);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);
+	ERR_NO = 0;
+
 }

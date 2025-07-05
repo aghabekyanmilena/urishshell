@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 20:09:53 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:31:06 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	builtin_echo(char **args)
 			printf("%s", str);
 			free(str);
 		}
-		// if (args[i + 1])
-		// 	printf(" ");
+		if (args[i + 1])
+			printf(" ");
 		i++;
 	}
 	if (!n_flag)
