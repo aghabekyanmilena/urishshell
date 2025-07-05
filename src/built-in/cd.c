@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 18:32:24 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:35:20 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int builtin_cd(char **args, t_data *data)
 		dir = get_env(data->env, "HOME");
 	if (!dir)
 	{
+		// ERR_NO = 1;
 		ft_putendl_fd("cd: HOME not set\n", 17);
 		return (1);
 	}

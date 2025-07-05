@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 21:31:35 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:23:48 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,6 @@ void	print_tokens(t_token *tok)
 	}
 }
 
-void	free_array(char **arr)
-{
-	int	i = 0;
-
-	if (!arr)
-		return;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
 void	free_tokens(t_data *db)
 {
 	t_token *tmp;
@@ -59,17 +48,20 @@ void	free_tokens(t_data *db)
 
 char **copy_env(char **envp)
 {
-	int i = 0;
+	int		i;
+	int		j;
+	char	**copy;
+
+	i = 0;
 	while (envp[i])
 		i++;
-
-	char **copy = malloc(sizeof(char *) * (i + 1));
+	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
 		return (NULL);
-	for (int j = 0; j < i; j++)
+	for (j = 0; j < i; j++)
 		copy[j] = ft_strdup(envp[j]);
 	copy[i] = NULL;
-	return copy;
+	return (copy);
 }
 
 int	main(int argc, char **argv, char **env)

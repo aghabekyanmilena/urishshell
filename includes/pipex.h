@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/03 16:35:58 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:17:33 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ typedef struct s_pipex
 void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, char *limiter);
-void	check_files(char *infile, char *outfile, t_pipex *pipex);
-void	err_exit(char *message, t_pipex *pipex, int k);
 void	free_double(char **s);
 void	first(t_pipex *pipex, t_data *data_base);
 void	last(t_pipex *pipex, t_data *data_base);
 void	mid(t_pipex *pipex, t_data *data_base);
 void	execute_cmd(t_pipex *pipex);
-char	*ft_join(char *s1, char *s2, char ch);
 
 #endif

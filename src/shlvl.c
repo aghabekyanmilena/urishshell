@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:27:02 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:45:20 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,30 @@
 static int	is_numeric(const char *str)
 {
 	if (!str || !*str)
-		return 0;
+		return (0);
 	if (*str == '-' || *str == '+')
 		str++;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
-			return 0;
+			return (0);
 		str++;
 	}
-	return 1;
+	return (1);
 }
 // esi env-i mej gtnuma key@ u =ic heto dra hamapatasxan valuen return anum
 /*ESI PETQA JNJEL U UXAKI VORTEX VOR IRAN OGTAGORCEL EM SOVORAKAN (GETENV) ANEM*/
 char *get_env(char **env, const char *key)
 {
-	size_t len = ft_strlen(key);
-	int	i = 0;
+	size_t	len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(key);
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
-			return env[i] + len + 1;
+			return (env[i] + len + 1);
 		i++;
 	}
 	return (NULL);
@@ -44,9 +47,14 @@ char *get_env(char **env, const char *key)
 // update a anum env-n ete vary ka replace a anum ete chka avelacnuma
 void update_env(t_data *data, const char *key, const char *value)
 {
-	int idx = find_env_var_index(data->env, key);
-	char *new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);
+	int		idx;
+	char	*new_entry;
+	int		len;
+	char	**new_env;
+	int		i;
 
+	new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);
+	idx = find_env_var_index(data->env, key);
 	if (!new_entry)
 		return ;
 	ft_strcpy(new_entry, key);
@@ -59,11 +67,13 @@ void update_env(t_data *data, const char *key, const char *value)
 	}
 	else
 	{
-		int	len = 0;
+		len = 0;
 		while (data->env && data->env[len])
 			len++;
-		char **new_env = malloc(sizeof(char *) * (len + 2));
-		int	i = -1;
+		new_env = malloc(sizeof(char *) * (len + 2));
+		if (!new_env)
+			return ;
+		i = -1;
 		while (++i < len)
 			new_env[i] = data->env[i];
 		new_env[len] = new_entry;
@@ -76,9 +86,12 @@ void update_env(t_data *data, const char *key, const char *value)
 // et taky 1000+ casy comment em arel vorovhetev vrodi bashum ela okay ete 1000 u avela
 void handle_shlvl(t_data *data)
 {
-	char *shlvl_str = get_env(data->env, "SHLVL");
-	int shlvl = 0;
+	char	*shlvl_str;
+	int		shlvl;
+	char	*shlvl_val;
 
+	shlvl = 0;
+	shlvl_str = get_env(data->env, "SHLVL");
 	if (!shlvl_str)
 		shlvl = 1;
 	else if (is_numeric(shlvl_str))
@@ -92,7 +105,7 @@ void handle_shlvl(t_data *data)
 	// 	printf("minishell: warning\n");
 	// 	shlvl = 1;
 	// }
-	char *shlvl_val = ft_itoa(shlvl);
+	shlvl_val = ft_itoa(shlvl);
 	update_env(data, "SHLVL", shlvl_val);
 	free(shlvl_val);
 }

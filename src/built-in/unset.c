@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:05:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/01 15:53:51 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:47:40 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,30 @@ static void	print_unset_error(char *arg)
 
 static int	valid_identifier(const char *name)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!name || (!ft_isalpha(name[0]) && name[0] != '_'))
-		return 0;
+		return (0);
 	while (name[i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 int	builtin_unset(char **args, t_data *data)
 {
-	int	i = 1;
+	char	**new_env;
+	int		i;
+	int		idx;
+	int		len;
+	int		k;
+	int		j;
 
+	i = 1;
 	while (args[i])
 	{
 		if (!valid_identifier(args[i]))
@@ -46,17 +53,17 @@ int	builtin_unset(char **args, t_data *data)
 			i++;
 			continue;
 		}
-		int idx = find_env_var_index(data->env, args[i]);
+		idx = find_env_var_index(data->env, args[i]);
 		if (idx >= 0)
 		{
-			int len = 0;
+			len = 0;
 			while (data->env[len])
 				len++;
-			char **new_env = malloc(sizeof(char *) * len);
+			new_env = malloc(sizeof(char *) * len);
 			if (!new_env)
 				return (1);
-			int j = 0;
-			int k = 0;
+			j = 0;
+			k = 0;
 			while (k < len)
 			{
 				if (k != idx)

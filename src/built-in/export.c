@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:40:27 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:48:45 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,18 @@ static void	print_export_error(char *arg)
 
 int	find_env_var_index(char **env, const char *name)
 {
-	int i = 0;
-	size_t len = ft_strlen(name);
+	int		i;
+	size_t	len;
 
+	i = 0;
+	len = ft_strlen(name);
 	while (env && env[i])
 	{
 		if (!ft_strncmp(env[i], name, len) && env[i][len] == '=')
-			return i;
+			return (i);
 		i++;
 	}
-	return -1;
+	return (-1);
 }
 
 static int is_valid_var_name(const char *name)
@@ -51,15 +53,21 @@ static int is_valid_var_name(const char *name)
 
 static void	no_arg_case(char **args, t_data *data)
 {
+	char	*equal;
+	char	**env_copy;
+	int		i;
+	int		j;
+	int		key_len;
+
 	if (!args[1])
 	{
-		int i = 0;
+		i = 0;
 		while (data->env && data->env[i])
 			i++;
-		char **env_copy = malloc(sizeof(char *) * (i + 1));
+		env_copy = malloc(sizeof(char *) * (i + 1));
 		if (!env_copy)
-			return;
-		int j = 0;
+			return ;
+		j = 0;
 		while (j < i)
 		{
 			env_copy[j] = ft_strdup(data->env[j]);
@@ -70,10 +78,10 @@ static void	no_arg_case(char **args, t_data *data)
 		j = 0;
 		while (env_copy[j])
 		{
-			char *equal = ft_strchr(env_copy[j], '=');
+			equal = ft_strchr(env_copy[j], '=');
 			if (equal)
 			{
-				int key_len = equal - env_copy[j];
+				key_len = equal - env_copy[j];
 				write(1, "declare -x ", 11);
 				write(1, env_copy[j], key_len);
 				write(1, "=\"", 2);
@@ -95,8 +103,17 @@ static void	no_arg_case(char **args, t_data *data)
 
 int builtin_export(char **args, t_data *data)
 {
-	int i = 1;
+	int		i;
+	char	*equal_sign;
+	char	*var_name;
+	char	**new_env;
+	int		j;
+	int		name_len;
+	int		index;
+	int		len;
 
+
+	i = 1;
 	no_arg_case(args, data);
 	while (args[i])
 	{
@@ -106,29 +123,29 @@ int builtin_export(char **args, t_data *data)
 			i++;
 			continue;
 		}
-		char *equal_sign = ft_strchr(args[i], '=');
+		equal_sign = ft_strchr(args[i], '=');
 		if (!equal_sign)
 		{
 			i++;
 			continue;
 		}
-		int name_len = equal_sign - args[i];
-		char *var_name = malloc(name_len + 1);
+		name_len = equal_sign - args[i];
+		var_name = malloc(name_len + 1);
 		if (!var_name)
 			return (1);
 		ft_strncpy(var_name, args[i], name_len);
 		var_name[name_len] = '\0';
 		ft_strncpy(var_name, args[i], equal_sign - args[i]);
-		int index = find_env_var_index(data->env, var_name);
+		index = find_env_var_index(data->env, var_name);
 		if (index >= 0)
 			data->env[index] = ft_strdup(args[i]);
 		else
 		{
-			int len = 0;
+			len = 0;
 			while (data->env && data->env[len])
 				len++;
-			char **new_env = malloc(sizeof(char *) * (len + 2));
-			int j = 0;
+			new_env = malloc(sizeof(char *) * (len + 2));
+			j = 0;
 			while (j < len)
 			{
 				new_env[j] = data->env[j];
@@ -141,5 +158,5 @@ int builtin_export(char **args, t_data *data)
 		i++;
 		free(var_name);
 	}
-	return 0;
+	return (0);
 }

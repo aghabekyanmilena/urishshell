@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 17:55:14 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:45:51 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ void	dollar_bacel(t_data *db)
 
 void	add_token(t_token **head, char *value, t_token_type type)
 {
-	t_token *new = malloc(sizeof(t_token));
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
 	if (!new)
-		return;
+		return ;
 	new->value = value;
 	new->type = type;
 	new->next = NULL;
-
 	if (!*head)
 		*head = new;
 	else
