@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 15:53:02 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:21:38 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	builtin_exit(char **args)
 	i = 0;
 	while (args[i])
 		i++;
-	if (i > 1)
+	if (i > 2)
 		printf("A\n");
 	if (args[1])
 	{

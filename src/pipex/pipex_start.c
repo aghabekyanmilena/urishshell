@@ -6,11 +6,13 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:33 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:33:41 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	heredoc_case(int signal);
 
 void	add_cmd(t_cmd **head, char *value, t_token_type type)
 {
@@ -149,6 +151,9 @@ void	pipex_start(t_data *db, t_token *token)
 	init(db, &pipex);
 	signal(SIGINT, &handle_exec);
 	signal(SIGQUIT, &handle_exec); // avelacnel 131
+
+	// signal(SIGINT, &heredoc_case);
+	// signal(SIGQUIT, &heredoc_case);
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (cpy == NULL)

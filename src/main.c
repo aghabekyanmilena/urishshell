@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 15:58:19 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:21:10 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		init_signal();
-		line = readline("minishell: ");
+		line = readline("urishshell: ");
 		if (!line)
 			break ;
 		if (line && *line != '\0')

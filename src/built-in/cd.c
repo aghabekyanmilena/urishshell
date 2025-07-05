@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 16:50:05 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:18:46 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,19 @@ int builtin_cd(char **args, t_data *data)
 	while (args[i])
 		i++;
 	if (i > 1)
-		printf("jhdsf\n"); // petqa error code (minishell: cd: too many arguments)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		// ERR_NO = 1;
+		return (1);
+	}
 	if (args[1])
 		dir = args[1];
 	else
 		dir = get_env(data->env, "HOME");
 	if (!dir)
 	{
-		ft_putendl_fd("cd: HOME not set\n", 17);
+		ft_putendl_fd("cd: HOME not set\n", 2);
+		// ERR_NO = 1;
 		return (1);
 	}
 	oldpwd = get_env(data->env, "PWD");
@@ -50,5 +55,6 @@ int builtin_cd(char **args, t_data *data)
 		update_env(data, "PWD", cwd);
 		free(cwd);
 	}
+	// ERR_NO = 0;
 	return (0);
 }
