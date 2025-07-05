@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:19 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:04:11 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	execute_cmd(t_pipex *pipex)
 {
 	int		j;
 	char	*full_path;
+
 	j = 0;
 	if (pipex->path != NULL)
 	{
@@ -42,7 +43,12 @@ void	execute_cmd(t_pipex *pipex)
 		}
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
 	}
-	exit(1);
+
+	//esi errori orinak a
+	ERR_NO = 127;
+	ft_putstr_fd("command not found: ", 2);
+	ft_putendl_fd(pipex->cmd[0], 2);
+	exit(ERR_NO);
 }
 
 void	mid(t_pipex *pipex, t_data *data_base)

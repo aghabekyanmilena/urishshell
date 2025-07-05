@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:33 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:56:10 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,12 @@ void	pipex_start(t_data *db, t_token *token)
 	}
 	i = 0;
 	while (pipex.pid[i])
+	{
 		waitpid(pipex.pid[i++], &status, 0);
+		if (WIFEXITED(status))
+			ERR_NO = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			ERR_NO = 128 + WTERMSIG(status);
+	}
 	free_struct(&pipex);
 }

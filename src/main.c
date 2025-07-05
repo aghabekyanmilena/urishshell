@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 17:07:53 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:54:06 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "../includes/syntax.h"
 #include "../includes/built_in.h"
 #include "../includes/signals.h"
+
+int ERR_NO = 0;
+
 
 void handle_shlvl(t_data *data);
 char *get_env(char **env, const char *key);
@@ -77,11 +80,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-
-	// data_base.env = env;
 	data_base.env = copy_env(env);
 	handle_shlvl(&data_base);
-
 	while (1)
 	{
 		init_signal();

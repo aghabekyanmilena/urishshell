@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 16:29:00 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:55:14 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 		free_anel = ft_substr(cpy->value, *i, k);
 		bacac = ft_strdup(get_env(db->env, free_anel));
 		if (!bacac)
-			bacac = ft_strdup("");
+		{
+			if (ft_strcmp(free_anel, "?") == 0)
+				bacac = ft_strdup(ft_itoa(ERR_NO));
+			else
+				bacac = ft_strdup("");
+		}
 		start = ft_substr(cpy->value, 0, *i - 1);
 		free(free_anel);
 		free_anel = ft_strjoin(start, bacac);
