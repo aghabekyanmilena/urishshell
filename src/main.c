@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 17:54:06 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:24:34 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		init_signal();
-		line = readline("minishell: ");
+		line = readline("urishshell: ");
 		if (!line)
 			break; // esi henc ctrl+D a, petqa senc lini
 		if (line && *line != '\0')
@@ -100,7 +100,8 @@ int	main(int argc, char **argv, char **env)
 			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
 		}
-		add_history(line);
+		if (ft_strcmp(line, "\0") != 0)
+			add_history(line);
 		free(line);
 	}
 	rl_clear_history();
