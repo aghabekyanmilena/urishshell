@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/06 00:17:33 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:21:14 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_pipex
 	char			**cmd;
 	int				current_cmd;
 	int				count_cmd;
+	int				forks;
 }					t_pipex;
 
 void	pipex_start(t_data *db, t_token *token);

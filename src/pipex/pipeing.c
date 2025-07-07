@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/06 00:33:58 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:28:24 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,15 @@ void	mid(t_pipex *pipex, t_data *data_base)
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
-	pipex->pid[pipex->current_cmd] = fork();
-	if (pipex->pid[pipex->current_cmd] == -1)
+	pipex->pid[pipex->forks] = fork();
+	// pipex->forks++;
+	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
-	if (pipex->pid[pipex->current_cmd] == 0)
+	if (pipex->pid[pipex->forks] == 0)
 	{
 		close(fders[0]);
 		dup2(pipex->fds[0], STDIN_FILENO);
@@ -77,6 +78,8 @@ void	mid(t_pipex *pipex, t_data *data_base)
 		else
 			execute_cmd(pipex);
 	}
+	pipex->forks++;
+
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
@@ -91,14 +94,15 @@ void	first(t_pipex *pipex, t_data *data_base)
 		ft_putstr_fd("Error pipeing\n", 2);
 		return ;
 	}
-	pipex->pid[pipex->current_cmd] = fork();
-	if (pipex->pid[pipex->current_cmd] == -1)
+	pipex->pid[pipex->forks] = fork();
+	// pipex->forks++;
+	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
-	if (pipex->pid[pipex->current_cmd] == 0)
+	if (pipex->pid[pipex->forks] == 0)
 	{
 		close(pipex->fds[0]);
 		dup2(pipex->infile, STDIN_FILENO);
@@ -114,6 +118,8 @@ void	first(t_pipex *pipex, t_data *data_base)
 		else
 			execute_cmd(pipex);
 	}
+	pipex->forks++;
+
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
@@ -122,14 +128,15 @@ void	first(t_pipex *pipex, t_data *data_base)
 
 void	last(t_pipex *pipex, t_data *data_base)
 {
-	pipex->pid[pipex->current_cmd] = fork();
-	if (pipex->pid[pipex->current_cmd] == -1)
+	pipex->pid[pipex->forks] = fork();
+	// pipex->forks++;
+	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
-	if (pipex->pid[pipex->current_cmd] == 0)
+	if (pipex->pid[pipex->forks] == 0)
 	{
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
@@ -144,6 +151,8 @@ void	last(t_pipex *pipex, t_data *data_base)
 		else
 			execute_cmd(pipex);
 	}
+	pipex->forks++;
+
 	close(pipex->fds[0]);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);

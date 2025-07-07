@@ -32,7 +32,6 @@ all: $(LIBS_DIR)/$(READLINE) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) $^ -o $@ -l$(READLINE) -L$(READLINE_LIB_PATH) $(LIBFT) -lncurses 
-#-g3 -fsanitize=address
 
 $(OBJS_DIR)/%.o: %.c $(HEADERS)
 	@mkdir -p $(dir $@)

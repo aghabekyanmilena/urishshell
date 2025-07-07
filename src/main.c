@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:23:48 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:32:24 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int	main(int argc, char **argv, char **env)
 			// print_tokens(data_base.token);
 			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
-		}
-		if (ft_strcmp(line, "\0") != 0)
 			add_history(line);
+		}
 		free(line);
+		free_double(data_base.env);
 	}
 	rl_clear_history();
 	return (0);

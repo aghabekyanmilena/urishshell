@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:38:56 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/06 00:46:38 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:29:18 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	init(t_data *db, t_pipex *pipex)
 		i++;
 	}
 	pipex->count_cmd = db->pipes_count + 1;
-	pipex->current_cmd = 0;
 	pipex->env = db->env;
-	pipex->pid = (int *)malloc(pipex->count_cmd * sizeof(int));
+	pipex->current_cmd = 0;
+	pipex->forks = 0;
+	pipex->pid = (int *)ft_calloc(pipex->count_cmd, sizeof(int));
 	if (!(pipex->pid))
 		return ;
 }

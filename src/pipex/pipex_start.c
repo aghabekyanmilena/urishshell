@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:33:08 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:30:37 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,26 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		}
 		return ;
 	}
-	pipex->pid[pipex->current_cmd] = fork();
-	if (pipex->pid[pipex->current_cmd] == -1)
+	pipex->pid[pipex->forks] = fork();
+	// pipex->forks++;
+	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
-	if (pipex->pid[pipex->current_cmd] == 0)
+	if (pipex->pid[pipex->forks] == 0)
 	{
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
-
 		if (pipex->infile != 0)
 			close(pipex->infile);
 		if (pipex->outfile != 1)
 			close(pipex->outfile);
 		execute_cmd(pipex);
 	}
+	pipex->forks++;
+
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	if (pipex->outfile != 1)
@@ -169,10 +171,11 @@ void	free_struct(t_pipex *pipex)
 	if (!pipex)
 		return;
 	free_double(pipex->path);
-	free_double(pipex->cmd);
+	if (pipex->cmd)
+		free_double(pipex->cmd);
 	free(pipex->pid);
 	free(pipex->limiter);
-	free(pipex);
+	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -209,12 +212,14 @@ void	pipex_start(t_data *db, t_token *token)
 		if (cpy)
 			cpy = cpy->next;
 		pipex.cmd = ft_split(cmd_line, ' ');
+		free(cmd_line);
 		commands(cmd, &pipex);
 		if (ERR_NO != 0)
 		{
-			free(cmd_line);
 			free_cmd(&cmd);
 			free_double(pipex.cmd);
+			free_struct(&pipex);
+
 			return ;
 		}
 		if (pipex.limiter)
@@ -229,13 +234,13 @@ void	pipex_start(t_data *db, t_token *token)
 			mid(&pipex, db);
 		if (pipex.limiter)
 			unlink(TMP_FILE);
-		free(cmd_line);
 		free_cmd(&cmd);
 		free_double(pipex.cmd);
+		pipex.cmd = NULL;
 		(pipex.current_cmd)++;
 	}
 	i = 0;
-	while (pipex.pid[i] != 0)
+	while (i < pipex.forks)
 	{
 		waitpid(pipex.pid[i++], &status, 0);
 		if (WIFEXITED(status))
