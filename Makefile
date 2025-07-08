@@ -21,7 +21,7 @@ SRC = \
 	$(TOKEN)/token.c $(TOKEN)/token_utils.c \
 	$(SYNTAX)/syntax_check.c \
 	$(BUILTIN)/built_utils.c $(BUILTIN)/echo.c $(BUILTIN)/exit.c $(BUILTIN)/env.c $(BUILTIN)/cd.c $(BUILTIN)/pwd.c $(BUILTIN)/export.c $(BUILTIN)/unset.c \
-	$(PIPEX)/pipex_start.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c \
+	$(PIPEX)/pipex_start.c $(PIPEX)/utils.c $(PIPEX)/pipeing.c $(PIPEX)/heredoc.c $(PIPEX)/get_next_line.c $(PIPEX)/get_next_line_utils.c\
 	$(SIGNALS)/init_signals.c 
 
 

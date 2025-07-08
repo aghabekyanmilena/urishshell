@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:52:57 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:52:06 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@ void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 	doll = NULL;
 	if (cpy->value[*i] == '$' && cpy->value[*i + 1] != '\0')
 	{
+		printf("A\n");
 		(*i)++;
 		k = 0;
-		while (cpy->value[*i + k] != '\0' && !ft_isspace(cpy->value[*i + k]) && cpy->value[*i + k] != '~' \
-			&& cpy->value[*i + k] != '@' && cpy->value[*i + k] != '#' && cpy->value[*i + k] != '$' \
-			&& cpy->value[*i + k] != '%' && cpy->value[*i + k] != '^' && cpy->value[*i + k] != '-' \
-			&& cpy->value[*i + k] != '+' && cpy->value[*i + k] != '=' && cpy->value[*i + k] != '/' \
-			&& cpy->value[*i + k] != '.' && cpy->value[*i + k] != ':' && cpy->value[*i + k] != '!' \
-			&& cpy->value[*i + k] != '"' && cpy->value[*i + k] != '\'')
+		if (cpy->value[*i] != '?')
+		{
+			while (cpy->value[*i + k] != '\0' && !ft_isspace(cpy->value[*i + k]) && cpy->value[*i + k] != '~' \
+				&& cpy->value[*i + k] != '@' && cpy->value[*i + k] != '#' && cpy->value[*i + k] != '$' \
+				&& cpy->value[*i + k] != '%' && cpy->value[*i + k] != '^' && cpy->value[*i + k] != '-' \
+				&& cpy->value[*i + k] != '+' && cpy->value[*i + k] != '=' && cpy->value[*i + k] != '/' \
+				&& cpy->value[*i + k] != '.' && cpy->value[*i + k] != ':' && cpy->value[*i + k] != '!' \
+				&& cpy->value[*i + k] != '"' && cpy->value[*i + k] != '\'' && cpy->value[*i + k] != '\n')
+				k++;
+		}
+		else
 			k++;
 		free_anel = ft_substr(cpy->value, *i, k);
 		bacac = ft_strdup(get_env(db->env, free_anel));
@@ -90,7 +96,6 @@ void	dollar_bacel(t_data *db)
 				while (cpy->value[i])
 					check_dollar_existance(cpy, db, &i);
 			}
-			
 		}
 		cpy = cpy->next;
 	}

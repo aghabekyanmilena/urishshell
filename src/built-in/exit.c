@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:15:04 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:34:13 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	builtin_exit(char **args)
 	if (args[1])
 	{
 		if (!is_digital(args[1]))
+		{
+			ERR_NO = 2;
 			printf("minishell: exit: %s: numeric argument required\n", args[1]);
+		}
 		exit_code = ft_atoi(args[1]);
 	}
 	ERR_NO = exit_code;

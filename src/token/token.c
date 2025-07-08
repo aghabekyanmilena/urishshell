@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:24:46 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/08 20:40:30 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	redirnery(t_token **first)
 	{
 		i = 0;
 		j = 0;
-		while (cpy->value[i] && cpy->value[i] != '<' && cpy->value[i] != '>')
+		while (cpy->value[i] && cpy->value[i] != '<' && cpy->value[i] != '>' && cpy->value[i] != '|')
 			i++;
 		if (cpy->value[i])
 		{
@@ -56,6 +56,11 @@ void	redirnery(t_token **first)
 					free(op);
 					op = ft_strdup(">>");
 				}
+			}
+			else if (cpy->value[i] == '|')
+			{
+				j++;
+				op = ft_strdup("|");
 			}
 			if (i > 0)
 			{
@@ -225,7 +230,6 @@ void	chakert_check(char *line, t_data *data_base)
 				new_line = ft_substr(all, i, j);
 				add_token(&head, ft_strdup(new_line), WORD);
 				free(new_line);
-
 			}
 
 		}

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 16:39:47 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:07:12 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	data_base.env = copy_env(env);
+	data_base.command_count = 0;
 	handle_shlvl(&data_base);
 	while (1)
 	{
@@ -88,10 +89,12 @@ int	main(int argc, char **argv, char **env)
 				return (1);
 			}
 			// print_tokens(data_base.token);
+			data_base.command_count++;
 			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
 			add_history(line);
 		}
+
 		free(line);
 	}
 	free_double(data_base.env);
