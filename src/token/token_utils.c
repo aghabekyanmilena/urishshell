@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:45:51 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/08 14:52:57 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 	char	*free_anel;
 	char	*start;
 	char	*end;
-	
+	char	*doll;
+
+	doll = NULL;
 	if (cpy->value[*i] == '$' && cpy->value[*i + 1] != '\0')
 	{
 		(*i)++;
@@ -36,7 +38,11 @@ void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 		if (!bacac)
 		{
 			if (ft_strcmp(free_anel, "?") == 0)
-				bacac = ft_strdup(ft_itoa(ERR_NO));
+			{
+				doll = ft_itoa(ERR_NO);
+				bacac = ft_strdup(doll);
+				free(doll);
+			}
 			else
 				bacac = ft_strdup("");
 		}

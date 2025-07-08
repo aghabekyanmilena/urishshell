@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:05:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:21:15 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:18:41 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	print_unset_error(char *arg)
 {
+	ERR_NO = 1;
 	write(2, "unset: `", 9);
 	write(2, arg, strlen(arg));
 	write(2, "': not a valid identifier\n", 27);
@@ -48,11 +49,7 @@ int	builtin_unset(char **args, t_data *data)
 	while (args[i])
 	{
 		if (!valid_identifier(args[i]))
-		{
-			print_unset_error(args[i]);
-			i++;
-			continue;
-		}
+			return (print_unset_error(args[i]), 1);
 		idx = find_env_var_index(data->env, args[i]);
 		if (idx >= 0)
 		{
@@ -78,5 +75,6 @@ int	builtin_unset(char **args, t_data *data)
 		}
 		i++;
 	}
+	ERR_NO = 0;
 	return (0);
 }

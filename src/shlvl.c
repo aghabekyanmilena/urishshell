@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:26:06 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:41:17 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void handle_shlvl(t_data *data)
 	int		shlvl;
 	char	*shlvl_val;
 
+	shlvl_str = get_env(data->env, "SHLVL");
+	shlvl = 0;
 	if (!shlvl_str)
 		shlvl = 1;
 	else if (is_numeric(shlvl_str))

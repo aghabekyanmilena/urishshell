@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:19:58 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:50:14 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int builtin_cd(char **args, t_data *data)
 	i = 0;
 	while (args[i])
 		i++;
-	if (i > 1)
+	if (i > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		ERR_NO = 1;
@@ -46,6 +46,7 @@ int builtin_cd(char **args, t_data *data)
 		update_env(data, "OLDPWD", oldpwd);
 	if (chdir(dir) != 0)
 	{
+		ERR_NO = 1;
 		perror("cd");
 		return (1);
 	}

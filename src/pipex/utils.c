@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:38:56 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/07 15:29:18 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/08 14:57:43 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ void	free_double(char **s)
 	int	i;
 
 	i = 0;
-	if (!s)
+	if (!s || !(*s))
 		return ;
-	while (s[i] != NULL)
+	while (s[i])
 		free(s[i++]);
 	free(s);
+	s = NULL;
 }
 

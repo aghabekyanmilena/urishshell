@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:27:03 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:14:57 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:54:11 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtin_env(char **args, t_data *data)
 	int	i;
 	int	j;
 
-	j = -1;
+	j = 0;
 	while (args[j])
 		j++;
 	if (j > 1)

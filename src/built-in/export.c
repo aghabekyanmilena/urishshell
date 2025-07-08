@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:48:45 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/08 15:27:31 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	print_export_error(char *arg)
 {
+	ERR_NO = 1;
 	write(2, "export: `", 9);
 	write(2, arg, strlen(arg));
 	write(2, "`: not a valid identifier\n", 27);
@@ -118,11 +119,7 @@ int builtin_export(char **args, t_data *data)
 	while (args[i])
 	{
 		if (!is_valid_var_name(args[i]))
-		{
-			print_export_error(args[i]);
-			i++;
-			continue;
-		}
+			return (print_export_error(args[i]), 1);
 		equal_sign = ft_strchr(args[i], '=');
 		if (!equal_sign)
 		{
@@ -138,7 +135,10 @@ int builtin_export(char **args, t_data *data)
 		ft_strncpy(var_name, args[i], equal_sign - args[i]);
 		index = find_env_var_index(data->env, var_name);
 		if (index >= 0)
+		{
+			free(data->env[index]);
 			data->env[index] = ft_strdup(args[i]);
+		}
 		else
 		{
 			len = 0;
@@ -153,10 +153,12 @@ int builtin_export(char **args, t_data *data)
 			}
 			new_env[len] = ft_strdup(args[i]);
 			new_env[len + 1] = NULL;
+			free(data->env);
 			data->env = new_env;
 		}
 		i++;
 		free(var_name);
 	}
+	ERR_NO = 0;
 	return (0);
 }

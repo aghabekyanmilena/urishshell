@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:23:51 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:41:58 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_tokens(t_data *db)
 	db->token = NULL;
 }
 
-char	**copy_env(char **envp)
+char **copy_env(char **envp)
 {
 	int		i;
 	int		j;
@@ -58,10 +58,9 @@ char	**copy_env(char **envp)
 	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
 		return (NULL);
-	j = -1;
-	while (++j < i)
+	for (j = 0; j < i; j++)
 		copy[j] = ft_strdup(envp[j]);
-	copy[i] = NULL;
+	copy[j] = NULL;
 	return (copy);
 }
 
@@ -94,8 +93,8 @@ int	main(int argc, char **argv, char **env)
 			add_history(line);
 		}
 		free(line);
-		free_double(data_base.env);
 	}
+	free_double(data_base.env);
 	rl_clear_history();
 	return (0);
 }

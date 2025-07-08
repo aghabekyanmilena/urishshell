@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:24:50 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 15:38:38 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ void	free_struct(t_pipex *pipex)
 	if (!pipex)
 		return;
 	free_double(pipex->path);
-	if (pipex->cmd)
-		free_double(pipex->cmd);
+	// if (pipex->cmd)
+	// 	free_double(pipex->cmd);
 	free(pipex->pid);
 	free(pipex->limiter);
 	// free(pipex);
@@ -205,7 +205,7 @@ void	pipex_start(t_data *db, t_token *token)
 			if (cpy->type == WORD)
 			{
 				tmp = cmd_line;
-				cmd_line = ft_strsjoin(cmd_line, cpy->value, ' ');
+				cmd_line = ft_strsjoin(cmd_line, cpy->value, '+');
 				free(tmp);
 			}
 			add_cmd(&cmd, ft_strdup(cpy->value), cpy->type);
@@ -213,7 +213,7 @@ void	pipex_start(t_data *db, t_token *token)
 		}
 		if (cpy)
 			cpy = cpy->next;
-		pipex.cmd = ft_split(cmd_line, ' ');
+		pipex.cmd = ft_split(cmd_line, '+');
 		free(cmd_line);
 		commands(cmd, &pipex);
 		if (ERR_NO != 0)
