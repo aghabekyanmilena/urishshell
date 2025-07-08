@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 16:39:07 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:52:49 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	handling_signal(int signal)
 	(void)signal;
 	// else if (signal == SIGINT)
 	printf("\nurishshell: ");
+	ERR_NO = 130;
 }
 
 void	heredoc_case(int signal)
