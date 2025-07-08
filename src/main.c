@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 16:39:47 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 19:29:01 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,17 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	data_base.env = copy_env(env);
 	handle_shlvl(&data_base);
+	init_signal();
 	while (1)
 	{
-		init_signal();
+		ERR_NO = 1;
 		line = readline("urishshell: ");
+		if (ERR_NO == 130)
+		{
+			free(line);
+			continue;
+		}
+		ERR_NO = 0;
 		if (!line)
 			break;
 		if (line && *line != '\0')

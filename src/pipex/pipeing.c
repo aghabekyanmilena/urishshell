@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/08 16:37:58 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:03:09 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-void	heredoc_case(int signal);
 
 void	bash_script(t_pipex *pipex)
 {
@@ -19,7 +18,8 @@ void	bash_script(t_pipex *pipex)
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
 	ERR_NO = 127;
 	ft_putstr_fd(pipex->cmd[0], 2);
-	ft_putstr_fd(": command not found\n", 2);}
+	ft_putstr_fd(": command not found\n", 2);
+}
 
 void	execute_cmd(t_pipex *pipex)
 {
@@ -65,7 +65,7 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter);
@@ -86,7 +86,6 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
-	ERR_NO = 0;
 }
 
 void	first(t_pipex *pipex, t_data *data_base)
@@ -106,7 +105,7 @@ void	first(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter);
@@ -128,7 +127,6 @@ void	first(t_pipex *pipex, t_data *data_base)
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
-	ERR_NO = 0;
 }
 
 void	last(t_pipex *pipex, t_data *data_base)
@@ -142,7 +140,7 @@ void	last(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter);
@@ -163,5 +161,4 @@ void	last(t_pipex *pipex, t_data *data_base)
 	close(pipex->fds[0]);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);
-	ERR_NO = 0;
 }

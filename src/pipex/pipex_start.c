@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 16:37:54 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:01:19 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-void	heredoc_case(int signal);
 
 void	add_cmd(t_cmd **head, char *value, t_token_type type)
 {
@@ -36,6 +34,7 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 {
 	int inf = 0 ;
 	int out = 1;
+	
 	if (pipex->infile != 0)
 		inf = dup(0);
 	if (pipex->outfile != 1)
@@ -76,8 +75,8 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter);
 		dup2(pipex->infile, STDIN_FILENO);
@@ -94,7 +93,6 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		close(pipex->infile);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);
-	ERR_NO = 0;
 }
 
 void free_cmd(t_cmd **cmd)
@@ -169,7 +167,6 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			pipex->limiter = ft_strdup(cpy->value);
 		cpy = cpy->next;
 	}
-	ERR_NO = 0;
 }
 
 void	free_struct(t_pipex *pipex)
@@ -197,9 +194,6 @@ void	pipex_start(t_data *db, t_token *token)
 	cmd = NULL;
 	cpy = token;
 	init(db, &pipex);
-	// init_signal();
-	// signal(SIGINT, &handle_exec);
-	// signal(SIGQUIT, &handle_exec); // avelacnel 131
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (!cpy)
@@ -249,6 +243,8 @@ void	pipex_start(t_data *db, t_token *token)
 	while (i < pipex.forks)
 	{
 		waitpid(pipex.pid[i++], &status, 0);
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		if (WIFEXITED(status))
 			ERR_NO = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
@@ -256,14 +252,3 @@ void	pipex_start(t_data *db, t_token *token)
 	}
 	free_struct(&pipex);
 }
-
-
-// signal(SIGINT, &heredoc_case);
-// signal(SIGQUIT, &heredoc_case);
-/* erb pid == 0 et jamanak petqa kanchel
-signal(SIGINT, heredoc_case) vor chisht dzev durs ga heredocic
-heto petqa hamel kanchel init_signalsy
-
-	signal(SIGINT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	init_signals();     senc mi bana petq*/
