@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 16:54:37 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:20:39 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ int	builtin_echo(char **args)
 	}
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		char	*str;
+		str = ft_strdup(args[i]);
+		if (str)
+		{
+			printf("%s", str);
+			free(str);
+		}
 		if (args[i + 1])
 			printf(" ");
 		i++;

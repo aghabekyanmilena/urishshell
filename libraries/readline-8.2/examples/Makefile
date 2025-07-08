@@ -21,7 +21,11 @@ RL_LIBRARY_VERSION = 8.2
 SHELL = /bin/sh
 RM = rm -f
 
+<<<<<<< HEAD
 prefix = /home/milena/Desktop/mini/libraries/readline
+=======
+prefix = /home/atseruny/Desktop/minishell/libraries/readline
+>>>>>>> anush
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,7 +36,11 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
+<<<<<<< HEAD
 BUILD_DIR = /home/milena/Desktop/mini/libraries/readline-8.2
+=======
+BUILD_DIR = /home/atseruny/Desktop/minishell/libraries/readline-8.2
+>>>>>>> anush
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

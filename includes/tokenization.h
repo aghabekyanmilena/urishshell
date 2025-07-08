@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 16:35:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:24:38 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ typedef struct s_token		t_token;
 typedef struct s_data		t_data;
 typedef struct s_command	t_cmd;
 
+extern int ERR_NO;
+
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
-
-// int	g_exit_status = 0; // global variable for exit codes
 
 typedef enum e_token_type
 {

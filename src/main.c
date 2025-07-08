@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 21:21:10 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:23:51 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../includes/syntax.h"
 #include "../includes/built_in.h"
 #include "../includes/signals.h"
+
+int ERR_NO = 0;
 
 void	handle_shlvl(t_data *data);
 char	*get_env(char **env, const char *key);
@@ -26,18 +28,6 @@ void	print_tokens(t_token *tok)
 		printf("Type: %d, Value: %s\n", tok->type, tok->value);
 		tok = tok->next;
 	}
-}
-
-void	free_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
 }
 
 void	free_tokens(t_data *db)
@@ -89,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 		init_signal();
 		line = readline("urishshell: ");
 		if (!line)
-			break ;
+			break; // esi henc ctrl+D a, petqa senc lini
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
@@ -101,9 +91,10 @@ int	main(int argc, char **argv, char **env)
 			// print_tokens(data_base.token);
 			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
+			add_history(line);
 		}
-		add_history(line);
 		free(line);
+		free_double(data_base.env);
 	}
 	rl_clear_history();
 	return (0);

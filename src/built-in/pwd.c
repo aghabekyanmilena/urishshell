@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/03 15:35:25 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:39:45 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char *get_env(char **env, const char *key);
 
 int	builtin_pwd(t_data *data)
 {
-	char *cwd;
+	char	*cwd;
+	char	*pwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd)
@@ -26,7 +27,7 @@ int	builtin_pwd(t_data *data)
 	}
 	else
 	{
-		char *pwd = get_env(data->env, "PWD");
+		pwd = get_env(data->env, "PWD");
 		if (pwd)
 			printf("%s\n", pwd);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 21:31:12 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:26:06 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ static int	is_numeric(const char *str)
 // esi env-i mej gtnuma key@ u =ic heto dra hamapatasxan valuen return anum
 char	*get_env(char **env, const char *key)
 {
-	size_t	len;
-	int		i;
-
-	len = ft_strlen(key);
-	i = 0;
+	size_t len = ft_strlen(key);
+	int	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
@@ -47,9 +44,14 @@ char	*get_env(char **env, const char *key)
 // update a anum env-n ete vary ka replace a anum ete chka avelacnuma
 void	update_env(t_data *data, const char *key, const char *value)
 {
-	int idx = find_env_var_index(data->env, key);
-	char *new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);
+	int		idx;
+	char	*new_entry;
+	int		len;
+	char	**new_env;
+	int		i;
 
+	new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);
+	idx = find_env_var_index(data->env, key);
 	if (!new_entry)
 		return ;
 	ft_strcpy(new_entry, key);
@@ -62,11 +64,13 @@ void	update_env(t_data *data, const char *key, const char *value)
 	}
 	else
 	{
-		int	len = 0;
+		len = 0;
 		while (data->env && data->env[len])
 			len++;
-		char **new_env = malloc(sizeof(char *) * (len + 2));
-		int	i = -1;
+		new_env = malloc(sizeof(char *) * (len + 2));
+		if (!new_env)
+			return ;
+		i = -1;
 		while (++i < len)
 			new_env[i] = data->env[i];
 		new_env[len] = new_entry;
@@ -83,8 +87,6 @@ void handle_shlvl(t_data *data)
 	int		shlvl;
 	char	*shlvl_val;
 
-	shlvl_str = get_env(data->env, "SHLVL");
-	shlvl = 0;
 	if (!shlvl_str)
 		shlvl = 1;
 	else if (is_numeric(shlvl_str))

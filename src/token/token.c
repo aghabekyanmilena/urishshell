@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/04 15:51:18 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:24:46 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 void	redirnery(t_token **first)
 {
 	t_token	*start;
+	t_token	*cpy;
+	t_token	*tmp;
 	char	*before;
 	char	*after;
 	char	*op;
-	t_token	*cpy;
-	t_token	*tmp;
 	int		i;
-
 	int		j;
 
 	cpy = *first;
@@ -180,9 +179,10 @@ void	chakert_check(char *line, t_data *data_base)
 	int		j;
 	char	*all;
 	char	*new_line;
-	t_token	*head = NULL;
+	t_token	*head;
 
 	i = 0;
+	head = NULL;
 	all = ft_strdup(line);
 	i = 0;
 	while (all[i])
@@ -232,7 +232,6 @@ void	chakert_check(char *line, t_data *data_base)
 		i += j;
 	}
 	free(all);
-	// free_tokens(data_base);
 	data_base->token = head;
 }
 

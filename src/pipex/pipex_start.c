@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/06 00:56:34 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:24:50 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,31 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		}
 		return ;
 	}
-	pipex->pid[pipex->current_cmd] = fork();
-	// if (pipex->pid[pipex->current_cmd] == -1)
-	// 	err_exit("Error forking\n", pipex, 1);
-	if (pipex->pid[pipex->current_cmd] == 0)
+	pipex->pid[pipex->forks] = fork();
+	// pipex->forks++;
+	if (pipex->pid[pipex->forks] == -1)
+	{
+		ERR_NO = 1;
+		ft_putstr_fd("Error forking\n", 2);
+		return ;
+	}
+	if (pipex->pid[pipex->forks] == 0)
 	{
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
-
 		if (pipex->infile != 0)
 			close(pipex->infile);
 		if (pipex->outfile != 1)
 			close(pipex->outfile);
 		execute_cmd(pipex);
-		exit(1);
 	}
+	pipex->forks++;
+
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);
+	ERR_NO = 0;
 }
 
 void free_cmd(t_cmd **cmd)
@@ -106,7 +112,6 @@ void free_cmd(t_cmd **cmd)
 	*cmd = NULL;
 }
 
-
 void	commands(t_cmd *cmd, t_pipex *pipex)
 {
 	t_cmd *cpy;
@@ -118,15 +123,49 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	while (cpy)
 	{
 		if (cpy->type == INFILE)
+		{
+			if (access(cpy->value, F_OK) == -1)
+			{
+				ft_putstr_fd(cpy->value, 2);
+				ft_putstr_fd(": No such file or directory\n", 2);
+				ERR_NO = 1;
+				return ;
+			}
+			else if (access(cpy->value, R_OK) == -1)
+			{
+				ft_putstr_fd(cpy->value, 2);
+				ft_putstr_fd(": Permission denied\n", 2);
+				ERR_NO = 1;
+				return ;
+			}
 			pipex->infile = open(cpy->value, O_RDONLY);
-		else if (cpy->type == OUTFILE)
-			pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		else if (cpy->type == OUTFILE_APPEND)
-			pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
+			if (pipex->infile == -1)
+			{
+				ft_putstr_fd(cpy->value, 2);
+				ft_putstr_fd(": No such file or directory\n", 2);
+				ERR_NO = 1;
+				return ;
+			}
+		}
+		else if (cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
+		{
+			if (access(cpy->value, F_OK) != -1 && access(cpy->value, W_OK) == -1)
+			{
+				ft_putstr_fd(cpy->value, 2);
+				ft_putstr_fd(": Permission denied\n", 2);
+				ERR_NO = 1;
+				return ;
+			}
+			if (cpy->type == OUTFILE_APPEND)
+				pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_APPEND, 0777);
+			else
+				pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		}
 		else if (cpy->type == LIMITER)
 			pipex->limiter = ft_strdup(cpy->value);
 		cpy = cpy->next;
 	}
+	ERR_NO = 0;
 }
 
 void	free_struct(t_pipex *pipex)
@@ -134,8 +173,11 @@ void	free_struct(t_pipex *pipex)
 	if (!pipex)
 		return;
 	free_double(pipex->path);
+	if (pipex->cmd)
+		free_double(pipex->cmd);
 	free(pipex->pid);
 	free(pipex->limiter);
+	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -143,6 +185,8 @@ void	pipex_start(t_data *db, t_token *token)
 	t_token	*cpy;
 	t_pipex	pipex;
 	t_cmd	*cmd;
+	char	*tmp;
+	char	*cmd_line;
 	int		i;
 	int		status;
 
@@ -153,14 +197,14 @@ void	pipex_start(t_data *db, t_token *token)
 	signal(SIGQUIT, &handle_exec); // avelacnel 131
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
-		if (cpy == NULL)
+		if (!cpy)
 			return ;
-		char *cmd_line = ft_strdup("");
+		cmd_line = ft_strdup("");
 		while (cpy && cpy->type != S_PIPE)
 		{
 			if (cpy->type == WORD)
 			{
-				char *tmp = cmd_line;
+				tmp = cmd_line;
 				cmd_line = ft_strsjoin(cmd_line, cpy->value, ' ');
 				free(tmp);
 			}
@@ -170,8 +214,16 @@ void	pipex_start(t_data *db, t_token *token)
 		if (cpy)
 			cpy = cpy->next;
 		pipex.cmd = ft_split(cmd_line, ' ');
+		free(cmd_line);
 		commands(cmd, &pipex);
-		if (pipex.limiter != NULL)
+		if (ERR_NO != 0)
+		{
+			free_cmd(&cmd);
+			free_double(pipex.cmd);
+			free_struct(&pipex);
+			return ;
+		}
+		if (pipex.limiter)
 			read_here_doc(&pipex, pipex.limiter);
 		if (db->pipes_count == 0)
 			no_pipe(&pipex, db);
@@ -181,16 +233,22 @@ void	pipex_start(t_data *db, t_token *token)
 			last(&pipex, db);
 		else
 			mid(&pipex, db);
-		if (pipex.limiter != NULL)
+		if (pipex.limiter)
 			unlink(TMP_FILE);
-		free(cmd_line);
 		free_cmd(&cmd);
 		free_double(pipex.cmd);
+		pipex.cmd = NULL;
 		(pipex.current_cmd)++;
 	}
 	i = 0;
-	while (pipex.pid[i])
+	while (i < pipex.forks)
+	{
 		waitpid(pipex.pid[i++], &status, 0);
+		if (WIFEXITED(status))
+			ERR_NO = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			ERR_NO = 128 + WTERMSIG(status);
+	}
 	free_struct(&pipex);
 }
 
