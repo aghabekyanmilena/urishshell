@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 21:21:38 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:15:04 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@ int	builtin_exit(char **args)
 	while (args[i])
 		i++;
 	if (i > 2)
-		printf("A\n");
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
+		ERR_NO = 1;
+		return (1);
+	}
 	if (args[1])
 	{
 		if (!is_digital(args[1]))
 			printf("minishell: exit: %s: numeric argument required\n", args[1]);
 		exit_code = ft_atoi(args[1]);
 	}
+	ERR_NO = exit_code;
 	exit(exit_code);
 }
