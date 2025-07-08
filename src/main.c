@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 15:41:58 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:39:47 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **env)
 		init_signal();
 		line = readline("urishshell: ");
 		if (!line)
-			break; // esi henc ctrl+D a, petqa senc lini
+			break;
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);

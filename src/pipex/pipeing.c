@@ -6,11 +6,12 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/08 14:21:47 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:37:58 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+void	heredoc_case(int signal);
 
 void	bash_script(t_pipex *pipex)
 {
@@ -56,7 +57,6 @@ void	mid(t_pipex *pipex, t_data *data_base)
 		return ;
 	}
 	pipex->pid[pipex->forks] = fork();
-	// pipex->forks++;
 	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
@@ -65,6 +65,10 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
+		signal(SIGINT, &heredoc_case);
+		signal(SIGQUIT, SIG_IGN);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter);
 		close(fders[0]);
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(fders[1], STDOUT_FILENO);
@@ -79,7 +83,6 @@ void	mid(t_pipex *pipex, t_data *data_base)
 			execute_cmd(pipex);
 	}
 	pipex->forks++;
-
 	close(pipex->fds[0]);
 	close(fders[1]);
 	pipex->fds[0] = fders[0];
@@ -95,7 +98,6 @@ void	first(t_pipex *pipex, t_data *data_base)
 		return ;
 	}
 	pipex->pid[pipex->forks] = fork();
-	// pipex->forks++;
 	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
@@ -104,6 +106,10 @@ void	first(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
+		signal(SIGINT, &heredoc_case);
+		signal(SIGQUIT, SIG_IGN);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter);
 		close(pipex->fds[0]);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->fds[1], STDOUT_FILENO);
@@ -119,7 +125,6 @@ void	first(t_pipex *pipex, t_data *data_base)
 			execute_cmd(pipex);
 	}
 	pipex->forks++;
-
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	close(pipex->fds[1]);
@@ -129,7 +134,6 @@ void	first(t_pipex *pipex, t_data *data_base)
 void	last(t_pipex *pipex, t_data *data_base)
 {
 	pipex->pid[pipex->forks] = fork();
-	// pipex->forks++;
 	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
@@ -138,6 +142,10 @@ void	last(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
+		signal(SIGINT, &heredoc_case);
+		signal(SIGQUIT, SIG_IGN);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter);
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		close(pipex->fds[0]);
@@ -152,7 +160,6 @@ void	last(t_pipex *pipex, t_data *data_base)
 			execute_cmd(pipex);
 	}
 	pipex->forks++;
-
 	close(pipex->fds[0]);
 	if (pipex->outfile != 1)
 		close(pipex->outfile);

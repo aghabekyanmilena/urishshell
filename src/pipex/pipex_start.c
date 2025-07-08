@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 15:38:38 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:37:54 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
+		signal(SIGINT, &heredoc_case);
+		signal(SIGQUIT, SIG_IGN);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		if (pipex->infile != 0)
@@ -193,8 +197,9 @@ void	pipex_start(t_data *db, t_token *token)
 	cmd = NULL;
 	cpy = token;
 	init(db, &pipex);
-	signal(SIGINT, &handle_exec);
-	signal(SIGQUIT, &handle_exec); // avelacnel 131
+	// init_signal();
+	// signal(SIGINT, &handle_exec);
+	// signal(SIGQUIT, &handle_exec); // avelacnel 131
 	while (pipex.current_cmd < pipex.count_cmd)
 	{
 		if (!cpy)
@@ -223,8 +228,8 @@ void	pipex_start(t_data *db, t_token *token)
 			free_struct(&pipex);
 			return ;
 		}
-		if (pipex.limiter)
-			read_here_doc(&pipex, pipex.limiter);
+		// if (pipex.limiter)
+		// 	read_here_doc(&pipex, pipex.limiter);
 		if (db->pipes_count == 0)
 			no_pipe(&pipex, db);
 		else if (pipex.current_cmd == 0)
