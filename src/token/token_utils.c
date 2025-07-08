@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 20:52:06 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:05:10 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_dollar_existance(t_token *cpy, t_data *db, int *i)
 	doll = NULL;
 	if (cpy->value[*i] == '$' && cpy->value[*i + 1] != '\0')
 	{
-		printf("A\n");
+		// printf("A\n");
 		(*i)++;
 		k = 0;
 		if (cpy->value[*i] != '?')
