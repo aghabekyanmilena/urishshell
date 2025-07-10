@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 00:10:20 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/09 19:45:21 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,14 @@ void	chakert_check(char *line, t_data *data_base)
 					j++;
 				if (all[i + j] != '"')
 				{
+					ERR_NO = 1;
+					printf("syntax error: unexpected token `%s'\n", all);
 					free_tokens(data_base);
 					free(all);
 					return;
-				}	//error
+
+					// exit(ERR_NO);
+				}
 			}
 			else if (all[i + j] == '\'')
 			{
@@ -218,11 +222,13 @@ void	chakert_check(char *line, t_data *data_base)
 					j++;
 				if (all[i + j] != '\'')
 				{
+					ERR_NO = 1;
+					printf("syntax error: unexpected token `%s'\n", all);
 					free_tokens(data_base);
 					free(all);
 					return;
+					// exit(ERR_NO);
 				}
-					//error
 			}
 			j++;
 			if  (!all[i + j] || ft_isspace(all[i + j]))
@@ -235,91 +241,94 @@ void	chakert_check(char *line, t_data *data_base)
 		i += j;
 	}
 	free(all);
+	ERR_NO = 0;
 	data_base->token = head;
 }
 
-char	*check_dollar(char *line, t_data *db, int *i)
+char	*check_dollar(char *line, t_data *db, int *i, int f)
 {
 	int		k;
+	int		j;
 	char	*bacac;
 	char	*free_anel;
 	char	*start;
 	char	*end;
 	char	*doll;
-	char	*dup;
 
-	dup = ft_strdup(line);
 	doll = NULL;
-	if (dup[*i] == '$' && dup[*i + 1] != '\0')
+	j = *i;
+	while ((line[*i] && f == 0) || (line[*i] && line[*i] != '"' && f == 1))
 	{
-		(*i)++;
-		k = 0;
-		if (dup[*i] != '?')
+		if (line[*i] == '$' && line[*i + 1])
 		{
-			while (dup[*i + k] != '\0' && !ft_isspace(dup[*i + k]) && dup[*i + k] != '~' \
-				&& dup[*i + k] != '@' && dup[*i + k] != '#' && dup[*i + k] != '$' \
-				&& dup[*i + k] != '%' && dup[*i + k] != '^' && dup[*i + k] != '-' \
-				&& dup[*i + k] != '+' && dup[*i + k] != '=' && dup[*i + k] != '/' \
-				&& dup[*i + k] != '.' && dup[*i + k] != ':' && dup[*i + k] != '!' \
-				&& dup[*i + k] != '"' && dup[*i + k] != '\'' && dup[*i + k] != '\n')
-				k++;
-		}
-		else
-			k++;
-		free_anel = ft_substr(dup, *i, k);
-		bacac = ft_strdup(get_env(db->env, free_anel));
-		if (!bacac)
-		{
-			if (ft_strcmp(free_anel, "?") == 0)
+			(*i)++;
+			k = 0;
+			if (line[*i] != '?')
 			{
-				doll = ft_itoa(ERR_NO);
-				bacac = ft_strdup(doll);
-				free(doll);
+				while (line[*i + k] != '\0' && !ft_isspace(line[*i + k]) && line[*i + k] != '~' \
+					&& line[*i + k] != '@' && line[*i + k] != '#' && line[*i + k] != '$' \
+					&& line[*i + k] != '%' && line[*i + k] != '^' && line[*i + k] != '-' \
+					&& line[*i + k] != '+' && line[*i + k] != '=' && line[*i + k] != '/' \
+					&& line[*i + k] != '.' && line[*i + k] != ':' && line[*i + k] != '!' \
+					&& line[*i + k] != '"' && line[*i + k] != '\'' && line[*i + k] != '\n')
+					k++;
 			}
 			else
-				bacac = ft_strdup("");
+				k++;
+			free_anel = ft_substr(line, *i, k);
+			bacac = ft_strdup(get_env(db->env, free_anel));
+			if (!bacac)
+			{
+				if (ft_strcmp(free_anel, "?") == 0)
+				{
+					doll = ft_itoa(ERR_NO);
+					bacac = ft_strdup(doll);
+					free(doll);
+				}
+				else
+					bacac = ft_strdup("");
+			}
+			start = ft_substr(line, 0, *i - 1);
+			free(free_anel);
+			free_anel = ft_strjoin(start, bacac);
+			free(start);
+			free(bacac);
+			end = ft_substr(line, *i + k, ft_strlen(line) - *i - k);
+			bacac = ft_strjoin(free_anel, end);
+			free(free_anel);
+			free(end);
+			free(line);
+			line = bacac;
 		}
-		start = ft_substr(dup, 0, *i - 1);
-		free(free_anel);
-		free_anel = ft_strjoin(start, bacac);
-		free(start);
-		free(bacac);
-		end = ft_substr(dup, *i + k, ft_strlen(dup) - *i - k);
-		bacac = ft_strjoin(free_anel, end);
-		free(free_anel);
-		free(end);
-		free(dup);
-		dup = bacac;
-		*i+=k;
+		else
+			(*i)++;
 	}
-	else 
-		(*i)++;
-	return (dup);
+	return (line);
 }
 
 char	*dollar_in_line(char *line, t_data *db)
 {
 	int		i;
 	char	*new;
+
 	i = 0;
-	while(line[i])
+	new = ft_strdup(line);
+	while(new[i])
 	{
-		if (line[i] == '\'')
+		if (new[i] == '\'')
 		{
 			i++;
-			while (line[i] && line[i] != '\'')
+			while (new[i] && new[i] != '\'')
 				i++;
 		}
-		else if (line[i] == '"')
+		else if (new[i] == '"' && new[i + 1])
 		{
 			i++;
-			while (line[i] && line[i] != '"')
-				new = check_dollar(line, db, &i);
+			new = check_dollar(new, db, &i, 1);
 		}
 		else
 		{
-			while (line[i] && line[i] != '"' && line[i] != '\'')
-				new = check_dollar(line, db, &i);
+			new = check_dollar(new, db, &i, 0);
 		}
 	}
 	return (new);
@@ -327,10 +336,9 @@ char	*dollar_in_line(char *line, t_data *db)
 
 void	init_tokens(char *line, t_data *data_base)
 {
-	// char	*dup;
+	char	*dup;
 
-	// dup = dollar_in_line(line, data_base);
-	//porcel flagov
+	dup = dollar_in_line(line, data_base);
 	chakert_check(dup, data_base);
 	// dollar_bacel(data_base);
 	chakert_hanel(data_base);

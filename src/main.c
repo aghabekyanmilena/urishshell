@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 23:59:59 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/09 19:02:43 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	free_tokens(t_data *db)
 	t_token	*head;
 
 	head = db->token;
+	if (!head)
+		return ;
 	while (head)
 	{
 		tmp = head->next;
@@ -72,7 +74,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	data_base.env = copy_env(env);
+	ERR_NO = 0;
 	data_base.command_count = 0;
+	data_base.token = NULL;
 	handle_shlvl(&data_base);
 	while (1)
 	{
@@ -83,18 +87,15 @@ int	main(int argc, char **argv, char **env)
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
-			if (check_syntax_errors(&data_base))
+			if (check_syntax_errors(&data_base) == 0)
 			{
-				free(line);
-				return (1);
+				data_base.command_count++;
+				pipex_start(&data_base, data_base.token);
 			}
 			// print_tokens(data_base.token);
-			data_base.command_count++;
-			pipex_start(&data_base, data_base.token);
 			free_tokens(&data_base);
 			add_history(line);
 		}
-
 		free(line);
 	}
 	free_double(data_base.env);

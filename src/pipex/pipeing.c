@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/08 20:04:00 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:30:51 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGINT, &heredoc_case);
+		// signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		close(fders[0]);
@@ -106,8 +106,8 @@ void	first(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGINT, &heredoc_case);
+		// signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		close(pipex->fds[0]);
@@ -142,8 +142,8 @@ void	last(t_pipex *pipex, t_data *data_base)
 	}
 	if (pipex->pid[pipex->forks] == 0)
 	{
-		signal(SIGINT, &heredoc_case);
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGINT, &heredoc_case);
+		// signal(SIGQUIT, SIG_IGN);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->fds[0], STDIN_FILENO);

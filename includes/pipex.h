@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/08 20:24:49 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:52:24 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "built_in.h"
 # include "signals.h"
 
-# define TMP_FILE "/tmp/heredoc.tmp"
+# define TMP_FILE "/tmp/here_doc.tmp"
 
 typedef struct s_pipex
 {
@@ -47,6 +47,7 @@ void	first(t_pipex *pipex, t_data *data_base);
 void	last(t_pipex *pipex, t_data *data_base);
 void	mid(t_pipex *pipex, t_data *data_base);
 void	execute_cmd(t_pipex *pipex);
-void	check_dollar_existance(t_token *cpy, t_data *db, int *i);
+char	*dollar_in_line(char *line, t_data *db);
+
 
 #endif

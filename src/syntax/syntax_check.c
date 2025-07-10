@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:22:29 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:52:15 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ bool	is_redir(t_token_type type)
 		|| type == HEREDOC || type == APPEND);
 }
 
-void	syntax_error(t_data *db, t_token *token)
+void	syntax_error(t_data *db, char *token)
 {
 	ERR_NO = 1;
-	printf("minishell: syntax error, unexpected token `%s'\n", token->value);
+	printf("syntax error: unexpected token `%s'\n", token);
 	free_tokens(db);
 }
 
@@ -29,12 +29,14 @@ bool	check_syntax_errors(t_data *db)
 {
 	t_token	*curr;
 
+	if (ERR_NO == 1)
+		return (true);
 	curr = db->token;
 	if (!curr)
 		return (false);
 	if (curr->type == S_PIPE)
 	{
-		syntax_error(db, curr);
+		syntax_error(db, curr->value);
 		return (true);
 	}
 	while (curr->next)
@@ -44,14 +46,14 @@ bool	check_syntax_errors(t_data *db)
 			|| (is_redir(curr->type) && (curr->next->type == S_PIPE
 			|| is_redir(curr->next->type))))
 		{
-			syntax_error(db, curr->next);
+			syntax_error(db, curr->next->value);
 			return (true);
 		}
 		curr = curr->next;
 	}
 	if (curr->type == S_PIPE || is_redir(curr->type))
 	{
-		syntax_error(db, curr);
+		syntax_error(db, curr->value);
 		return (true);
 	}
 	ERR_NO = 0;
