@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 19:45:21 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:20:41 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	redirnery(t_token **first)
 		cpy = tmp;
 	}
 	*first = start;
-
 }
 
 void	chakert_hanel(t_data *db)
@@ -129,11 +128,9 @@ void	chakert_hanel(t_data *db)
 			}
 			else
 				i++;
-			
 		}
 		cpy = cpy->next;
 	}
-	
 }
 
 void	init_tokens_sharunak(t_data *data_base)
@@ -211,8 +208,6 @@ void	chakert_check(char *line, t_data *data_base)
 					free_tokens(data_base);
 					free(all);
 					return;
-
-					// exit(ERR_NO);
 				}
 			}
 			else if (all[i + j] == '\'')
@@ -227,7 +222,6 @@ void	chakert_check(char *line, t_data *data_base)
 					free_tokens(data_base);
 					free(all);
 					return;
-					// exit(ERR_NO);
 				}
 			}
 			j++;
@@ -340,7 +334,6 @@ void	init_tokens(char *line, t_data *data_base)
 
 	dup = dollar_in_line(line, data_base);
 	chakert_check(dup, data_base);
-	// dollar_bacel(data_base);
 	chakert_hanel(data_base);
 	redirnery(&(data_base->token));
 	init_tokens_sharunak(data_base);

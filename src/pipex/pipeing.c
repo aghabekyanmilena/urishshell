@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/09 19:30:51 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:00:01 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	{
 		// signal(SIGINT, &heredoc_case);
 		// signal(SIGQUIT, SIG_IGN);
-		if (pipex->limiter)
-			read_here_doc(pipex, pipex->limiter, data_base);
+		// if (pipex->limiter)
+		// 	read_here_doc(pipex, pipex->limiter, data_base);
 		close(fders[0]);
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(fders[1], STDOUT_FILENO);
@@ -108,8 +108,8 @@ void	first(t_pipex *pipex, t_data *data_base)
 	{
 		// signal(SIGINT, &heredoc_case);
 		// signal(SIGQUIT, SIG_IGN);
-		if (pipex->limiter)
-			read_here_doc(pipex, pipex->limiter, data_base);
+		// if (pipex->limiter)
+		// 	read_here_doc(pipex, pipex->limiter, data_base);
 		close(pipex->fds[0]);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->fds[1], STDOUT_FILENO);
@@ -144,8 +144,8 @@ void	last(t_pipex *pipex, t_data *data_base)
 	{
 		// signal(SIGINT, &heredoc_case);
 		// signal(SIGQUIT, SIG_IGN);
-		if (pipex->limiter)
-			read_here_doc(pipex, pipex->limiter, data_base);
+		// if (pipex->limiter)
+		// 	read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->fds[0], STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		close(pipex->fds[0]);

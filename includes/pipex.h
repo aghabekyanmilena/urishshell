@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/09 19:52:24 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:30:56 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,20 @@ typedef struct s_pipex
 	char			**env;
 	int				infile;
 	int				outfile;
-	char			*limiter;
+	char			**limiter;
 	char			**cmd;
 	int				current_cmd;
 	int				count_cmd;
 	int				forks;
 }					t_pipex;
+
+typedef struct s_limiter
+{
+	char			*value;
+	t_limiter		*next;
+	
+}					t_limiter;
+
 
 void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);

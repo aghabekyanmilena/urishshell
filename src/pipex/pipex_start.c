@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 19:55:42 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:08:01 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	{
 		// signal(SIGINT, &heredoc_case);
 		// signal(SIGQUIT, SIG_IGN);
-		if (pipex->limiter)
-			read_here_doc(pipex, pipex->limiter, data_base);
+		// if (pipex->limiter)
+		// 	read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		if (pipex->infile != 0)
@@ -164,7 +164,11 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 				pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		else if (cpy->type == LIMITER)
+		{
+			if (pipex->limiter)
+			
 			pipex->limiter = ft_strdup(cpy->value);
+		}
 		cpy = cpy->next;
 	}
 	ERR_NO = 0;

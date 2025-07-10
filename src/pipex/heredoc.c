@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:05:02 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/09 19:54:34 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:32:22 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	read_here_doc(t_pipex *heredoc, char *limiter, t_data *db)
 		free(str);
 	}
 	free(lim);
+	free(heredoc->limiter);
 	close(heredoc->infile);
 	heredoc->infile = open(TMP_FILE, O_RDONLY);
 	unlink(TMP_FILE);

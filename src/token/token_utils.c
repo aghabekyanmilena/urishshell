@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 19:22:56 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:19:47 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@
 void	add_token(t_token **head, char *value, t_token_type type)
 {
 	t_token	*new;
+	t_token	*tmp;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
@@ -115,7 +116,7 @@ void	add_token(t_token **head, char *value, t_token_type type)
 		*head = new;
 	else
 	{
-		t_token *tmp = *head;
+		tmp = *head;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
