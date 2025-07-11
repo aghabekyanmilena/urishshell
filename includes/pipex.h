@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/10 20:30:56 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:39:49 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 
 # define TMP_FILE "/tmp/here_doc.tmp"
 
+typedef struct s_limiter t_limiter;
+
+typedef struct s_limiter
+{
+	char			*value;
+	t_limiter		*next;
+}					t_limiter;
+
 typedef struct s_pipex
 {
 	int				fds[2];
@@ -32,24 +40,17 @@ typedef struct s_pipex
 	char			**env;
 	int				infile;
 	int				outfile;
-	char			**limiter;
+	t_limiter		*limiter;
 	char			**cmd;
 	int				current_cmd;
 	int				count_cmd;
 	int				forks;
 }					t_pipex;
 
-typedef struct s_limiter
-{
-	char			*value;
-	t_limiter		*next;
-	
-}					t_limiter;
-
 
 void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
-void	read_here_doc(t_pipex *heredoc, char *limiter, t_data *db);
+void	read_here_doc(t_pipex *heredoc, t_limiter *limiter, t_data *db);
 void	free_double(char **s);
 void	first(t_pipex *pipex, t_data *data_base);
 void	last(t_pipex *pipex, t_data *data_base);

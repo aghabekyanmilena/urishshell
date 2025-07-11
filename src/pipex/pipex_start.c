@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/10 20:08:01 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:36:32 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,42 @@ void	add_cmd(t_cmd **head, char *value, t_token_type type)
 	else
 	{
 		t_cmd *tmp = *head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
+void free_lim(t_limiter **cmd)
+{
+	t_limiter *tmp;
+	t_limiter *next;
+
+	if (!cmd || !*cmd)
+		return;
+	tmp = *cmd;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	*cmd = NULL;
+}
+
+void	add_lim(t_limiter **head, char *value)
+{
+	t_limiter *new = malloc(sizeof(t_limiter));
+	new->value = value;
+	new->next = NULL;
+
+	if (!*head)
+		*head = new;
+	else
+	{
+		t_limiter *tmp = *head;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -77,8 +113,8 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	{
 		// signal(SIGINT, &heredoc_case);
 		// signal(SIGQUIT, SIG_IGN);
-		// if (pipex->limiter)
-		// 	read_here_doc(pipex, pipex->limiter, data_base);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		if (pipex->infile != 0)
@@ -121,7 +157,6 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	cpy = cmd;
 	pipex->infile = 0;
 	pipex->outfile = 1;
-	pipex->limiter = NULL;
 	while (cpy)
 	{
 		if (cpy->type == INFILE)
@@ -165,9 +200,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 		}
 		else if (cpy->type == LIMITER)
 		{
-			if (pipex->limiter)
-			
-			pipex->limiter = ft_strdup(cpy->value);
+			add_lim(&pipex->limiter, ft_strdup(cpy->value));
 		}
 		cpy = cpy->next;
 	}
@@ -182,7 +215,7 @@ void	free_struct(t_pipex *pipex)
 	// if (pipex->cmd)
 	// 	free_double(pipex->cmd);
 	free(pipex->pid);
-	free(pipex->limiter);
+	free_lim(&pipex->limiter);
 	// free(pipex);
 }
 

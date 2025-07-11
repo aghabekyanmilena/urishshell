@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/10 19:20:41 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/11 23:33:13 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,6 @@ void	chakert_check(char *line, t_data *data_base)
 char	*check_dollar(char *line, t_data *db, int *i, int f)
 {
 	int		k;
-	int		j;
 	char	*bacac;
 	char	*free_anel;
 	char	*start;
@@ -250,7 +249,6 @@ char	*check_dollar(char *line, t_data *db, int *i, int f)
 	char	*doll;
 
 	doll = NULL;
-	j = *i;
 	while ((line[*i] && f == 0) || (line[*i] && line[*i] != '"' && f == 1))
 	{
 		if (line[*i] == '$' && line[*i + 1])
