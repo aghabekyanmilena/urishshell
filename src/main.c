@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 19:29:01 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:22:41 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,48 @@ char **copy_env(char **envp)
 	return (copy);
 }
 
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char	*line;
+// 	t_data	data_base;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	data_base.env = copy_env(env);
+// 	handle_shlvl(&data_base);
+// 	while (1)
+// 	{
+// 		init_signal();
+// 		ERR_NO = 1;
+// 		line = readline("urishshell: ");
+// 		if (ERR_NO == 130)
+// 		{
+// 			free(line);
+// 			continue;
+// 		}
+// 		ERR_NO = 0;
+// 		if (!line)
+// 			break;
+// 		if (line && *line != '\0')
+// 		{
+// 			init_tokens(line, &data_base);
+// 			if (check_syntax_errors(&data_base))
+// 			{
+// 				free(line);
+// 				return (1);
+// 			}
+// 			// print_tokens(data_base.token);
+// 			pipex_start(&data_base, data_base.token);
+// 			free_tokens(&data_base);
+// 			add_history(line);
+// 		}
+// 		free(line);
+// 	}
+// 	free_double(data_base.env);
+// 	rl_clear_history();
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -73,17 +115,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	data_base.env = copy_env(env);
 	handle_shlvl(&data_base);
-	init_signal();
 	while (1)
 	{
-		ERR_NO = 1;
+		init_signal();
 		line = readline("urishshell: ");
-		if (ERR_NO == 130)
-		{
-			free(line);
-			continue;
-		}
-		ERR_NO = 0;
 		if (!line)
 			break;
 		if (line && *line != '\0')
