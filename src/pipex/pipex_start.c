@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:01:19 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:43:45 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void	pipex_start(t_data *db, t_token *token)
 			if (cpy->type == WORD)
 			{
 				tmp = cmd_line;
-				cmd_line = ft_strsjoin(cmd_line, cpy->value, '+');
+				cmd_line = ft_strsjoin(cmd_line, cpy->value, 31);
 				free(tmp);
 			}
 			add_cmd(&cmd, ft_strdup(cpy->value), cpy->type);
@@ -247,7 +247,7 @@ void	pipex_start(t_data *db, t_token *token)
 		}
 		if (cpy)
 			cpy = cpy->next;
-		pipex.cmd = ft_split(cmd_line, '+');
+		pipex.cmd = ft_split(cmd_line, 31);
 		free(cmd_line);
 		commands(cmd, &pipex);
 		if (ERR_NO != 0)
