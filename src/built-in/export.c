@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 20:21:55 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:08:48 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	no_arg_case(char **args, t_data *data)
 				write(1, "=\"", 2);
 				write(1, equal + 1, ft_strlen(equal + 1));
 				write(1, "\"\n", 2);
-			}	
+			}
 			else
 			{
 				write(1, "declare -x ", 11);
