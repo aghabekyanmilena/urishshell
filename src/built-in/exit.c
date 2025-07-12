@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:13:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:13:44 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 17:18:32 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ static int	ft_atolli_safe(const char *str, long long *out)
 	return (1);
 }
 
+static int	tiva(char *argument)
+{
+	int	i = 0;
+	while (argument[i])
+	{
+		if (ft_isdigit(argument[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	builtin_exit(char **args)
 {
 	long long	exit_code;
@@ -54,6 +66,13 @@ int	builtin_exit(char **args)
 	count = 0;
 	while (args[count])
 		count++;
+	if (args[1] && tiva(args[1]) == 0)
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(args[1], 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		exit(2);
+	}
 	if (count > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);

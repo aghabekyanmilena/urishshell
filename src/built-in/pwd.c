@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:24:12 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:59:03 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	builtin_pwd(t_data *data)
 {
 	char	*cwd;
 	char	*pwd;
+	// char *secret_pwd = data->secret_pwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd)
