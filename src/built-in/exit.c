@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/11 19:06:53 by miaghabe         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/12 15:58:29 by miaghabe         ###   ########.fr       */
->>>>>>> main
+/*   Created: 2025/07/12 16:13:17 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/12 16:13:44 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,47 +72,4 @@ int	builtin_exit(char **args)
 		exit((unsigned char)exit_code);
 	}
 	exit(0);
-<<<<<<< HEAD
 }
-
-
-// int	builtin_exit(char **args)
-// {
-// 	int	exit_code;
-// 	int	i;
-	
-// 	exit_code = 0;
-// 	printf("exit\n");
-// 	i = 0;
-// 	while (args[i])
-// 		i++;
-// 	if (i > 2)
-// 	{
-// 		ft_putendl_fd("exit: too many arguments", 2);
-// 		ERR_NO = 1;
-// 		return (1);
-// 	}
-// 	if (args[1])
-// 	{
-// 		if (!is_digital(args[1]))
-// 		{
-// 			printf("minishell: exit: %s: numeric argument required\n", args[1]);
-// 			ERR_NO = 2;
-// 		}
-// 		if ((long long)exit_code >= 9223372036854775807)
-// 		{
-// 			ERR_NO = 2;
-// 			write(2, "exit: ", 6);
-// 			write(2, ft_itoa(exit_code), ft_strlen(ft_itoa(exit_code)));
-// 			write(2, ": numeric argument required\n", 29);
-// 		}
-// 		exit_code = ft_atoi(args[1]);
-// 	}
-// 	ERR_NO = exit_code;
-// 	exit(exit_code);
-// }
-
-/* PWD-i depqy u cd*/
-=======
-}
->>>>>>> main
