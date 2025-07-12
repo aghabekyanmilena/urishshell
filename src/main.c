@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 19:02:43 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/12 16:02:21 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,48 @@ char **copy_env(char **envp)
 	copy[j] = NULL;
 	return (copy);
 }
+
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char	*line;
+// 	t_data	data_base;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	data_base.env = copy_env(env);
+// 	handle_shlvl(&data_base);
+// 	while (1)
+// 	{
+// 		init_signal();
+// 		ERR_NO = 1;
+// 		line = readline("urishshell: ");
+// 		if (ERR_NO == 130)
+// 		{
+// 			free(line);
+// 			continue;
+// 		}
+// 		ERR_NO = 0;
+// 		if (!line)
+// 			break;
+// 		if (line && *line != '\0')
+// 		{
+// 			init_tokens(line, &data_base);
+// 			if (check_syntax_errors(&data_base))
+// 			{
+// 				free(line);
+// 				return (1);
+// 			}
+// 			// print_tokens(data_base.token);
+// 			pipex_start(&data_base, data_base.token);
+// 			free_tokens(&data_base);
+// 			add_history(line);
+// 		}
+// 		free(line);
+// 	}
+// 	free_double(data_base.env);
+// 	rl_clear_history();
+// 	return (0);
+// }
 
 int	main(int argc, char **argv, char **env)
 {

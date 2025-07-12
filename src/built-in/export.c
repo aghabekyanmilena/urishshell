@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 15:27:31 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:21:55 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_export_error(char *arg)
 {
 	ERR_NO = 1;
 	write(2, "export: `", 9);
-	write(2, arg, strlen(arg));
+	write(2, arg, ft_strlen(arg));
 	write(2, "`: not a valid identifier\n", 27);
 }
 
