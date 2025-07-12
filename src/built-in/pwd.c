@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:52:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:59:03 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/12 18:10:53 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,4 @@ int	builtin_pwd(t_data *data)
 
 /* pwd-n petqa pahel structi mej, vory char *a u cuyca talis env-i pwd-n
 ete chi gtnum unset aneluc heto
-inqy petqa tpi et pwd-i meji exacy*/
+inqy petqa tpi et pwd-i meji exacy, exporti case petqa dzem*/
