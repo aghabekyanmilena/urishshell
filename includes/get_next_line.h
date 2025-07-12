@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 19:12:29 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 19:13:56 by atseruny         ###   ########.fr       */
+/*   Created: 2025/01/31 19:27:26 by atseruny          #+#    #+#             */
+/*   Updated: 2025/07/08 19:13:49 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	size;
-	char	*str;
-	int		i;
-	int		j;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-	if (!s1 || !s2)
-		return (0);
-	size = ft_strlen(s1) + ft_strlen(s2);
-	str = (char *)malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	return (str);
-}
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+
+char	*get_next_line(int fd);
+
+char	*ft_strjoin_free(char *s1, char *s2, size_t l1, size_t l2);
+
+size_t	ft_strlen(const char *str);
+
+char	*ft_free_null(char *s);
+
+int		ft_newline_instr(char *s);
+
+#endif

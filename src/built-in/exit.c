@@ -6,7 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/11 19:06:53 by miaghabe         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/12 15:58:29 by miaghabe         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +76,7 @@ int	builtin_exit(char **args)
 		exit((unsigned char)exit_code);
 	}
 	exit(0);
+<<<<<<< HEAD
 }
 
 
@@ -112,3 +117,6 @@ int	builtin_exit(char **args)
 // }
 
 /* PWD-i depqy u cd*/
+=======
+}
+>>>>>>> main

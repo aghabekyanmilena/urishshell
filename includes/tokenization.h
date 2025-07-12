@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:24:38 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/08 19:47:03 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ struct s_data
 	t_token	*token;
 	char	**env;
 	int		pipes_count;
+	int		command_count;
 };
 
 # include "pipex.h"

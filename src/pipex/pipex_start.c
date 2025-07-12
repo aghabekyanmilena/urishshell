@@ -6,7 +6,11 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/08 20:01:19 by miaghabe         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/12 16:01:19 by miaghabe         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +28,42 @@ void	add_cmd(t_cmd **head, char *value, t_token_type type)
 	else
 	{
 		t_cmd *tmp = *head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
+
+void free_lim(t_limiter **cmd)
+{
+	t_limiter *tmp;
+	t_limiter *next;
+
+	if (!cmd || !*cmd)
+		return;
+	tmp = *cmd;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	*cmd = NULL;
+}
+
+void	add_lim(t_limiter **head, char *value)
+{
+	t_limiter *new = malloc(sizeof(t_limiter));
+	new->value = value;
+	new->next = NULL;
+
+	if (!*head)
+		*head = new;
+	else
+	{
+		t_limiter *tmp = *head;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -66,7 +106,6 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		return ;
 	}
 	pipex->pid[pipex->forks] = fork();
-	// pipex->forks++;
 	if (pipex->pid[pipex->forks] == -1)
 	{
 		ERR_NO = 1;
@@ -78,7 +117,7 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (pipex->limiter)
-			read_here_doc(pipex, pipex->limiter);
+			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		if (pipex->infile != 0)
@@ -88,7 +127,6 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		execute_cmd(pipex);
 	}
 	pipex->forks++;
-
 	if (pipex->infile != 0)
 		close(pipex->infile);
 	if (pipex->outfile != 1)
@@ -121,7 +159,6 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 	cpy = cmd;
 	pipex->infile = 0;
 	pipex->outfile = 1;
-	pipex->limiter = NULL;
 	while (cpy)
 	{
 		if (cpy->type == INFILE)
@@ -164,7 +201,9 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 				pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		else if (cpy->type == LIMITER)
-			pipex->limiter = ft_strdup(cpy->value);
+		{
+			add_lim(&pipex->limiter, ft_strdup(cpy->value));
+		}
 		cpy = cpy->next;
 	}
 }
@@ -177,7 +216,7 @@ void	free_struct(t_pipex *pipex)
 	// if (pipex->cmd)
 	// 	free_double(pipex->cmd);
 	free(pipex->pid);
-	free(pipex->limiter);
+	free_lim(&pipex->limiter);
 	// free(pipex);
 }
 
@@ -222,8 +261,6 @@ void	pipex_start(t_data *db, t_token *token)
 			free_struct(&pipex);
 			return ;
 		}
-		// if (pipex.limiter)
-		// 	read_here_doc(&pipex, pipex.limiter);
 		if (db->pipes_count == 0)
 			no_pipe(&pipex, db);
 		else if (pipex.current_cmd == 0)
@@ -232,8 +269,6 @@ void	pipex_start(t_data *db, t_token *token)
 			last(&pipex, db);
 		else
 			mid(&pipex, db);
-		if (pipex.limiter)
-			unlink(TMP_FILE);
 		free_cmd(&cmd);
 		free_double(pipex.cmd);
 		pipex.cmd = NULL;
