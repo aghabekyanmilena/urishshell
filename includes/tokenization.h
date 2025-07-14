@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:31:06 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:27:28 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ struct s_data
 {
 	t_token	*token;
 	char	**env;
-	char	*secret_pwd;
 	int		pipes_count;
 	int		command_count;
 };
