@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:43:45 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:50:14 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void	free_struct(t_pipex *pipex)
 	// 	free_double(pipex->cmd);
 	free(pipex->pid);
 	free_lim(&pipex->limiter);
-	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/11 23:39:49 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/14 17:59:23 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 
 # define TMP_FILE "/tmp/here_doc.tmp"
 
-typedef struct s_limiter t_limiter;
+typedef struct s_token		t_token;
+typedef struct s_data		t_data;
+typedef struct s_command	t_cmd;
+typedef struct s_limiter	t_limiter;
 
 typedef struct s_limiter
 {
@@ -52,6 +55,7 @@ void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, t_limiter *limiter, t_data *db);
 void	free_double(char **s);
+void	free_struct(t_pipex *pipex);
 void	first(t_pipex *pipex, t_data *data_base);
 void	last(t_pipex *pipex, t_data *data_base);
 void	mid(t_pipex *pipex, t_data *data_base);

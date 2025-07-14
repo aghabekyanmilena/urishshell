@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:38:56 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/08 14:57:43 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:51:27 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init(t_data *db, t_pipex *pipex)
 	pipex->pid = (int *)ft_calloc(pipex->count_cmd, sizeof(int));
 	if (!(pipex->pid))
 		return ;
+	db->pipex = pipex;
 }
 void	free_double(char **s)
 {

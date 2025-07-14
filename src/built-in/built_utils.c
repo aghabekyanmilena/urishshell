@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:46:33 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/05 16:45:51 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:49:23 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_builtin(char **args, t_data *data)
 	if (!ft_strcmp(args[0], "pwd"))
 		return (builtin_pwd(data));
 	if (!ft_strcmp(args[0], "exit"))
-		return (builtin_exit(args));
+		return (builtin_exit(args, data));
 	if (!ft_strcmp(args[0], "export"))
 		return (builtin_export(args, data));
 	if (!ft_strcmp(args[0], "unset"))

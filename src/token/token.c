@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/11 23:33:13 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/14 19:57:33 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void	init_tokens_sharunak(t_data *data_base)
 			cpy->type = HEREDOC;
 			if (cpy->next)
 				cpy->next->type = LIMITER;
-			
 		}
 		else if (ft_strcmp(cpy->value, ">") == 0)
 		{
@@ -230,13 +229,13 @@ void	chakert_check(char *line, t_data *data_base)
 				new_line = ft_substr(all, i, j);
 				add_token(&head, ft_strdup(new_line), WORD);
 				free(new_line);
+				data_base->token = head;
 			}
 		}
 		i += j;
 	}
 	free(all);
 	ERR_NO = 0;
-	data_base->token = head;
 }
 
 char	*check_dollar(char *line, t_data *db, int *i, int f)

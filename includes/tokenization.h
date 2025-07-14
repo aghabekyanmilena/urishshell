@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 19:47:03 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:00:17 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <errno.h>
+# include "pipex.h"
 # include "../libft/libft.h"
 
 typedef struct s_token		t_token;
 typedef struct s_data		t_data;
 typedef struct s_command	t_cmd;
+typedef struct s_pipex		t_pipex;
+typedef struct s_limiter	t_limiter;
 
 extern int ERR_NO;
 
@@ -62,12 +65,11 @@ struct s_command
 struct s_data
 {
 	t_token	*token;
+	t_pipex	*pipex;
 	char	**env;
 	int		pipes_count;
 	int		command_count;
 };
-
-# include "pipex.h"
 
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);

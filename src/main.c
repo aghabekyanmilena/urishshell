@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:02:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:13:45 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,9 @@ int	main(int argc, char **argv, char **env)
 		if (line && *line != '\0')
 		{
 			init_tokens(line, &data_base);
+			data_base.command_count++;
 			if (check_syntax_errors(&data_base) == 0)
-			{
-				data_base.command_count++;
 				pipex_start(&data_base, data_base.token);
-			}
 			// print_tokens(data_base.token);
 			free_tokens(&data_base);
 			add_history(line);
