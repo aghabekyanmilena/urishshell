@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:12:30 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:12:33 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:33:38 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int builtin_export(char **args, t_data *data)
 	int		index;
 	int		len;
 
-
 	i = 1;
 	no_arg_case(args, data);
 	while (args[i])
@@ -123,6 +122,30 @@ int builtin_export(char **args, t_data *data)
 		equal_sign = ft_strchr(args[i], '=');
 		if (!equal_sign)
 		{
+			var_name = ft_strdup(args[i]);
+			if (!var_name)
+				return (1);
+			index = find_env_var_index(data->env, var_name);
+			if (index < 0)
+			{
+				len = 0;
+				while (data->env && data->env[len])
+					len++;
+				new_env = malloc(sizeof(char *) * (len + 2));
+				if (!new_env)
+					return (free(var_name), 1);
+				j = 0;
+				while (j < len)
+				{
+					new_env[j] = data->env[j];
+					j++;
+				}
+				new_env[len] = ft_strdup(var_name);
+				new_env[len + 1] = NULL;
+				free(data->env);
+				data->env = new_env;
+			}
+			free(var_name);
 			i++;
 			continue;
 		}
@@ -149,7 +172,7 @@ int builtin_export(char **args, t_data *data)
 			while (j < len)
 			{
 				new_env[j] = data->env[j];
-				j++;	
+				j++;
 			}
 			new_env[len] = ft_strdup(args[i]);
 			new_env[len + 1] = NULL;
