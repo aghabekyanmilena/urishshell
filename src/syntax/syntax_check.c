@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/09 18:52:15 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:51:52 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_redir(t_token_type type)
 
 void	syntax_error(t_data *db, char *token)
 {
-	ERR_NO = 1;
+	g_err_no = 1;
 	printf("syntax error: unexpected token `%s'\n", token);
 	free_tokens(db);
 }
@@ -29,7 +29,7 @@ bool	check_syntax_errors(t_data *db)
 {
 	t_token	*curr;
 
-	if (ERR_NO == 1)
+	if (g_err_no == 1)
 		return (true);
 	curr = db->token;
 	if (!curr)
@@ -56,6 +56,6 @@ bool	check_syntax_errors(t_data *db)
 		syntax_error(db, curr->value);
 		return (true);
 	}
-	ERR_NO = 0;
+	g_err_no = 0;
 	return (false);
 }

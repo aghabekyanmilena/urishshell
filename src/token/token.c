@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/11 23:33:13 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/15 17:14:43 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void	init_tokens_sharunak(t_data *data_base)
 			cpy->type = HEREDOC;
 			if (cpy->next)
 				cpy->next->type = LIMITER;
-			
 		}
 		else if (ft_strcmp(cpy->value, ">") == 0)
 		{
@@ -175,6 +174,7 @@ void	init_tokens_sharunak(t_data *data_base)
 	}
 }
 
+
 void	chakert_check(char *line, t_data *data_base)
 {
 	int		i;
@@ -182,8 +182,10 @@ void	chakert_check(char *line, t_data *data_base)
 	char	*all;
 	char	*new_line;
 	t_token	*head;
+	char	chak;
 
 	i = 0;
+	g_err_no = 0;
 	head = NULL;
 	all = ft_strdup(line);
 	i = 0;
@@ -196,32 +198,16 @@ void	chakert_check(char *line, t_data *data_base)
 			break ;
 		while (all[i + j] && !ft_isspace(all[i + j]))
 		{
-			if (all[i + j] == '"')
+			if (all[i] == '"' || all[i] == '\'')
 			{
+				chak = all[i];
 				j++;
-				while (all[i + j] && all[i + j] != '"')
+				while (all[i + j] && all[i + j] != chak)
 					j++;
-				if (all[i + j] != '"')
+				if (all[i + j] != chak)
 				{
-					ERR_NO = 1;
-					printf("syntax error: unexpected token `%s'\n", all);
-					free_tokens(data_base);
-					free(all);
-					return;
-				}
-			}
-			else if (all[i + j] == '\'')
-			{
-				j++;
-				while (all[i + j] && all[i + j] != '\'')
-					j++;
-				if (all[i + j] != '\'')
-				{
-					ERR_NO = 1;
-					printf("syntax error: unexpected token `%s'\n", all);
-					free_tokens(data_base);
-					free(all);
-					return;
+					syntax_error(data_base, all);
+					break;
 				}
 			}
 			j++;
@@ -230,13 +216,12 @@ void	chakert_check(char *line, t_data *data_base)
 				new_line = ft_substr(all, i, j);
 				add_token(&head, ft_strdup(new_line), WORD);
 				free(new_line);
+				data_base->token = head;
 			}
 		}
 		i += j;
 	}
 	free(all);
-	ERR_NO = 0;
-	data_base->token = head;
 }
 
 char	*check_dollar(char *line, t_data *db, int *i, int f)
@@ -273,7 +258,7 @@ char	*check_dollar(char *line, t_data *db, int *i, int f)
 			{
 				if (ft_strcmp(free_anel, "?") == 0)
 				{
-					doll = ft_itoa(ERR_NO);
+					doll = ft_itoa(g_err_no);
 					bacac = ft_strdup(doll);
 					free(doll);
 				}
@@ -319,9 +304,7 @@ char	*dollar_in_line(char *line, t_data *db)
 			new = check_dollar(new, db, &i, 1);
 		}
 		else
-		{
 			new = check_dollar(new, db, &i, 0);
-		}
 	}
 	return (new);
 }
@@ -335,5 +318,6 @@ void	init_tokens(char *line, t_data *data_base)
 	chakert_hanel(data_base);
 	redirnery(&(data_base->token));
 	init_tokens_sharunak(data_base);
+	(data_base->command_count)++;
 	free(dup);
 }

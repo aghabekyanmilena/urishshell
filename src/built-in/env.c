@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:27:03 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/14 20:17:36 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:18:08 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_env(char **args, t_data *data)
 	if (j > 1)
 	{
 		ft_putendl_fd("env: too many arguments", 2);
-		ERR_NO = 1;
+		g_err_no = 1;
 		return (1);
 	}
 	i = 0;
@@ -49,6 +49,6 @@ int	builtin_env(char **args, t_data *data)
 		printf("%s\n", data->env[i]);
 		i++;
 	}
-	ERR_NO = 0;
+	g_err_no = 0;
 	return (0);
 }

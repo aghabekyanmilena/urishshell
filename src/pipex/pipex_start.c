@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/12 16:14:00 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:14:03 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/15 17:19:37 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
-		ERR_NO = 1;
+		g_err_no = 1;
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
@@ -163,14 +163,14 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			{
 				ft_putstr_fd(cpy->value, 2);
 				ft_putstr_fd(": No such file or directory\n", 2);
-				ERR_NO = 1;
+				g_err_no = 1;
 				return ;
 			}
 			else if (access(cpy->value, R_OK) == -1)
 			{
 				ft_putstr_fd(cpy->value, 2);
 				ft_putstr_fd(": Permission denied\n", 2);
-				ERR_NO = 1;
+				g_err_no = 1;
 				return ;
 			}
 			pipex->infile = open(cpy->value, O_RDONLY);
@@ -178,7 +178,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			{
 				ft_putstr_fd(cpy->value, 2);
 				ft_putstr_fd(": No such file or directory\n", 2);
-				ERR_NO = 1;
+				g_err_no = 1;
 				return ;
 			}
 		}
@@ -188,7 +188,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 			{
 				ft_putstr_fd(cpy->value, 2);
 				ft_putstr_fd(": Permission denied\n", 2);
-				ERR_NO = 1;
+				g_err_no = 1;
 				return ;
 			}
 			if (cpy->type == OUTFILE_APPEND)
@@ -213,7 +213,6 @@ void	free_struct(t_pipex *pipex)
 	// 	free_double(pipex->cmd);
 	free(pipex->pid);
 	free_lim(&pipex->limiter);
-	// free(pipex);
 }
 
 void	pipex_start(t_data *db, t_token *token)
@@ -239,7 +238,7 @@ void	pipex_start(t_data *db, t_token *token)
 			if (cpy->type == WORD)
 			{
 				tmp = cmd_line;
-				cmd_line = ft_strsjoin(cmd_line, cpy->value, '+');
+				cmd_line = ft_strsjoin(cmd_line, cpy->value, 31);
 				free(tmp);
 			}
 			add_cmd(&cmd, ft_strdup(cpy->value), cpy->type);
@@ -247,10 +246,10 @@ void	pipex_start(t_data *db, t_token *token)
 		}
 		if (cpy)
 			cpy = cpy->next;
-		pipex.cmd = ft_split(cmd_line, '+');
+		pipex.cmd = ft_split(cmd_line, 31);
 		free(cmd_line);
 		commands(cmd, &pipex);
-		if (ERR_NO != 0)
+		if (g_err_no != 0)
 		{
 			free_cmd(&cmd);
 			free_double(pipex.cmd);
@@ -277,9 +276,9 @@ void	pipex_start(t_data *db, t_token *token)
 		if (WTERMSIG(status) == SIGQUIT)
 			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		if (WIFEXITED(status))
-			ERR_NO = WEXITSTATUS(status);
+			g_err_no = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			ERR_NO = 128 + WTERMSIG(status);
+			g_err_no = 128 + WTERMSIG(status);
 	}
 	free_struct(&pipex);
 }

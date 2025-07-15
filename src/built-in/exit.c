@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/12 16:13:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 17:18:32 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/15 17:18:35 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,16 @@ static int	tiva(char *argument)
 	return (0);
 }
 
-int	builtin_exit(char **args)
+void	free_before_exit(t_data *db, char **args)
+{
+	free_double(args);
+	free_struct(db->pipex);
+	free_tokens(db);
+	free_double(db->env);
+	rl_clear_history();
+}
+
+int	builtin_exit(char **args, t_data *db)
 {
 	long long	exit_code;
 	int			count;
@@ -76,7 +85,7 @@ int	builtin_exit(char **args)
 	if (count > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
-		ERR_NO = 1;
+		g_err_no = 1;
 		return (1);
 	}
 	if (args[1])
@@ -86,9 +95,12 @@ int	builtin_exit(char **args)
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(args[1], 2);
 			ft_putendl_fd(": numeric argument required", 2);
+			free_before_exit(db, args);
 			exit(2);
 		}
+		free_before_exit(db, args);
 		exit((unsigned char)exit_code);
 	}
+	free_before_exit(db, args);
 	exit(0);
 }

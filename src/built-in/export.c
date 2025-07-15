@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/12 16:12:30 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:13:01 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
+/*   Updated: 2025/07/15 17:19:16 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_export_error(char *arg)
 {
-	ERR_NO = 1;
+	g_err_no = 1;
 	write(2, "export: `", 9);
 	write(2, arg, ft_strlen(arg));
 	write(2, "`: not a valid identifier\n", 27);
@@ -167,6 +167,6 @@ int builtin_export(char **args, t_data *data)
 		i++;
 		free(var_name);
 	}
-	ERR_NO = 0;
+	g_err_no = 0;
 	return (0);
 }
