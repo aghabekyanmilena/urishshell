@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:22:26 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:40:16 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ int		execute_builtin(char **args, t_data *data);
 int		builtin_echo(char **args);
 
 // exit
-int	builtin_exit(char **args, t_data *db);
+int		builtin_exit(char **args, t_data *db);
 
 // env
-// int		builtin_env(t_data *data);
-int	builtin_env(char **args, t_data *data);
+int		builtin_env(char **args, t_data *data);
 
 // cd
 int		builtin_cd(char **args, t_data *data);

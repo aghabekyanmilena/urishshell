@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:20:30 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:39:09 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static int	is_numeric(const char *str)
 	return (1);
 }
 
-// esi env-i mej gtnuma key@ u =ic heto dra hamapatasxan valuen return anum
 char	*get_env(char **env, const char *key)
 {
 	size_t	len;
@@ -44,7 +43,6 @@ char	*get_env(char **env, const char *key)
 	return (NULL);
 }
 
-// update a anum env-n ete vary ka replace a anum ete chka avelacnuma
 void	update_env(t_data *data, char *key, const char *value)
 {
 	int		idx;
@@ -82,9 +80,6 @@ void	update_env(t_data *data, char *key, const char *value)
 	}
 }
 
-// esi el arden shlvl-n avelacnoxna
-// et taky 1000+ casy comment em arel vorovhetev vrodi bashum ela okay 
-//ete 1000 u avela
 void	handle_shlvl(t_data *data)
 {
 	char	*shlvl_str;
@@ -101,14 +96,14 @@ void	handle_shlvl(t_data *data)
 		shlvl = 1;
 	if (shlvl < 0)
 		shlvl = 0;
+	if (shlvl > 999)
+	{
+		ft_putstr_fd("warning: shell level ", 2);
+		ft_putstr_fd(ft_itoa(ft_atoi(shlvl_str)+1), 2);
+		ft_putendl_fd(" too high, resetting to 1", 2);
+		shlvl = 1;
+	}
 	shlvl_val = ft_itoa(shlvl);
 	update_env(data, "SHLVL", shlvl_val);
 	free(shlvl_val);
 }
-
-// if (shlvl >= 1000)
-// {
-// 	printf("minishell: warning\n");
-// 	shlvl = 1;
-// }
-// mek el libft-i mej avelacrel em strcpy ev strcat

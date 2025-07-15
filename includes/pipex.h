@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/14 17:59:23 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:40:30 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_pipex
 	int				forks;
 }					t_pipex;
 
-
 void	pipex_start(t_data *db, t_token *token);
 void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, t_limiter *limiter, t_data *db);
@@ -61,6 +60,5 @@ void	last(t_pipex *pipex, t_data *data_base);
 void	mid(t_pipex *pipex, t_data *data_base);
 void	execute_cmd(t_pipex *pipex);
 char	*dollar_in_line(char *line, t_data *db);
-
 
 #endif

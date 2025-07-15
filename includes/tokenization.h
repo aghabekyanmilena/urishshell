@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:21:44 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:40:41 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_command	t_cmd;
 typedef struct s_pipex		t_pipex;
 typedef struct s_limiter	t_limiter;
 
-extern int g_err_no;
+extern int	g_err_no;
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
