@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:05:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 20:21:48 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:32:27 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_unset_error(char *arg)
 {
-	ERR_NO = 1;
+	g_err_no = 1;
 	write(2, "unset: `", 9);
 	write(2, arg, ft_strlen(arg));
 	write(2, "': not a valid identifier\n", 27);
@@ -77,6 +77,6 @@ int	builtin_unset(char **args, t_data *data)
 		}
 		i++;
 	}
-	ERR_NO = 0;
+	g_err_no = 0;
 	return (0);
 }

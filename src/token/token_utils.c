@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:01:58 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:41:15 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
+
 
 void	add_token(t_token **head, char *value, t_token_type type)
 {

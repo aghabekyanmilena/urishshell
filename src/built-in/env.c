@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:27:03 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:54:11 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:32:12 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_env(char **args, t_data *data)
 	if (j > 1)
 	{
 		ft_putendl_fd("env: too many arguments", 2);
-		ERR_NO = 1;
+		g_err_no = 1;
 		return (1);
 	}
 	i = 0;
@@ -32,6 +32,6 @@ int	builtin_env(char **args, t_data *data)
 		printf("%s\n", data->env[i]);
 		i++;
 	}
-	ERR_NO = 0;
+	g_err_no = 0;
 	return (0);
 }

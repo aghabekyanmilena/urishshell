@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:41:17 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:35:41 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ static int	is_numeric(const char *str)
 // esi env-i mej gtnuma key@ u =ic heto dra hamapatasxan valuen return anum
 char	*get_env(char **env, const char *key)
 {
-	size_t len = ft_strlen(key);
-	int	i = 0;
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(key);
+	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, len) == 0 && env[i][len] == '=')
@@ -80,8 +83,9 @@ void	update_env(t_data *data, const char *key, const char *value)
 }
 
 // esi el arden shlvl-n avelacnoxna
-// et taky 1000+ casy comment em arel vorovhetev vrodi bashum ela okay ete 1000 u avela
-void handle_shlvl(t_data *data)
+// et taky 1000+ casy comment em arel vorovhetev vrodi bashum ela okay 
+//ete 1000 u avela
+void	handle_shlvl(t_data *data)
 {
 	char	*shlvl_str;
 	int		shlvl;

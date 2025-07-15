@@ -4,6 +4,7 @@
 		"ranges": "c",
 		"get_next_line.h": "c",
 		"tokenization.h": "c",
-		"built_in.h": "c"
+		"built_in.h": "c",
+		"signals.h": "c"
 	}
 }

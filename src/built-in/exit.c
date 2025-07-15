@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/14 18:01:40 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:32:17 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	builtin_exit(char **args, t_data *db)
 	if (count > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
-		ERR_NO = 1;
+		g_err_no = 1;
 		return (1);
 	}
 	if (args[1])

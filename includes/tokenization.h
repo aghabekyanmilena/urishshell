@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/14 18:00:17 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:31:46 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_command	t_cmd;
 typedef struct s_pipex		t_pipex;
 typedef struct s_limiter	t_limiter;
 
-extern int ERR_NO;
+extern int g_err_no;
 
 /* what enum do is to give names to numbers, it is a special data type 
 that contains a set of named ineteger constants */
@@ -77,7 +77,10 @@ void	init_tokens(char *line, t_data *data_base);
 
 // free
 void	free_tokens(t_data *db);
-void	dollar_bacel(t_data *db);
+
+//shlvl
+void	handle_shlvl(t_data *data);
+void	update_env(t_data *data, const char *key, const char *value);
 char	*get_env(char **env, const char *key);
 
 #endif

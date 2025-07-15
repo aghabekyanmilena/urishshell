@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/12 16:01:48 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:33:00 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	handling_signal(int signal)
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		if (ERR_NO)
+		if (g_err_no)
 			 rl_redisplay();
 	}
 }
