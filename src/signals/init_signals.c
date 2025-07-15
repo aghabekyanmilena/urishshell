@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:19:48 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 23:28:41 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/signals.h"
+
+// static void	handling_signal(int signal)
+// {
+// 	if (signal == SIGINT)
+// 	{
+// 		write(STDOUT_FILENO, "\n", 1);
+// 		rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		if (g_err_no)
+// 			 rl_redisplay();
+// 	}
+// }
 
 static void	handling_signal(int signal)
 {
@@ -19,8 +31,9 @@ static void	handling_signal(int signal)
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		if (g_err_no)
-			 rl_redisplay();
+		// rl_done = 1;
+		rl_redisplay();
+		g_err_no = 130;
 	}
 }
 
