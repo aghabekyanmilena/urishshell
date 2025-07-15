@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 14:41:17 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:08:38 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_env(char **env, const char *key)
 }
 
 // update a anum env-n ete vary ka replace a anum ete chka avelacnuma
-void	update_env(t_data *data, const char *key, const char *value)
+void	update_env(t_data *data, char *key, const char *value)
 {
 	int		idx;
 	char	*new_entry;

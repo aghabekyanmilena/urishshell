@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 20:42:03 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:08:09 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		builtin_pwd(t_data *data);
 
 // export
 int		builtin_export(char **args, t_data *data);
-int		find_env_var_index(char **env, const char *name);
+int		find_env_var_index(char **env, char *name);
 
 // unset
 int		builtin_unset(char **args, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:12:30 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/14 20:33:38 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:13:01 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_export_error(char *arg)
 	write(2, "`: not a valid identifier\n", 27);
 }
 
-int	find_env_var_index(char **env, const char *name)
+int	find_env_var_index(char **env, char *name)
 {
 	int		i;
 	size_t	len;
@@ -29,24 +29,24 @@ int	find_env_var_index(char **env, const char *name)
 	len = ft_strlen(name);
 	while (env && env[i])
 	{
-		if (!ft_strncmp(env[i], name, len) && env[i][len] == '=')
+		if (!ft_strncmp(env[i], name, len))
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-static int is_valid_var_name(const char *name)
+static int is_valid_var_name(char *name)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (!ft_isalpha(name[0]) && name[0] != '_')
 		return (0);
 	while (name[i] && name[i] != '=')
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
-		return 0;
+			return (0);
 		i++;
 	}
 	return (1);
@@ -125,37 +125,22 @@ int builtin_export(char **args, t_data *data)
 			var_name = ft_strdup(args[i]);
 			if (!var_name)
 				return (1);
-			index = find_env_var_index(data->env, var_name);
-			if (index < 0)
-			{
-				len = 0;
-				while (data->env && data->env[len])
-					len++;
-				new_env = malloc(sizeof(char *) * (len + 2));
-				if (!new_env)
-					return (free(var_name), 1);
-				j = 0;
-				while (j < len)
-				{
-					new_env[j] = data->env[j];
-					j++;
-				}
-				new_env[len] = ft_strdup(var_name);
-				new_env[len + 1] = NULL;
-				free(data->env);
-				data->env = new_env;
-			}
-			free(var_name);
+		}
+		else
+		{
+			name_len = equal_sign - args[i];
+			var_name = malloc(name_len + 1);
+			if (!var_name)
+				return (1);
+			ft_strncpy(var_name, args[i], name_len);
+			var_name[name_len] = '\0';
+			ft_strncpy(var_name, args[i], equal_sign - args[i]);
+		}
+		if (ft_strcmp(var_name, "_") == 0)
+		{
 			i++;
 			continue;
 		}
-		name_len = equal_sign - args[i];
-		var_name = malloc(name_len + 1);
-		if (!var_name)
-			return (1);
-		ft_strncpy(var_name, args[i], name_len);
-		var_name[name_len] = '\0';
-		ft_strncpy(var_name, args[i], equal_sign - args[i]);
 		index = find_env_var_index(data->env, var_name);
 		if (index >= 0)
 		{
