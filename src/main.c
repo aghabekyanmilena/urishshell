@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 23:33:53 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:45:53 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ int	main(int argc, char **argv, char **env)
 	t_data	data_base;
 
 	init_db_and_shlvl(&data_base, env);
-	init_signal(); // berel em whileic durs
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
+		init_signal();
 		line = readline("urishshell: ");
 		if (!line)
 			break ;

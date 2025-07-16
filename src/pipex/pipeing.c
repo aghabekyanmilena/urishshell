@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/15 17:19:28 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:36:06 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	mid(t_pipex *pipex, t_data *data_base)
 		ft_putstr_fd("Error forking\n", 2);
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
@@ -66,7 +67,7 @@ void	mid(t_pipex *pipex, t_data *data_base)
 	if (pipex->pid[pipex->forks] == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, SIG_DFL);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		close(fders[0]);
@@ -96,6 +97,7 @@ void	first(t_pipex *pipex, t_data *data_base)
 		ft_putstr_fd("Error pipeing\n", 2);
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
@@ -106,7 +108,7 @@ void	first(t_pipex *pipex, t_data *data_base)
 	if (pipex->pid[pipex->forks] == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, SIG_DFL);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		close(pipex->fds[0]);
@@ -131,6 +133,7 @@ void	first(t_pipex *pipex, t_data *data_base)
 
 void	last(t_pipex *pipex, t_data *data_base)
 {
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
@@ -141,7 +144,7 @@ void	last(t_pipex *pipex, t_data *data_base)
 	if (pipex->pid[pipex->forks] == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, SIG_DFL);
 		if (pipex->limiter)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->fds[0], STDIN_FILENO);
