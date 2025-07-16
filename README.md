@@ -58,4 +58,5 @@ urishshell: ls | grep .c > files.txt
 * `ctrl+\` is ignored unless during heredoc or pipe execution.
 
 This was team project and it was done with @atseruny (https://github.com/atseruny)
+
 Why urishshell որովհետև մերը ուրիշա ։D
