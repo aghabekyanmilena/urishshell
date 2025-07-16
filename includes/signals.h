@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 18:07:26 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 13:52:42 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/16 18:36:35 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include "tokenization.h"
 
-void	sigint_heredoc_handler(int sig);
 void	init_signal(void);
 
 #endif

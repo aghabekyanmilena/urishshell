@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 13:58:27 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/16 18:38:59 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,9 +198,7 @@ void	commands(t_cmd *cmd, t_pipex *pipex)
 				pipex->outfile = open(cpy->value, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		else if (cpy->type == LIMITER)
-		{
 			add_lim(&pipex->limiter, ft_strdup(cpy->value));
-		}
 		cpy = cpy->next;
 	}
 }
@@ -224,6 +222,7 @@ void	pipex_start(t_data *db, t_token *token)
 	char	*tmp;
 	char	*cmd_line;
 	int		i;
+	int		count;
 	int		status;
 
 	cmd = NULL;
@@ -271,17 +270,26 @@ void	pipex_start(t_data *db, t_token *token)
 		(pipex.current_cmd)++;
 	}
 	i = 0;
+	count = 0;
 	while (i < pipex.forks)
 	{
 		waitpid(pipex.pid[i++], &status, 0);
-		if (WTERMSIG(status) == SIGQUIT)
-			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		if (WIFEXITED(status))
 			g_err_no = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT && !count)
+			{
+				count = 1;
+				write(STDOUT_FILENO, "\n", 1);
+			}
+			if (WTERMSIG(status) == SIGQUIT && !count)
+			{
+				count = 1;
+				ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+			}
 			g_err_no = 128 + WTERMSIG(status);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(STDOUT_FILENO, "\n", 1);
+		}
 	}
 	free_struct(&pipex);
 }
