@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:19:37 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/16 13:58:27 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		}
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
@@ -279,6 +280,8 @@ void	pipex_start(t_data *db, t_token *token)
 			g_err_no = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			g_err_no = 128 + WTERMSIG(status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(STDOUT_FILENO, "\n", 1);
 	}
 	free_struct(&pipex);
 }
