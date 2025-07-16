@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 13:47:46 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/16 21:08:13 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,15 @@ struct s_data
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
 void	init_tokens(char *line, t_data *data_base);
+int		limiter_for_dollar(char	c);
+char	*return_bacac(char *line, int *i, int k, t_data *db);
+int		chakert_check_sharunak(char	*all, int i, t_data *data_base);
 
 // free
 void	free_tokens(t_data *db);
+
+//join_3
+char	*ft_join_three_with_free(char *start, char *mid, char *end);
 
 //shlvl
 void	handle_shlvl(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:35:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:45:53 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/16 20:43:42 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	**copy_env(char **envp)
 
 void	init_db_and_shlvl(t_data *db, char **env)
 {
-	g_err_no = 0;
 	db->env = copy_env(env);
 	db->command_count = 0;
 	db->token = NULL;
