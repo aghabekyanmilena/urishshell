@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:13 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 19:53:52 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,24 @@ void	add_token(t_token **head, char *value, t_token_type type);
 void	init_tokens(char *line, t_data *data_base);
 int		limiter_for_dollar(char	c);
 char	*return_bacac(char *line, int *i, int k, t_data *db);
-int		chakert_check_sharunak(char	*all, int i, t_data *data_base);
+void	init_tokens_sharunak(t_data *data_base, t_token *cpy);
+void	init_tokens_sharunak_redir(t_token *cpy);
+char	*get_operator(char *value, int i, int *j);
+int		ka_u_redir_pipe_chi(char c);
+void	redirnery(t_token **first, t_token *c, t_token *st, int i);
 
 // free
 void	free_tokens(t_data *db);
+void	free_tok(t_token *c);
 
 //join_3
-char	*ft_join_three_with_free(char *start, char *mid, char *end);
+char	*ft_join_3(char *start, char *mid, char *end);
 
 //shlvl
 void	handle_shlvl(t_data *data);
 void	update_env(t_data *data, char *key, const char *value);
 char	*get_env(char **env, const char *key);
+
+
 
 #endif

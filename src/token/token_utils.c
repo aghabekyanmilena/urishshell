@@ -6,19 +6,25 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:56:45 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:58 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:03:48 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
 
-int	limiter_for_dollar(char	c)
+void	free_tok(t_token *c)
 {
-	if (c && !ft_isspace(c) && c != '~' \
-		&& c != '@' && c != '#' && c != '$' \
-		&& c != '%' && c != '^' && c != '-' \
-		&& c != '+' && c != '=' && c != '/' \
-		&& c != '.' && c != ':' && c != '!' \
+	free(c->value);
+	free(c);
+}
+
+int	limiter_for_dollar(char c)
+{
+	if (c && !ft_isspace(c) && c != '~'
+		&& c != '@' && c != '#' && c != '$'
+		&& c != '%' && c != '^' && c != '-'
+		&& c != '+' && c != '=' && c != '/'
+		&& c != '.' && c != ':' && c != '!'
 		&& c != '"' && c != '\'' && c != '\n')
 		return (1);
 	return (0);
@@ -47,7 +53,7 @@ char	*return_bacac(char *line, int *i, int k, t_data *db)
 	return (bacac);
 }
 
-char	*ft_join_three_with_free(char *start, char *mid, char *end)
+char	*ft_join_3(char *start, char *mid, char *end)
 {
 	char	*str;
 	int		i;
@@ -55,7 +61,8 @@ char	*ft_join_three_with_free(char *start, char *mid, char *end)
 
 	if (!start || !mid || !end)
 		return (NULL);
-	str = (char *)malloc((ft_strlen(start) + ft_strlen(mid) + ft_strlen(end) + 1) * sizeof(char));
+	str = (char *)malloc((ft_strlen(start) + ft_strlen(mid)
+				+ ft_strlen(end) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
