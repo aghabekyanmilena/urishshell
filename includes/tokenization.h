@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 19:53:52 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:17:27 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ struct s_token
 	char			*value;
 	t_token_type	type;
 	struct s_token	*next;
-};
-
-struct s_command
-{
-	char				*value;
-	t_token_type		type;
-	struct s_command	*next;
 };
 
 struct s_data

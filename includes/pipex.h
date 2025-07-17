@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/16 18:36:56 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:38:03 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_pipex
 	int				forks;
 }					t_pipex;
 
-void	pipex_start(t_data *db, t_token *token);
+void	pipex_start(t_data *db, t_token *cpy, t_token *cmd);
 void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, t_limiter *limiter, t_data *db);
 void	free_double(char **s);

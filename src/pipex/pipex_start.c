@@ -6,29 +6,29 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:38:59 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:51:00 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	add_cmd(t_cmd **head, char *value, t_token_type type)
-{
-	t_cmd *new = malloc(sizeof(t_cmd));
-	new->value = value;
-	new->type = type;
-	new->next = NULL;
+// void	add_cmd(t_cmd **head, char *value, t_token_type type)
+// {
+// 	t_cmd *new = malloc(sizeof(t_cmd));
+// 	new->value = value;
+// 	new->type = type;
+// 	new->next = NULL;
 
-	if (!*head)
-		*head = new;
-	else
-	{
-		t_cmd *tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
+// 	if (!*head)
+// 		*head = new;
+// 	else
+// 	{
+// 		t_cmd *tmp = *head;
+// 		while (tmp->next)
+// 			tmp = tmp->next;
+// 		tmp->next = new;
+// 	}
+// }
 
 void free_lim(t_limiter **cmd)
 {
@@ -130,10 +130,10 @@ void no_pipe(t_pipex *pipex, t_data *data_base)
 		close(pipex->outfile);
 }
 
-void free_cmd(t_cmd **cmd)
+void free_cmd(t_token **cmd)
 {
-	t_cmd *tmp;
-	t_cmd *next;
+	t_token *tmp;
+	t_token *next;
 
 	if (!cmd || !*cmd)
 		return;
@@ -149,40 +149,44 @@ void free_cmd(t_cmd **cmd)
 	*cmd = NULL;
 }
 
-void	commands(t_cmd *cmd, t_pipex *pipex)
+int	check_infile(t_token *cpy, t_pipex *pipex)
 {
-	t_cmd *cpy;
+	if (access(cpy->value, F_OK) == -1)
+	{
+		ft_putstr_fd(cpy->value, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		g_err_no = 1;
+		return (0);
+	}
+	else if (access(cpy->value, R_OK) == -1)
+	{
+		ft_putstr_fd(cpy->value, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		g_err_no = 1;
+		return (0);
+	}
+	pipex->infile = open(cpy->value, O_RDONLY);
+	if (pipex->infile == -1)
+	{
+		ft_putstr_fd(cpy->value, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		g_err_no = 1;
+		return (0);
+	}
+	return (1);
+}
+
+void	commands(t_token *cmd, t_pipex *pipex)
+{
+	t_token *cpy;
 
 	cpy = cmd;
 	pipex->infile = 0;
 	pipex->outfile = 1;
 	while (cpy)
 	{
-		if (cpy->type == INFILE)
-		{
-			if (access(cpy->value, F_OK) == -1)
-			{
-				ft_putstr_fd(cpy->value, 2);
-				ft_putstr_fd(": No such file or directory\n", 2);
-				g_err_no = 1;
-				return ;
-			}
-			else if (access(cpy->value, R_OK) == -1)
-			{
-				ft_putstr_fd(cpy->value, 2);
-				ft_putstr_fd(": Permission denied\n", 2);
-				g_err_no = 1;
-				return ;
-			}
-			pipex->infile = open(cpy->value, O_RDONLY);
-			if (pipex->infile == -1)
-			{
-				ft_putstr_fd(cpy->value, 2);
-				ft_putstr_fd(": No such file or directory\n", 2);
-				g_err_no = 1;
-				return ;
-			}
-		}
+		if (cpy->type == INFILE && !check_infile(cpy, pipex))
+			return ; 
 		else if (cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
 		{
 			if (access(cpy->value, F_OK) != -1 && access(cpy->value, W_OK) == -1)
@@ -208,72 +212,19 @@ void	free_struct(t_pipex *pipex)
 	if (!pipex)
 		return;
 	free_double(pipex->path);
-	// if (pipex->cmd)
-	// 	free_double(pipex->cmd);
 	free(pipex->pid);
 	free_lim(&pipex->limiter);
 }
 
-void	pipex_start(t_data *db, t_token *token)
+void	waiting_for_childs(t_pipex *pipex, int count)
 {
-	t_token	*cpy;
-	t_pipex	pipex;
-	t_cmd	*cmd;
-	char	*tmp;
-	char	*cmd_line;
-	int		i;
-	int		count;
-	int		status;
+	int	i;
+	int	status;
 
-	cmd = NULL;
-	cpy = token;
-	init(db, &pipex);
-	while (pipex.current_cmd < pipex.count_cmd)
-	{
-		if (!cpy)
-			return ;
-		cmd_line = ft_strdup("");
-		while (cpy && cpy->type != S_PIPE)
-		{
-			if (cpy->type == WORD)
-			{
-				tmp = cmd_line;
-				cmd_line = ft_strsjoin(cmd_line, cpy->value, 31);
-				free(tmp);
-			}
-			add_cmd(&cmd, ft_strdup(cpy->value), cpy->type);
-			cpy = cpy->next;
-		}
-		if (cpy)
-			cpy = cpy->next;
-		pipex.cmd = ft_split(cmd_line, 31);
-		free(cmd_line);
-		commands(cmd, &pipex);
-		if (g_err_no != 0)
-		{
-			free_cmd(&cmd);
-			free_double(pipex.cmd);
-			free_struct(&pipex);
-			return ;
-		}
-		if (db->pipes_count == 0)
-			no_pipe(&pipex, db);
-		else if (pipex.current_cmd == 0)
-			first(&pipex, db);
-		else if (pipex.current_cmd == pipex.count_cmd - 1)
-			last(&pipex, db);
-		else
-			mid(&pipex, db);
-		free_cmd(&cmd);
-		free_double(pipex.cmd);
-		pipex.cmd = NULL;
-		(pipex.current_cmd)++;
-	}
 	i = 0;
-	count = 0;
-	while (i < pipex.forks)
+	while (i < pipex->forks)
 	{
-		waitpid(pipex.pid[i++], &status, 0);
+		waitpid(pipex->pid[i++], &status, 0);
 		if (WIFEXITED(status))
 			g_err_no = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
@@ -291,5 +242,62 @@ void	pipex_start(t_data *db, t_token *token)
 			g_err_no = 128 + WTERMSIG(status);
 		}
 	}
-	free_struct(&pipex);
+	free_struct(pipex);
+}
+
+void	start_executing(t_data *db, t_pipex *pipex)
+{
+	if (db->pipes_count == 0)
+		no_pipe(pipex, db);
+	else if (pipex->current_cmd == 0)
+		first(pipex, db);
+	else if (pipex->current_cmd == pipex->count_cmd - 1)
+		last(pipex, db);
+	else
+		mid(pipex, db);
+	free_double(pipex->cmd);
+	pipex->cmd = NULL;
+	(pipex->current_cmd)++;
+}
+
+char	*get_cmd_line(t_token *cpy, char *cmd_line)
+{
+	char	*tmp;
+
+	tmp = cmd_line;
+	cmd_line = ft_strsjoin(cmd_line, cpy->value, 31);
+	free(tmp);
+	return (cmd_line);
+}
+
+void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
+{
+	t_pipex	pipex;
+	char	*cmd_line;
+
+	init(db, &pipex);
+	while (cpy && pipex.current_cmd < pipex.count_cmd && !g_err_no)
+	{
+		cmd_line = ft_strdup("");
+		while (cpy && cpy->type != S_PIPE)
+		{
+			if (cpy->type == WORD)
+				cmd_line = get_cmd_line(cpy, cmd_line);
+			add_token(&cmd, ft_strdup(cpy->value), cpy->type);
+			cpy = cpy->next;
+		}
+		if (cpy)
+			cpy = cpy->next;
+		pipex.cmd = ft_split(cmd_line, 31);
+		free(cmd_line);
+		commands(cmd, &pipex);
+		free_cmd(&cmd);
+		if (g_err_no != 0)
+		{
+			free_double(pipex.cmd);
+			break;
+		}
+		start_executing(db, &pipex);
+	}
+	waiting_for_childs(&pipex, 0);
 }
