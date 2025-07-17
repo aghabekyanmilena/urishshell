@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:50:16 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:38:59 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:37:02 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,8 +208,6 @@ void	free_struct(t_pipex *pipex)
 	if (!pipex)
 		return;
 	free_double(pipex->path);
-	// if (pipex->cmd)
-	// 	free_double(pipex->cmd);
 	free(pipex->pid);
 	free_lim(&pipex->limiter);
 }
