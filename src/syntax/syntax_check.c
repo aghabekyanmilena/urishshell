@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 16:24:29 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:33:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ void	syntax_error(t_data *db, char *token)
 	free_tokens(db);
 }
 
-void	check_pipe()
-{
-	
-}
-
 bool	check_syntax_errors(t_data *db)
 {
 	t_token	*curr;
@@ -40,16 +35,13 @@ bool	check_syntax_errors(t_data *db)
 	if (!curr)
 		return (false);
 	if (curr->type == S_PIPE)
-	{
-		syntax_error(db, curr->value);
-		return (true);
-	}
+		return (syntax_error(db, curr->value), true);
 	while (curr->next)
 	{
 		if ((curr->type == S_PIPE
-			&& (curr->next->type == S_PIPE || is_redir(curr->next->type)))
+				&& (curr->next->type == S_PIPE || is_redir(curr->next->type)))
 			|| (is_redir(curr->type) && (curr->next->type == S_PIPE
-			|| is_redir(curr->next->type))))
+					|| is_redir(curr->next->type))))
 		{
 			syntax_error(db, curr->next->value);
 			return (true);
@@ -57,10 +49,7 @@ bool	check_syntax_errors(t_data *db)
 		curr = curr->next;
 	}
 	if (curr->type == S_PIPE || is_redir(curr->type))
-	{
-		syntax_error(db, curr->value);
-		return (true);
-	}
+		return (syntax_error(db, curr->value), true);
 	g_err_no = 0;
 	return (false);
 }

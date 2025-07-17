@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:45:21 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:32:53 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/signals.h"
+
 static void	handling_signal(int signal)
 {
 	if (signal == SIGINT)

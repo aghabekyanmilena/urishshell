@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:05:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 15:32:27 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:31:09 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,44 +36,52 @@ static int	valid_identifier(const char *name)
 	return (1);
 }
 
-int	builtin_unset(char **args, t_data *data)
+static int	remove_env_var(t_data *data, int idx)
 {
 	char	**new_env;
-	int		i;
-	int		idx;
 	int		len;
-	int		k;
 	int		j;
+	int		k;
+
+	len = 0;
+	while (data->env[len])
+		len++;
+	new_env = malloc(sizeof(char *) * len);
+	if (!new_env)
+		return (1);
+	j = 0;
+	k = 0;
+	while (k < len)
+	{
+		if (k != idx)
+			new_env[j++] = data->env[k];
+		else
+			free(data->env[k]);
+		k++;
+	}
+	new_env[j] = NULL;
+	free(data->env);
+	data->env = new_env;
+	return (0);
+}
+
+int	builtin_unset(char **args, t_data *data)
+{
+	int	i;
+	int	idx;
 
 	i = 1;
 	while (args[i])
 	{
 		if (!valid_identifier(args[i]))
-			return (print_unset_error(args[i]), 1);
+			return (print_unset_error(args[i]), g_err_no = 1, 1);
+		if (args[i][0] == '_' && args[i][1] == '\0')
+			return (1);
 		idx = find_env_var_index(data->env, args[i]);
 		if (idx >= 0)
 		{
-			len = 0;
-			while (data->env[len])
-				len++;
-			new_env = malloc(sizeof(char *) * len);
-			if (!new_env)
+			if (remove_env_var(data, idx))
 				return (1);
-			if (args[i][0] == '_')
-				return (1);
-			j = 0;
-			k = 0;
-			while (k < len)
-			{
-				if (k != idx)
-					new_env[j++] = data->env[k];
-				else
-					free(data->env[k]);
-				k++;
-			}
-			new_env[j] = NULL;
-			free(data->env);
-			data->env = new_env;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:52:17 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:22:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:23:12 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,13 @@ char	*get_env(char **env, const char *key)
 	return (NULL);
 }
 
-void	update_env(t_data *data, char *key, const char *value)
+static void	update_or_append(t_data *data, char *key, char *new_entry, int len)
 {
 	int		idx;
-	char	*new_entry;
-	int		len;
 	char	**new_env;
 	int		i;
 
-	new_entry = malloc(ft_strlen(key) + ft_strlen(value) + 2);
 	idx = find_env_var_index(data->env, key);
-	if (!new_entry)
-		return ;
-	ft_strcpy(new_entry, key);
-	ft_strcat(new_entry, "=");
-	ft_strcat(new_entry, value);
 	if (idx >= 0)
 	{
 		free(data->env[idx]);
@@ -80,6 +72,21 @@ void	update_env(t_data *data, char *key, const char *value)
 	}
 }
 
+void	update_env(t_data *data, char *key, const char *value)
+{
+	char	*new_entry;
+	size_t	total_len;
+
+	total_len = ft_strlen(key) + ft_strlen(value) + 2;
+	new_entry = malloc(total_len);
+	if (!new_entry)
+		return ;
+	ft_strcpy(new_entry, key);
+	ft_strcat(new_entry, "=");
+	ft_strcat(new_entry, value);
+	update_or_append(data, key, new_entry, 0);
+}
+
 void	handle_shlvl(t_data *data)
 {
 	char	*shlvl_str;
@@ -99,7 +106,7 @@ void	handle_shlvl(t_data *data)
 	if (shlvl > 999)
 	{
 		ft_putstr_fd("warning: shell level ", 2);
-		ft_putstr_fd(ft_itoa(ft_atoi(shlvl_str)+1), 2);
+		ft_putstr_fd(ft_itoa(ft_atoi(shlvl_str) + 1), 2);
 		ft_putendl_fd(" too high, resetting to 1", 2);
 		shlvl = 1;
 	}

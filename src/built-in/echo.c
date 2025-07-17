@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 16:36:59 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:27:53 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_n_flag(char *str)
 
 int	builtin_echo(char **args, int n_flag)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	i = 1;
