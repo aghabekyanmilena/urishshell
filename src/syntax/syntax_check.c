@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 15:51:52 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:24:29 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	syntax_error(t_data *db, char *token)
 	g_err_no = 1;
 	printf("syntax error: unexpected token `%s'\n", token);
 	free_tokens(db);
+}
+
+void	check_pipe()
+{
+	
 }
 
 bool	check_syntax_errors(t_data *db)

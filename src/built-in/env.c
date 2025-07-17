@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:27:03 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:18:08 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:23:12 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	havasar_chka(char *arg)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (arg[i])
 	{
 		if (arg[i] == '=')
@@ -41,10 +43,10 @@ int	builtin_env(char **args, t_data *data)
 	i = 0;
 	while (data->env && data->env[i])
 	{
-		if (havasar_chka(data->env[i])==0)
+		if (havasar_chka(data->env[i]) == 0)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		printf("%s\n", data->env[i]);
 		i++;

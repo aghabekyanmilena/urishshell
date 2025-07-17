@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 14:48:43 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 17:22:09 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:48:46 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
 
-int builtin_cd(char **args, t_data *data)
+int	builtin_cd(char **args, t_data *data)
 {
 	char	*dir;
 	char	*tmp;
@@ -30,7 +30,8 @@ int builtin_cd(char **args, t_data *data)
 		g_err_no = 1;
 		return (1);
 	}
-	if (!args[1] || ft_strcmp(args[1], "-") == 0 || ft_strcmp(args[1], "~") == 0)
+	if (!args[1] || ft_strcmp(args[1], "-") == 0
+		|| ft_strcmp(args[1], "~") == 0)
 		dir = ft_strdup(get_env(data->env, "HOME"));
 	else if (ft_strncmp(args[1], "~/", 2) == 0)
 	{

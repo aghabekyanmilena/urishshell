@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 18:46:18 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:15:25 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	find_env_var_index(char **env, char *name)
 	return (-1);
 }
 
-static int is_valid_var_name(char *name)
+static int	is_valid_var_name(char *name)
 {
 	int	i;
 
@@ -102,8 +102,7 @@ static void	no_arg_case(char **args, t_data *data)
 	}
 }
 
-
-int builtin_export(char **args, t_data *data)
+int	builtin_export(char **args, t_data *data)
 {
 	int		i;
 	char	*equal_sign;
@@ -144,7 +143,7 @@ int builtin_export(char **args, t_data *data)
 		if (ft_strcmp(var_name, "_") == 0)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		index = find_env_var_index(data->env, var_name);
 		if (index >= 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:17:22 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/08 15:41:12 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:36:59 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ static int	is_n_flag(char *str)
 	return (1);
 }
 
-int	builtin_echo(char **args)
+int	builtin_echo(char **args, int n_flag)
 {
-	int	i = 1;
-	int	n_flag = 0;
+	int	i;
+	char	*str;
 
+	i = 1;
 	while (args[i] && is_n_flag(args[i]))
 	{
 		n_flag = 1;
@@ -40,7 +41,6 @@ int	builtin_echo(char **args)
 	}
 	while (args[i])
 	{
-		char	*str;
 		str = ft_strdup(args[i]);
 		if (str)
 		{
