@@ -6,100 +6,35 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 17:15:25 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/17 19:18:41 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/built_in.h"
 
-static void	print_export_error(char *arg)
+void	no_arg_case(char **args, t_data *data)
 {
-	g_err_no = 1;
-	write(2, "export: `", 9);
-	write(2, arg, ft_strlen(arg));
-	write(2, "`: not a valid identifier\n", 27);
-}
-
-int	find_env_var_index(char **env, char *name)
-{
-	int		i;
-	size_t	len;
-
-	i = 0;
-	len = ft_strlen(name);
-	while (env && env[i])
-	{
-		if (!ft_strncmp(env[i], name, len))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int	is_valid_var_name(char *name)
-{
-	int	i;
-
-	i = 1;
-	if (!ft_isalpha(name[0]) && name[0] != '_')
-		return (0);
-	while (name[i] && name[i] != '=' && name[i] != '+')
-	{
-		if (!ft_isalnum(name[i]) && name[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static void	no_arg_case(char **args, t_data *data)
-{
-	char	*equal;
 	char	**env_copy;
 	int		i;
 	int		j;
-	int		key_len;
 
-	if (!args[1])
+	if (args[1])
+		return ;
+	i = 0;
+	while (data->env && data->env[i])
+		i++;
+	env_copy = malloc(sizeof(char *) * (i + 1));
+	if (!env_copy)
+		return ;
+	j = 0;
+	while (j < i)
 	{
-		i = 0;
-		while (data->env && data->env[i])
-			i++;
-		env_copy = malloc(sizeof(char *) * (i + 1));
-		if (!env_copy)
-			return ;
-		j = 0;
-		while (j < i)
-		{
-			env_copy[j] = ft_strdup(data->env[j]);
-			j++;
-		}
-		env_copy[i] = NULL;
-		sort_env(env_copy);
-		j = 0;
-		while (env_copy[j])
-		{
-			equal = ft_strchr(env_copy[j], '=');
-			if (equal)
-			{
-				key_len = equal - env_copy[j];
-				write(1, "declare -x ", 11);
-				write(1, env_copy[j], key_len);
-				write(1, "=\"", 2);
-				write(1, equal + 1, ft_strlen(equal + 1));
-				write(1, "\"\n", 2);
-			}
-			else
-			{
-				write(1, "declare -x ", 11);
-				write(1, env_copy[j], ft_strlen(env_copy[j]));
-				write(1, "\n", 1);
-			}
-			free(env_copy[j]);
-			j++;
-		}
-		free(env_copy);
+		env_copy[j] = ft_strdup(data->env[j]);
+		j++;
 	}
+	env_copy[i] = NULL;
+	sort_env(env_copy);
+	print_exported_env(env_copy, 0);
 }
 
 int	builtin_export(char **args, t_data *data)
