@@ -6,11 +6,57 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:38:56 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/16 18:36:50 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:50:19 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	free_lim(t_limiter **cmd)
+{
+	t_limiter	*tmp;
+	t_limiter	*next;
+
+	if (!cmd || !*cmd)
+		return ;
+	tmp = *cmd;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	*cmd = NULL;
+}
+
+void	free_cmd(t_token **cmd)
+{
+	t_token	*tmp;
+	t_token	*next;
+
+	if (!cmd || !*cmd)
+		return ;
+	tmp = *cmd;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	*cmd = NULL;
+}
+
+void	free_struct(t_pipex *pipex)
+{
+	if (!pipex)
+		return ;
+	free_double(pipex->path);
+	free(pipex->pid);
+}
 
 void	init(t_data *db, t_pipex *pipex)
 {
@@ -35,6 +81,7 @@ void	init(t_data *db, t_pipex *pipex)
 		return ;
 	db->pipex = pipex;
 }
+
 void	free_double(char **s)
 {
 	int	i;
@@ -47,4 +94,3 @@ void	free_double(char **s)
 	free(s);
 	s = NULL;
 }
-

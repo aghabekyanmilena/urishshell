@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 19:56:24 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:24:03 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	chakert_hanel(t_token *c, char *before, int i, int j)
 				while (c->value[i + j] && c->value[i + j] != quote)
 					j++;
 				before = ft_join_3(ft_substr(c->value, 0, i - 1),
-						ft_substr(c->value, i, j),
-						ft_substr(c->value, i + j + 1, ft_strlen(c->value) - i - j + 1));
+						ft_substr(c->value, i, j), ft_substr(c->value,
+							i + j + 1, ft_strlen(c->value) - i - j + 1));
 				free(c->value);
 				c->value = before;
 				i += j - 1;
@@ -45,7 +45,6 @@ void	chakert_hanel(t_token *c, char *before, int i, int j)
 void	chakert_check(char *all, t_data *data_base, int i, t_token *head)
 {
 	int		j;
-	char	chak;
 
 	g_err_no = 0;
 	while (all[i])
@@ -55,18 +54,8 @@ void	chakert_check(char *all, t_data *data_base, int i, t_token *head)
 			i++;
 		while (all[i + j] && !ft_isspace(all[i + j]))
 		{
-			if (all[i + j] == '"' || all[i + j] == '\'')
-			{
-				chak = all[i + j];
-				j++;
-				while (all[i + j] && all[i + j] != chak)
-					j++;
-				if (all[i + j] != chak)
-				{
-					syntax_error(data_base, all);
-					break ;
-				}
-			}
+			if (chakert_check_sharunak(all, &i, &j, data_base))
+				break ;
 			j++;
 			if (!all[i + j] || ft_isspace(all[i + j]))
 			{
@@ -81,9 +70,8 @@ void	chakert_check(char *all, t_data *data_base, int i, t_token *head)
 char	*check_dollar(char *line, t_data *db, int *i, int f)
 {
 	int		k;
-	char	*free_anel;
 
-	while (line[*i] && ((line[*i] != '\'' && !f) || (line[*i] != '"' && f)))
+	while (line[*i] && line[*i] != '"' && ((!f && line[*i] != '\'') || f))
 	{
 		if (line[*i] == '$' && line[*i + 1])
 		{
@@ -94,16 +82,13 @@ char	*check_dollar(char *line, t_data *db, int *i, int f)
 					k++;
 			else
 				k++;
-			free_anel = ft_join_3(ft_substr(line, 0, *i - 1),
-					return_bacac(line, i, k, db),
-					ft_substr(line, *i + k, ft_strlen(line) - *i - k));
-			free(line);
-			line = free_anel;
-			(*i)--;
+			line = get_line(line, db, i, k);
 		}
 		else
 			(*i)++;
 	}
+	if (line[*i] && line[*i] == '"' && f)
+		(*i)++;
 	return (line);
 }
 
@@ -120,6 +105,8 @@ char	*dollar_in_line(char *line, t_data *db)
 		{
 			i++;
 			while (new[i] && new[i] != '\'')
+				i++;
+			if (new[i] == '\'')
 				i++;
 		}
 		else if (new[i] == '"' && new[i + 1])

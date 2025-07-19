@@ -6,11 +6,12 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:01:23 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/16 18:45:21 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:00:57 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/signals.h"
+
 static void	handling_signal(int signal)
 {
 	if (signal == SIGINT)

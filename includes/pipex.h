@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/17 20:38:03 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:54:12 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,25 @@ typedef struct s_pipex
 }					t_pipex;
 
 void	pipex_start(t_data *db, t_token *cpy, t_token *cmd);
-void	init(t_data *db, t_pipex *pipex);
 void	read_here_doc(t_pipex *heredoc, t_limiter *limiter, t_data *db);
-void	free_double(char **s);
-void	free_struct(t_pipex *pipex);
 void	first(t_pipex *pipex, t_data *data_base);
 void	last(t_pipex *pipex, t_data *data_base);
-void	mid(t_pipex *pipex, t_data *data_base);
+void	mid(t_pipex *pipex, t_data *data_base, int fders[2]);
+void	no_pipe(t_pipex *pipex, t_data *data_base);
 void	execute_cmd(t_pipex *pipex);
+void	bash_script(t_pipex *pipex);
 char	*dollar_in_line(char *line, t_data *db);
+
+//files
+void	commands(t_token *cmd, t_pipex *pipex);
+void	closing_files(t_pipex *pipex);
+void	err_for_files(char *value, char *mess);
+
+//utils
+void	init(t_data *db, t_pipex *pipex);
+void	free_struct(t_pipex *pipex);
+void	free_cmd(t_token **cmd);
+void	free_double(char **s);
+void	free_lim(t_limiter **cmd);
 
 #endif

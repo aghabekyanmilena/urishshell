@@ -6,11 +6,11 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 19:52:05 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/17 19:55:36 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:00:50 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tokenization.h"
+#include "../includes/tokenization.h"
 
 void	init_tokens_sharunak(t_data *data_base, t_token *cpy)
 {

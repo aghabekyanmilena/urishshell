@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 20:17:27 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/19 18:59:12 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	init_tokens_sharunak_redir(t_token *cpy);
 char	*get_operator(char *value, int i, int *j);
 int		ka_u_redir_pipe_chi(char c);
 void	redirnery(t_token **first, t_token *c, t_token *st, int i);
+int		chakert_check_sharunak(char *all, int *i, int *j, t_data *data_base);
+char	*get_line(char *line, t_data *db, int *i, int k);
 
 // free
 void	free_tokens(t_data *db);
