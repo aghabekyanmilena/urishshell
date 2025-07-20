@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 prefix=/home/milena/Desktop/mini/libraries/readline
+=======
+<<<<<<< HEAD
+prefix=/home/miaghabe/Desktop/minishell/libraries/readline
+=======
+prefix=/home/atseruny/Desktop/minishell/libraries/readline
+>>>>>>> anush
+>>>>>>> main
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

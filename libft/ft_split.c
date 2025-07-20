@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:51:48 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/05 15:50:24 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/19 20:00:09 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ static void	ktr(char *s, char **str, char c, int i)
 	str[j] = NULL;
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		j;
 	int		k;
 	char	**str;
 
+	if (ft_strlen(s) == 0)
+		return (NULL);
 	j = count_words((char *)s, c);
 	str = (char **)malloc((j + 1) * sizeof(char *));
 	if (!str)

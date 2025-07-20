@@ -31,7 +31,15 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
+<<<<<<< HEAD
 BUILD_DIR = /home/milena/Desktop/mini/libraries/readline-8.2
+=======
+<<<<<<< HEAD
+BUILD_DIR = /home/miaghabe/Desktop/minishell/libraries/readline-8.2
+=======
+BUILD_DIR = /home/atseruny/Desktop/minishell/libraries/readline-8.2
+>>>>>>> anush
+>>>>>>> main
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +56,15 @@ MV = mv
 
 SHELL = /bin/sh
 
+<<<<<<< HEAD
 prefix = /home/milena/Desktop/mini/libraries/readline
+=======
+<<<<<<< HEAD
+prefix = /home/miaghabe/Desktop/minishell/libraries/readline
+=======
+prefix = /home/atseruny/Desktop/minishell/libraries/readline
+>>>>>>> anush
+>>>>>>> main
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

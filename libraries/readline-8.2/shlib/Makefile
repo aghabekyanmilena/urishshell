@@ -32,7 +32,15 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
+<<<<<<< HEAD
 BUILD_DIR = /home/milena/Desktop/mini/libraries/readline-8.2
+=======
+<<<<<<< HEAD
+BUILD_DIR = /home/miaghabe/Desktop/minishell/libraries/readline-8.2
+=======
+BUILD_DIR = /home/atseruny/Desktop/minishell/libraries/readline-8.2
+>>>>>>> anush
+>>>>>>> main
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -52,7 +60,15 @@ SHELL = /bin/sh
 host_os = linux-gnu
 host_vendor = pc
 
+<<<<<<< HEAD
 prefix = /home/milena/Desktop/mini/libraries/readline
+=======
+<<<<<<< HEAD
+prefix = /home/miaghabe/Desktop/minishell/libraries/readline
+=======
+prefix = /home/atseruny/Desktop/minishell/libraries/readline
+>>>>>>> anush
+>>>>>>> main
 exec_prefix = ${prefix}
 includedir = ${prefix}/include
 bindir = ${exec_prefix}/bin
