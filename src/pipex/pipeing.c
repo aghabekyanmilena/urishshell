@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:48:01 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:56:12 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	execute_cmd(t_pipex *pipex)
 			j++;
 		}
 	}
-	
 	g_err_no = 127;
 	ft_putstr_fd(pipex->cmd[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
