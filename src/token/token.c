@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/19 19:24:03 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:29:23 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	chakert_check(char *all, t_data *data_base, int i, t_token *head)
 {
 	int		j;
 
-	g_err_no = 0;
+	data_base->for_syntax_err = 0;
 	while (all[i])
 	{
 		j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 17:33:22 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:40:40 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ bool	is_redir(t_token_type type)
 
 void	syntax_error(t_data *db, char *token)
 {
-	g_err_no = 1;
+	db->for_syntax_err = 2;
+	g_err_no = 2;
 	printf("syntax error: unexpected token `%s'\n", token);
 	free_tokens(db);
 }
@@ -29,7 +30,7 @@ bool	check_syntax_errors(t_data *db)
 {
 	t_token	*curr;
 
-	if (g_err_no == 1)
+	if (db->for_syntax_err == 2)
 		return (true);
 	curr = db->token;
 	if (!curr)
@@ -50,6 +51,5 @@ bool	check_syntax_errors(t_data *db)
 	}
 	if (curr->type == S_PIPE || is_redir(curr->type))
 		return (syntax_error(db, curr->value), true);
-	g_err_no = 0;
 	return (false);
 }

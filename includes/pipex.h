@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/19 16:54:12 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:46:16 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	bash_script(t_pipex *pipex);
 char	*dollar_in_line(char *line, t_data *db);
 
 //files
-void	commands(t_token *cmd, t_pipex *pipex);
+void	commands(t_token *cmd, t_pipex *pipex, t_data *db);
 void	closing_files(t_pipex *pipex);
-void	err_for_files(char *value, char *mess);
+void	err_for_files(char *value, char *mess, t_data *db);
 
 //utils
 void	init(t_data *db, t_pipex *pipex);

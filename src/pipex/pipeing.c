@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/19 20:05:55 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:48:01 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	execute_cmd(t_pipex *pipex)
 			j++;
 		}
 	}
+	
 	g_err_no = 127;
 	ft_putstr_fd(pipex->cmd[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
@@ -62,14 +63,14 @@ void	mid(t_pipex *pipex, t_data *data_base, int fders[2])
 {
 	if (pipe(fders) == -1)
 	{
-		err_for_files("Error piping", "\n");
+		err_for_files("Error piping", "\n", data_base);
 		return ;
 	}
 	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
-		err_for_files("Error forking", "\n");
+		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
 	if (pipex->pid[pipex->forks++] == 0)
@@ -90,14 +91,14 @@ void	first(t_pipex *pipex, t_data *data_base)
 {
 	if (pipe(pipex->fds) == -1)
 	{
-		err_for_files("Error piping", "\n");
+		err_for_files("Error piping", "\n", data_base);
 		return ;
 	}
 	signal(SIGINT, SIG_IGN);
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
-		err_for_files("Error forking", "\n");
+		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
 	if (pipex->pid[pipex->forks++] == 0)
@@ -120,7 +121,7 @@ void	last(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
-		err_for_files("Error forking", "\n");
+		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
 	if (pipex->pid[pipex->forks++] == 0)

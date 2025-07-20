@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:50:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/19 20:02:14 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:48:13 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
-		err_for_files("Error forking", "\n");
+		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
 	if (pipex->pid[pipex->forks] == 0)

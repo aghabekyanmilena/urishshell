@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 15:10:21 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:54:06 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int	builtin_exit(char **args, t_data *db)
 		exit((unsigned char)exit_code);
 	}
 	free_before_exit(db, args);
-	exit(0);
+	exit(g_err_no);
 }
