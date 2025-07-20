@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:14:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/19 19:10:33 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:40:51 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ void	read_here_doc(t_pipex *pipex, t_limiter *cpy, t_data *db)
 		close(pipex->infile);
 		pipex->infile = open(TMP_FILE, O_RDONLY);
 		unlink(TMP_FILE);
+		cpy = cpy->next;
+	}
+}
+
+void	commands(t_token *cpy, t_pipex *pipex, t_data *db)
+{
+	pipex->infile = 0;
+	pipex->outfile = 1;
+	while (cpy)
+	{
+		if (cpy->type == INFILE && !check_infile(cpy, pipex, db))
+			return ;
+		else if ((cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
+			&& !check_outfile(cpy, pipex, db))
+			return ;
+		else if (cpy->type == LIMITER)
+			add_lim(&pipex->limiter, ft_strdup(cpy->value));
 		cpy = cpy->next;
 	}
 }

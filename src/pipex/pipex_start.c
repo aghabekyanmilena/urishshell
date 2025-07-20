@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:56:28 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:31:39 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void	bash_script(t_pipex *pipex)
 {
 	if (access(pipex->cmd[0], F_OK | X_OK) == 0)
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
-	g_err_no = 127;
-	ft_putstr_fd(pipex->cmd[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	else
+	{
+		g_err_no = 127;
+		ft_putstr_fd(pipex->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }
 
 void	waiting_for_childs(t_pipex *pipex, int count)

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:46:16 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:41:59 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ char	*dollar_in_line(char *line, t_data *db);
 //files
 void	commands(t_token *cmd, t_pipex *pipex, t_data *db);
 void	closing_files(t_pipex *pipex);
+void	add_lim(t_limiter **head, char *value);
+int		check_infile(t_token *cpy, t_pipex *pipex, t_data *db);
+int		check_outfile(t_token *cpy, t_pipex *pipex, t_data *db);
 void	err_for_files(char *value, char *mess, t_data *db);
 
 //utils

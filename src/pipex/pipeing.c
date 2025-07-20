@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:56:12 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:19:24 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	execute_cmd(t_pipex *pipex)
 	j = 0;
 	if (!pipex->cmd)
 		exit (0);
-	execve(pipex->cmd[0], pipex->cmd, pipex->env);
+	if (ft_strncmp(pipex->cmd[0], "./", 2) == 0)
+		bash_script(pipex);
 	if (pipex->path != NULL)
 	{
-		if (ft_strncmp(pipex->cmd[0], "./", 2) == 0)
-			bash_script(pipex);
 		while (pipex->path[j])
 		{
 			full_path = ft_strsjoin(pipex->path[j], pipex->cmd[0], '/');
@@ -33,6 +32,7 @@ void	execute_cmd(t_pipex *pipex)
 			j++;
 		}
 	}
+	execve(pipex->cmd[0], pipex->cmd, pipex->env);
 	g_err_no = 127;
 	ft_putstr_fd(pipex->cmd[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
