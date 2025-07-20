@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:02:40 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 20:40:16 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/17 19:19:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ bool	is_builtin(char *cmd);
 int		execute_builtin(char **args, t_data *data);
 
 // echo
-int		builtin_echo(char **args);
+int		builtin_echo(char **args, int n_flag);
 
 // exit
 int		builtin_exit(char **args, t_data *db);
+int		ft_atolli_safe(const char *str, long long *out, int sign);
 
 // env
 int		builtin_env(char **args, t_data *data);
@@ -48,10 +49,15 @@ int		builtin_pwd(t_data *data);
 // export
 int		builtin_export(char **args, t_data *data);
 int		find_env_var_index(char **env, char *name);
+int		is_valid_var_name(char *name);
+int		find_env_var_index(char **env, char *name);
+void	print_export_error(char *arg);
+void	print_exported_env(char **env_copy, int j);
 
 // unset
 int		builtin_unset(char **args, t_data *data);
 
+// additional
 char	*get_env(char **env, const char *key);
 void	update_env(t_data *data, char *key, const char *value);
 

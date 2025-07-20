@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/15 15:51:52 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:33:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,13 @@ bool	check_syntax_errors(t_data *db)
 	if (!curr)
 		return (false);
 	if (curr->type == S_PIPE)
-	{
-		syntax_error(db, curr->value);
-		return (true);
-	}
+		return (syntax_error(db, curr->value), true);
 	while (curr->next)
 	{
 		if ((curr->type == S_PIPE
-			&& (curr->next->type == S_PIPE || is_redir(curr->next->type)))
+				&& (curr->next->type == S_PIPE || is_redir(curr->next->type)))
 			|| (is_redir(curr->type) && (curr->next->type == S_PIPE
-			|| is_redir(curr->next->type))))
+					|| is_redir(curr->next->type))))
 		{
 			syntax_error(db, curr->next->value);
 			return (true);
@@ -52,10 +49,7 @@ bool	check_syntax_errors(t_data *db)
 		curr = curr->next;
 	}
 	if (curr->type == S_PIPE || is_redir(curr->type))
-	{
-		syntax_error(db, curr->value);
-		return (true);
-	}
+		return (syntax_error(db, curr->value), true);
 	g_err_no = 0;
 	return (false);
 }
