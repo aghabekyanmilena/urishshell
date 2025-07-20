@@ -22,15 +22,7 @@ topdir = ..
 srcdir = .
 
 
-<<<<<<< HEAD
-prefix = /home/milena/Desktop/mini/libraries/readline
-=======
-<<<<<<< HEAD
 prefix = /home/miaghabe/Desktop/minishell/libraries/readline
-=======
-prefix = /home/atseruny/Desktop/minishell/libraries/readline
->>>>>>> anush
->>>>>>> main
 
 datarootdir = ${prefix}/share
 
@@ -57,15 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-<<<<<<< HEAD
-BUILD_DIR = /home/milena/Desktop/mini/libraries/readline-8.2
-=======
-<<<<<<< HEAD
 BUILD_DIR = /home/miaghabe/Desktop/minishell/libraries/readline-8.2
-=======
-BUILD_DIR = /home/atseruny/Desktop/minishell/libraries/readline-8.2
->>>>>>> anush
->>>>>>> main
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo
