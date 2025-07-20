@@ -1,9 +1,0 @@
-a.txt
-b.txt
-includes
-libft
-libraries
-Makefile
-minishell
-objects
-src

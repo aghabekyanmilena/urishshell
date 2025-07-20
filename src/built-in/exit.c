@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:23:09 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/19 20:49:53 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:02:29 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	builtin_exit(char **args, t_data *db)
 	long long	exit_code;
 	int			count;
 
+	exit_code = g_err_no;
 	printf("exit\n");
 	count = 0;
 	while (args[count])
@@ -102,5 +103,5 @@ int	builtin_exit(char **args, t_data *db)
 		exit((unsigned char)exit_code);
 	}
 	free_before_exit(db, args);
-	exit(0);
+	exit((unsigned char)exit_code);
 }
