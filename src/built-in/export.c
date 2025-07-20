@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:34:35 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/17 19:18:41 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:37:46 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,87 @@ void	no_arg_case(char **args, t_data *data)
 	print_exported_env(env_copy, 0);
 }
 
+char	*handle_var_name(char *arg, int *name_len)
+{
+	char	*equal_sign;
+	char	*var_name;
+
+	equal_sign = ft_strchr(arg, '=');
+	if (!equal_sign)
+		return (ft_strdup(arg));
+	if (*(equal_sign - 1) == '+')
+		*name_len = equal_sign - arg - 1;
+	else
+		*name_len = equal_sign - arg;
+	var_name = malloc(*name_len + 1);
+	if (!var_name)
+		return (NULL);
+	ft_strncpy(var_name, arg, *name_len);
+	var_name[*name_len] = '\0';
+	return (var_name);
+}
+
+int	handle_existing_var(char *arg, char *var_name, int name_len, t_data *data)
+{
+	char	*tmp;
+	char	*tmp2;
+	int		index;
+
+	index = find_env_var_index(data->env, var_name);
+	if (index < 0)
+		return (0);
+	if (ft_strchr(arg, '=') && *(ft_strchr(arg, '=') - 1) == '+')
+	{
+		tmp = ft_substr(data->env[index], name_len + 1,
+				ft_strlen(data->env[index]) - name_len - 1);
+		free(data->env[index]);
+		tmp2 = ft_strsjoin(var_name, tmp, '=');
+		free(tmp);
+		tmp = ft_substr(arg, name_len + 2, ft_strlen(arg) - name_len - 2);
+		data->env[index] = ft_strjoin(tmp2, tmp);
+		free(tmp);
+		free(tmp2);
+	}
+	else
+	{
+		free(data->env[index]);
+		data->env[index] = ft_strdup(arg);
+	}
+	return (1);
+}
+
+void	append_new_var(t_data *data, char *arg, char *var_name, int name_len)
+{
+	char	**new_env;
+	int		len;
+	int		j;
+	char	*tmp;
+
+	len = 0;
+	while (data->env && data->env[len])
+		len++;
+	new_env = malloc(sizeof(char *) * (len + 2));
+	j = -1;
+	while (++j < len)
+		new_env[j] = data->env[j];
+	if (ft_strchr(arg, '=') && *(ft_strchr(arg, '=') - 1) == '+')
+	{
+		tmp = ft_substr(arg, name_len + 1, ft_strlen(arg) - name_len - 1);
+		new_env[len] = ft_strjoin(var_name, tmp);
+		free(tmp);
+	}
+	else
+		new_env[len] = ft_strdup(arg);
+	new_env[len + 1] = NULL;
+	free(data->env);
+	data->env = new_env;
+}
+
 int	builtin_export(char **args, t_data *data)
 {
 	int		i;
-	char	*equal_sign;
-	char	*var_name;
-	char	**new_env;
-	char	*tmp;
-	char	*tmp2;
-	int		j;
 	int		name_len;
-	int		index;
-	int		len;
+	char	*var_name;
 
 	i = 1;
 	no_arg_case(args, data);
@@ -56,77 +125,19 @@ int	builtin_export(char **args, t_data *data)
 	{
 		if (!is_valid_var_name(args[i]))
 			return (print_export_error(args[i]), 1);
-		equal_sign = ft_strchr(args[i], '=');
-		if (!equal_sign)
-		{
-			var_name = ft_strdup(args[i]);
-			if (!var_name)
-				return (1);
-		}
-		else
-		{
-			if (*(equal_sign - 1) == '+')
-				name_len = equal_sign - args[i] - 1;
-			else
-				name_len = equal_sign - args[i];
-			var_name = malloc(name_len + 1);
-			if (!var_name)
-				return (1);
-			ft_strncpy(var_name, args[i], name_len);
-			var_name[name_len] = '\0';
-		}
+		var_name = handle_var_name(args[i], &name_len);
+		if (!var_name)
+			return (1);
 		if (ft_strcmp(var_name, "_") == 0)
 		{
+			free(var_name);
 			i++;
 			continue ;
 		}
-		index = find_env_var_index(data->env, var_name);
-		if (index >= 0)
-		{
-			if (equal_sign && *(equal_sign - 1) == '+')
-			{
-				tmp = ft_substr(data->env[index], name_len + 1, ft_strlen(data->env[index]) - name_len - 1);
-				free(data->env[index]);
-				tmp2 = ft_strsjoin(var_name, tmp, '=');
-				free(tmp);
-				tmp = ft_substr(args[i], name_len + 2, ft_strlen(args[i]) - 2);
-				data->env[index] = ft_strjoin(tmp2, tmp);
-				free(tmp);
-				free(tmp2);
-			}
-			else
-			{
-				free(data->env[index]);
-				data->env[index] = ft_strdup(args[i]);
-			}
-		}
-		else
-		{
-			len = 0;
-			while (data->env && data->env[len])
-				len++;
-			new_env = malloc(sizeof(char *) * (len + 2));
-			j = 0;
-			while (j < len)
-			{
-				new_env[j] = data->env[j];
-				j++;
-			}
-			if (equal_sign && *(equal_sign - 1) == '+')
-			{
-				tmp = ft_substr(args[i], name_len + 1, ft_strlen(args[i]) - name_len - 1);
-				new_env[len] = ft_strjoin(var_name, tmp);
-				free(tmp);
-			}
-			else
-				new_env[len] = ft_strdup(args[i]);
-			new_env[len + 1] = NULL;
-			free(data->env);
-			data->env = new_env;
-		}
-		i++;
+		if (!handle_existing_var(args[i], var_name, name_len, data))
+			append_new_var(data, args[i], var_name, name_len);
 		free(var_name);
+		i++;
 	}
-	g_err_no = 0;
-	return (0);
+	return (g_err_no = 0, 0);
 }
