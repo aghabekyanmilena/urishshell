@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:32:36 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:46:39 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:55:59 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ void	err_for_files(char *value, char *mess, t_data *db)
 int	check_infile(t_token *cpy, t_pipex *pipex, t_data *db)
 {
 	if (access(cpy->value, F_OK) == -1)
-		return (err_for_files(cpy->value, ": No such file or directory\n", db), 0);
+		return (err_for_files(cpy->value, ": No such file or directory\n",
+				db), 0);
 	else if (access(cpy->value, R_OK) == -1)
 		return (err_for_files(cpy->value, ": Permission denied\n", db), 0);
 	pipex->infile = open(cpy->value, O_RDONLY);
 	if (pipex->infile == -1)
-		return (err_for_files(cpy->value, ": No such file or directory\n", db), 0);
+		return (err_for_files(cpy->value, ": No such file or directory\n",
+				db), 0);
 	return (1);
 }
 
