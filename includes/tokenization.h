@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/19 18:59:12 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:07:01 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ typedef struct s_command	t_cmd;
 typedef struct s_pipex		t_pipex;
 typedef struct s_limiter	t_limiter;
 
-extern int	g_err_no;
-
-/* what enum do is to give names to numbers, it is a special data type 
-that contains a set of named ineteger constants */
+extern int					g_err_no;
 
 typedef enum e_token_type
 {
@@ -67,7 +64,7 @@ struct s_data
 // init utils
 void	add_token(t_token **head, char *value, t_token_type type);
 void	init_tokens(char *line, t_data *data_base);
-int		limiter_for_dollar(char	c);
+int		limiter_for_dollar(char c);
 char	*return_bacac(char *line, int *i, int k, t_data *db);
 void	init_tokens_sharunak(t_data *data_base, t_token *cpy);
 void	init_tokens_sharunak_redir(t_token *cpy);
@@ -88,7 +85,5 @@ char	*ft_join_3(char *start, char *mid, char *end);
 void	handle_shlvl(t_data *data);
 void	update_env(t_data *data, char *key, const char *value);
 char	*get_env(char **env, const char *key);
-
-
 
 #endif
