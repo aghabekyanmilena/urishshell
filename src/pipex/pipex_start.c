@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 15:01:27 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:46:56 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	start_executing(t_data *db, t_pipex *pipex)
 {
 	int	fders[2];
 
-	if (g_err_no != 0)
+	if (db->for_syntax_err != 0)
 	{
 		free_double(pipex->cmd);
 		pipex->cmd = NULL;
@@ -94,7 +94,7 @@ void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
 	char	*cmd_line;
 
 	init(db, &pipex);
-	while (cpy && pipex.current_cmd < pipex.count_cmd && !g_err_no)
+	while (cpy && pipex.current_cmd < pipex.count_cmd) // && !g_err_no
 	{
 		cmd_line = ft_strdup("");
 		while (cpy && cpy->type != S_PIPE)
@@ -108,7 +108,7 @@ void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
 			cpy = cpy->next;
 		pipex.cmd = ft_split(cmd_line, 31);
 		free(cmd_line);
-		commands(cmd, &pipex);
+		commands(cmd, &pipex, db);
 		free_cmd(&cmd);
 		if (start_executing(db, &pipex))
 			break ;

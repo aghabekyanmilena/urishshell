@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:16:19 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 15:07:01 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:28:56 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct s_data
 	char	**env;
 	int		pipes_count;
 	int		command_count;
+	int		for_syntax_err;
 };
 
 // init utils

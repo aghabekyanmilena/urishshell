@@ -31,11 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-<<<<<<< HEAD
-BUILD_DIR = /home/miaghabe/Desktop/minishell/libraries/readline-8.2
-=======
 BUILD_DIR = /home/atseruny/Desktop/minishell/libraries/readline-8.2
->>>>>>> anush
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -52,11 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-<<<<<<< HEAD
-prefix = /home/miaghabe/Desktop/minishell/libraries/readline
-=======
 prefix = /home/atseruny/Desktop/minishell/libraries/readline
->>>>>>> anush
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

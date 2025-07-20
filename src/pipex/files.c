@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:32:36 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/19 19:01:22 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 16:46:39 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,39 +39,40 @@ void	add_lim(t_limiter **head, char *value)
 	}
 }
 
-void	err_for_files(char *value, char *mess)
+void	err_for_files(char *value, char *mess, t_data *db)
 {
 	ft_putstr_fd(value, 2);
 	ft_putstr_fd(mess, 2);
+	db->for_syntax_err = 1;
 	g_err_no = 1;
 }
 
-int	check_infile(t_token *cpy, t_pipex *pipex)
+int	check_infile(t_token *cpy, t_pipex *pipex, t_data *db)
 {
 	if (access(cpy->value, F_OK) == -1)
-		return (err_for_files(cpy->value, ": No such file or directory\n"), 0);
+		return (err_for_files(cpy->value, ": No such file or directory\n", db), 0);
 	else if (access(cpy->value, R_OK) == -1)
-		return (err_for_files(cpy->value, ": Permission denied\n"), 0);
+		return (err_for_files(cpy->value, ": Permission denied\n", db), 0);
 	pipex->infile = open(cpy->value, O_RDONLY);
 	if (pipex->infile == -1)
-		return (err_for_files(cpy->value, ": No such file or directory\n"), 0);
+		return (err_for_files(cpy->value, ": No such file or directory\n", db), 0);
 	return (1);
 }
 
-void	commands(t_token *cpy, t_pipex *pipex)
+void	commands(t_token *cpy, t_pipex *pipex, t_data *db)
 {
 	pipex->infile = 0;
 	pipex->outfile = 1;
 	while (cpy)
 	{
-		if (cpy->type == INFILE && !check_infile(cpy, pipex))
+		if (cpy->type == INFILE && !check_infile(cpy, pipex, db))
 			return ;
 		else if (cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
 		{
 			if (access(cpy->value, F_OK) != -1
 				&& access(cpy->value, W_OK) == -1)
 			{
-				err_for_files(cpy->value, ": Permission denied\n");
+				err_for_files(cpy->value, ": Permission denied\n", db);
 				return ;
 			}
 			if (cpy->type == OUTFILE_APPEND)
