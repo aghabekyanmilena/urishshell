@@ -6,12 +6,27 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 18:57:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/22 00:23:07 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/22 00:37:06 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 #include "../includes/syntax.h"
+
+void	init_tokens_sharunak(t_data *data_base, t_token *cpy)
+{
+	data_base->pipes_count = 0;
+	while (cpy)
+	{
+		if (ft_strcmp(cpy->value, "|") == 0)
+		{
+			(data_base->pipes_count)++;
+			cpy->type = S_PIPE;
+		}
+		init_tokens_sharunak_redir(cpy);
+		cpy = cpy->next;
+	}
+}
 
 char	*get_line(char *line, t_data *db, int *i, int k)
 {

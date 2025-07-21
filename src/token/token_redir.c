@@ -6,26 +6,11 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 00:22:02 by anush             #+#    #+#             */
-/*   Updated: 2025/07/22 00:22:11 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/22 00:55:59 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
-
-void	init_tokens_sharunak(t_data *data_base, t_token *cpy)
-{
-	data_base->pipes_count = 0;
-	while (cpy)
-	{
-		if (ft_strcmp(cpy->value, "|") == 0)
-		{
-			(data_base->pipes_count)++;
-			cpy->type = S_PIPE;
-		}
-		init_tokens_sharunak_redir(cpy);
-		cpy = cpy->next;
-	}
-}
 
 char	*get_operator(char *value, int i, int *j)
 {
@@ -90,15 +75,53 @@ void	init_tokens_sharunak_redir(t_token *cpy)
 	}
 }
 
+int	get_token_from_redir(t_token **head, char *value, int *i, int *j)
+{
+	int		k;
+
+	k = 0;
+	if (!value[(*i) + (*j)] || !ka_u_redir_pipe_chi(value[(*i) + (*j)]))
+	{
+		if (*j > 0)
+			add_token(head, ft_substr(value, *i, *j), WORD);
+		if (!ka_u_redir_pipe_chi(value[(*i) + (*j)]))
+		{
+			add_token(head, get_operator(value, (*i) + (*j), &k), WORD);
+			(*i) += k;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	redir_sharunak(char *value, int *i, int *j)
+{
+	while (value[(*i) + (*j)] && ka_u_redir_pipe_chi(value[(*i) + (*j)]))
+	{
+		if (value[(*i) + (*j)] == '"')
+		{
+			(*j)++;
+			while (value[(*i) + (*j)] && value[(*i) + (*j)] != '"')
+				(*j)++;
+		}
+		else if (value[(*i) + (*j)] == '\'')
+		{
+			(*j)++;
+			while (value[(*i) + (*j)] && value[(*i) + (*j)] != '\'')
+				(*j)++;
+		}
+		(*j)++;
+	}
+}
+
 void	redirnery(t_token **first, t_token *c, t_token *head, int i)
 {
 	t_token	*tmp;
 	int		j;
-	int		k;
 
 	while (c)
 	{
-		i=0;
+		i = 0;
 		while (c->value[i])
 		{
 			j = 0;
@@ -106,34 +129,9 @@ void	redirnery(t_token **first, t_token *c, t_token *head, int i)
 				i++;
 			while (c->value[i + j])
 			{
-				while (c->value[i+j] && ka_u_redir_pipe_chi(c->value[i + j]) )//&& !ft_isspace(c->value[i + j]))
-				{
-					if (c->value[i+j] == '"')
-					{
-						j++;
-						while (c->value[i+j] && c->value[i+j] != '"')
-							j++;
-					}
-					else if (c->value[i+j] == '\'')
-					{
-						j++;
-						while (c->value[i+j] && c->value[i+j] != '\'')
-							j++;
-					}
-					j++;
-				}
-				k = 0;
-				if (!c->value[i+j] || !ka_u_redir_pipe_chi(c->value[i + j]) )//|| ft_isspace(c->value[i + j]))
-				{
-					if (j>0)
-						add_token(&head, ft_substr(c->value, i, j), WORD);
-					if (!ka_u_redir_pipe_chi(c->value[i + j]))
-					{
-						add_token(&head, get_operator(c->value, i+j, &k), WORD);
-						i += k;
-					}
+				redir_sharunak(c->value, &i, &j);
+				if (get_token_from_redir(&head, c->value, &i, &j))
 					break;
-				}
 			}
 			i += j;
 		}
