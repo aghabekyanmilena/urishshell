@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:14:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 18:40:51 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/22 00:19:08 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	read_here_doc(t_pipex *pipex, t_limiter *cpy, t_data *db)
 	while (cpy)
 	{
 		lim = ft_strjoin(cpy->value, "\n");
+		if (pipex->infile != 0)
+			close (pipex->infile);
 		pipex->infile = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 		while (1)
 		{

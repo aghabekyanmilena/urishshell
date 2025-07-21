@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/20 16:12:32 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 16:29:23 by atseruny         ###   ########.fr       */
+/*   Created: 2025/07/22 00:20:53 by anush             #+#    #+#             */
+/*   Updated: 2025/07/22 00:21:18 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*check_dollar(char *line, t_data *db, int *i, int f)
 
 	while (line[*i] && line[*i] != '"' && ((!f && line[*i] != '\'') || f))
 	{
-		if (line[*i] == '$' && line[*i + 1])
+		if (line[*i] == '$' && line[*i + 1] && limiter_for_dollar(line[*i + 1]))
 		{
 			(*i)++;
 			k = 0;
@@ -126,8 +126,8 @@ void	init_tokens(char *line, t_data *data_base)
 
 	dup = dollar_in_line(line, data_base);
 	chakert_check(dup, data_base, 0, NULL);
-	chakert_hanel(data_base->token, NULL, 0, 0);
 	redirnery(&(data_base->token), data_base->token, NULL, 0);
+	chakert_hanel(data_base->token, NULL, 0, 0);
 	init_tokens_sharunak(data_base, data_base->token);
 	(data_base->command_count)++;
 	free(dup);
