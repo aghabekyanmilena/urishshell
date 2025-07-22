@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 16:39:35 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 18:41:59 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:17:43 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	free_struct(t_pipex *pipex);
 void	free_cmd(t_token **cmd);
 void	free_double(char **s);
 void	free_lim(t_limiter **cmd);
+void	closing_files(t_pipex *pipex);
 
 #endif

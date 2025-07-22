@@ -6,7 +6,7 @@
 /*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/22 00:36:05 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/23 00:18:27 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ int	start_executing(t_data *db, t_pipex *pipex)
 		pipex->cmd = NULL;
 		free_lim(&pipex->limiter);
 		pipex->limiter = NULL;
+		closing_files(pipex);
+		(pipex->current_cmd)++;
+		// printf("AAA\n");
 		return (1);
 	}
 	if (db->pipes_count == 0)
@@ -130,7 +133,7 @@ void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
 		commands(cmd, &pipex, db);
 		free_cmd(&cmd);
 		if (start_executing(db, &pipex))
-			break ;
+			continue ;
 	}
 	waiting_for_childs(&pipex, 0);
 }
