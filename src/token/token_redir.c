@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 00:22:02 by anush             #+#    #+#             */
-/*   Updated: 2025/07/22 00:55:59 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/22 17:12:35 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tokenization.h"
-
-char	*get_operator(char *value, int i, int *j)
-{
-	(*j)++;
-	if (value[i] == '<')
-	{
-		if (value[i + 1] == '<')
-		{
-			(*j)++;
-			return (ft_strdup("<<"));
-		}
-		return (ft_strdup("<"));
-	}
-	else if (value[i] == '>')
-	{
-		if (value[i + 1] == '>')
-		{
-			(*j)++;
-			return (ft_strdup(">>"));
-		}
-		return (ft_strdup(">"));
-	}
-	else if (value[i] == '|')
-		return (ft_strdup("|"));
-	else
-		(*j)--;
-	return (NULL);
-}
 
 int	ka_u_redir_pipe_chi(char c)
 {
@@ -131,7 +103,7 @@ void	redirnery(t_token **first, t_token *c, t_token *head, int i)
 			{
 				redir_sharunak(c->value, &i, &j);
 				if (get_token_from_redir(&head, c->value, &i, &j))
-					break;
+					break ;
 			}
 			i += j;
 		}
