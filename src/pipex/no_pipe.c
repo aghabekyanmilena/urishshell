@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:50:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 15:44:16 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:25:25 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	no_pipe_builtin(t_pipex *pipex, t_data *data_base, int inf, int out)
 int	no_pipe_wo_fork(t_pipex *pipex, t_data *data_base, int inf, int out)
 {
 	if (pipex->limiter)
-		read_here_doc(pipex, pipex->limiter, data_base);
+		if (heredoc(pipex, pipex->limiter, data_base))
+			return (1);
+	// if (g_err_no != 0)
+	// 	return (0);
 	if (pipex->infile != 0)
 		inf = dup(STDIN_FILENO);
 	if (pipex->outfile != 1)
@@ -70,6 +73,8 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+		if (pipex->limiter)
+			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);
 		closing_files(pipex);
