@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 00:18:27 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/23 14:03:56 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ int	start_executing(t_data *db, t_pipex *pipex)
 		free_lim(&pipex->limiter);
 		pipex->limiter = NULL;
 		closing_files(pipex);
-		(pipex->current_cmd)++;
-		// printf("AAA\n");
-		return (1);
+		return ((pipex->current_cmd)++, 1);
 	}
 	if (db->pipes_count == 0)
 		no_pipe(pipex, db);
