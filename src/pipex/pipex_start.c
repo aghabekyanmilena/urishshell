@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:58:27 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:02:22 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,30 @@
 
 void	bash_script(t_pipex *pipex)
 {
-	if (access(pipex->cmd[0], F_OK | X_OK) == 0)
+	char	*name;
+
+	name = ft_substr(pipex->cmd[0], 2, ft_strlen(pipex->cmd[0]) - 2);
+	if (access(name, F_OK) != 0)
+	{
+		g_err_no = 126;
+		ft_putstr_fd(pipex->cmd[0], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	else if (access(name, X_OK) != 0)
+	{
+		g_err_no = 126;
+		ft_putstr_fd(pipex->cmd[0], 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+	}
+	else
+	{
 		execve(pipex->cmd[0], pipex->cmd, pipex->env);
-	g_err_no = 127;
-	ft_putstr_fd(pipex->cmd[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+		g_err_no = 127;
+		ft_putstr_fd(pipex->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	free(name);
+	exit (g_err_no);
 }
 
 void	waiting_for_childs(t_pipex *pipex, int count)
@@ -60,6 +79,9 @@ int	start_executing(t_data *db, t_pipex *pipex)
 		pipex->cmd = NULL;
 		free_lim(&pipex->limiter);
 		pipex->limiter = NULL;
+		closing_files(pipex);
+		(pipex->current_cmd)++;
+		// printf("AAA\n");
 		return (1);
 	}
 	if (db->pipes_count == 0)
@@ -111,7 +133,7 @@ void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
 		commands(cmd, &pipex, db);
 		free_cmd(&cmd);
 		if (start_executing(db, &pipex))
-			break ;
+			continue ;
 	}
 	waiting_for_childs(&pipex, 0);
 }

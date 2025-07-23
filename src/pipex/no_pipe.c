@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:50:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:48:13 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:03:39 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,15 @@ int	no_pipe_wo_fork(t_pipex *pipex, t_data *data_base, int inf, int out)
 	if (pipex->limiter)
 		read_here_doc(pipex, pipex->limiter, data_base);
 	if (pipex->infile != 0)
-		inf = dup(0);
+		inf = dup(STDIN_FILENO);
 	if (pipex->outfile != 1)
-		out = dup(1);
+		out = dup(STDOUT_FILENO);
 	if (pipex->cmd && is_builtin(pipex->cmd[0]))
 		return (no_pipe_builtin(pipex, data_base, inf, out), 1);
+	if (inf != -1 && inf != STDIN_FILENO)
+		close(inf);
+	if (out != 1 && out != STDOUT_FILENO)
+		close(out);
 	return (0);
 }
 
@@ -61,7 +65,7 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
-	if (pipex->pid[pipex->forks] == 0)
+	if (pipex->pid[pipex->forks++] == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -70,6 +74,5 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 		closing_files(pipex);
 		execute_cmd(pipex);
 	}
-	pipex->forks++;
 	closing_files(pipex);
 }

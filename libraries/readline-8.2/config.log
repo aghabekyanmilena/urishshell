@@ -1958,10 +1958,14 @@ configure:7048: result: yes
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
 <<<<<<< HEAD
+<<<<<<< HEAD
 /usr/bin/ld: /tmp/ccmMqXDt.o: in function `main':
 /home/miaghabe/Desktop/minishell/libraries/readline-8.2/conftest.c:123: undefined reference to `tgetent'
 =======
 /usr/bin/ld: /tmp/ccTriOaI.o: in function `main':
+=======
+/usr/bin/ld: /tmp/ccNvTdCZ.o: in function `main':
+>>>>>>> main
 /home/atseruny/Desktop/minishell/libraries/readline-8.2/conftest.c:123: undefined reference to `tgetent'
 >>>>>>> main
 collect2: error: ld returned 1 exit status
@@ -2258,10 +2262,14 @@ configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
 <<<<<<< HEAD
+<<<<<<< HEAD
 /usr/bin/ld: /tmp/ccRhODKh.o: in function `main':
 /home/miaghabe/Desktop/minishell/libraries/readline-8.2/conftest.c:128: undefined reference to `mbscasecmp'
 =======
 /usr/bin/ld: /tmp/ccAIbblL.o: in function `main':
+=======
+/usr/bin/ld: /tmp/ccEa0dbD.o: in function `main':
+>>>>>>> main
 /home/atseruny/Desktop/minishell/libraries/readline-8.2/conftest.c:128: undefined reference to `mbscasecmp'
 >>>>>>> main
 collect2: error: ld returned 1 exit status
@@ -2402,10 +2410,14 @@ configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
 <<<<<<< HEAD
+<<<<<<< HEAD
 /usr/bin/ld: /tmp/ccXhON91.o: in function `main':
 /home/miaghabe/Desktop/minishell/libraries/readline-8.2/conftest.c:128: undefined reference to `mbscmp'
 =======
 /usr/bin/ld: /tmp/ccFkfFEh.o: in function `main':
+=======
+/usr/bin/ld: /tmp/ccMgyUoa.o: in function `main':
+>>>>>>> main
 /home/atseruny/Desktop/minishell/libraries/readline-8.2/conftest.c:128: undefined reference to `mbscmp'
 >>>>>>> main
 collect2: error: ld returned 1 exit status
@@ -2554,10 +2566,14 @@ configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
 <<<<<<< HEAD
+<<<<<<< HEAD
 /usr/bin/ld: /tmp/cciflggV.o: in function `main':
 /home/miaghabe/Desktop/minishell/libraries/readline-8.2/conftest.c:130: undefined reference to `mbschr'
 =======
 /usr/bin/ld: /tmp/cca1mEOz.o: in function `main':
+=======
+/usr/bin/ld: /tmp/ccRSF5pl.o: in function `main':
+>>>>>>> main
 /home/atseruny/Desktop/minishell/libraries/readline-8.2/conftest.c:130: undefined reference to `mbschr'
 >>>>>>> main
 collect2: error: ld returned 1 exit status

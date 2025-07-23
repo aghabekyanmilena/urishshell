@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 15:23:04 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 16:40:40 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/23 00:08:34 by anush            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_syntax_errors(t_data *db)
 	while (curr->next)
 	{
 		if ((curr->type == S_PIPE
-				&& (curr->next->type == S_PIPE || is_redir(curr->next->type)))
+				&& (curr->next->type == S_PIPE))
 			|| (is_redir(curr->type) && (curr->next->type == S_PIPE
 					|| is_redir(curr->next->type))))
 		{

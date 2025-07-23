@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:32:36 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/20 16:55:59 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/20 18:40:26 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,31 +61,19 @@ int	check_infile(t_token *cpy, t_pipex *pipex, t_data *db)
 	return (1);
 }
 
-void	commands(t_token *cpy, t_pipex *pipex, t_data *db)
+int	check_outfile(t_token *cpy, t_pipex *pipex, t_data *db)
 {
-	pipex->infile = 0;
-	pipex->outfile = 1;
-	while (cpy)
-	{
-		if (cpy->type == INFILE && !check_infile(cpy, pipex, db))
-			return ;
-		else if (cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
-		{
-			if (access(cpy->value, F_OK) != -1
-				&& access(cpy->value, W_OK) == -1)
-			{
-				err_for_files(cpy->value, ": Permission denied\n", db);
-				return ;
-			}
-			if (cpy->type == OUTFILE_APPEND)
-				pipex->outfile = open(cpy->value, O_WRONLY
-						| O_CREAT | O_APPEND, 0777);
-			else
-				pipex->outfile = open(cpy->value, O_WRONLY
-						| O_CREAT | O_TRUNC, 0777);
-		}
-		else if (cpy->type == LIMITER)
-			add_lim(&pipex->limiter, ft_strdup(cpy->value));
-		cpy = cpy->next;
-	}
+	if (access(cpy->value, F_OK) != -1
+		&& access(cpy->value, W_OK) == -1)
+		return (err_for_files(cpy->value, ": Permission denied\n", db), 0);
+	if (cpy->type == OUTFILE_APPEND)
+		pipex->outfile = open(cpy->value, O_WRONLY
+				| O_CREAT | O_APPEND, 0777);
+	else
+		pipex->outfile = open(cpy->value, O_WRONLY
+				| O_CREAT | O_TRUNC, 0777);
+	if (pipex->outfile == -1)
+		return (err_for_files(cpy->value, ": No such file or directory\n",
+				db), 0);
+	return (1);
 }
