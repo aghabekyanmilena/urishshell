@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 14:02:22 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:04:02 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	start_executing(t_data *db, t_pipex *pipex)
 		pipex->limiter = NULL;
 		closing_files(pipex);
 		(pipex->current_cmd)++;
-		// printf("AAA\n");
 		return (1);
 	}
 	if (db->pipes_count == 0)
@@ -96,8 +95,7 @@ int	start_executing(t_data *db, t_pipex *pipex)
 	pipex->cmd = NULL;
 	free_lim(&pipex->limiter);
 	pipex->limiter = NULL;
-	(pipex->current_cmd)++;
-	return (0);
+	return ((pipex->current_cmd)++, 0);
 }
 
 char	*get_cmd_line(t_token *cpy, char *cmd_line)
