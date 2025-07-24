@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:50:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 00:03:39 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/23 15:44:16 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
+		closing_files(pipex);
 		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}

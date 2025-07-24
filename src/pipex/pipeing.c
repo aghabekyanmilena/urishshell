@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anush <anush@student.42.fr>                +#+  +:+       +#+        */
+/*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:33:30 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 00:16:40 by anush            ###   ########.fr       */
+/*   Updated: 2025/07/23 15:46:04 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	mid(t_pipex *pipex, t_data *data_base, int fders[2])
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
+		closing_files(pipex);
 		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
@@ -98,6 +99,7 @@ void	first(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
+		closing_files(pipex);
 		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
@@ -121,6 +123,7 @@ void	last(t_pipex *pipex, t_data *data_base)
 	pipex->pid[pipex->forks] = fork();
 	if (pipex->pid[pipex->forks] == -1)
 	{
+		closing_files(pipex);
 		err_for_files("Error forking", "\n", data_base);
 		return ;
 	}
