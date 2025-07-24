@@ -6,7 +6,7 @@
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:01:23 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 14:05:30 by miaghabe         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:09:51 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	pipex_start(t_data *db, t_token *cpy, t_token *cmd)
 	while (cpy && pipex.current_cmd < pipex.count_cmd)
 	{
 		cmd_line = ft_strdup("");
+		pipex.heredoc = 0;
 		while (cpy && cpy->type != S_PIPE)
 		{
 			if (cpy->type == WORD)

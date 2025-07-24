@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: miaghabe <miaghabe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/20 15:13:42 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/20 15:13:48 by miaghabe         ###   ########.fr       */
+/*   Created: 2025/04/26 15:38:56 by atseruny          #+#    #+#             */
+/*   Updated: 2025/07/24 18:09:40 by miaghabe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	init(t_data *db, t_pipex *pipex)
 	pipex->cmd = NULL;
 	pipex->limiter = NULL;
 	pipex->path = NULL;
+	pipex->heredoc = 0;
 	while (db->env[i])
 	{
 		if (ft_strncmp(db->env[i], "PATH=", 5) == 0)
@@ -80,6 +81,7 @@ void	init(t_data *db, t_pipex *pipex)
 	if (!(pipex->pid))
 		return ;
 	db->pipex = pipex;
+	get_lim(db->token, pipex);
 }
 
 void	free_double(char **s)
