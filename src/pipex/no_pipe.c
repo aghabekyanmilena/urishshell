@@ -6,11 +6,21 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 14:50:22 by atseruny          #+#    #+#             */
-/*   Updated: 2025/07/23 18:25:25 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:02:25 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	get_lim(t_token *cpy, t_pipex *pipex)
+{
+	while (cpy)
+	{
+		if (cpy->type == LIMITER)
+			add_lim(&pipex->limiter, ft_strdup(cpy->value));
+		cpy = cpy->next;
+	}
+}
 
 void	no_pipe_builtin(t_pipex *pipex, t_data *data_base, int inf, int out)
 {
@@ -42,8 +52,6 @@ int	no_pipe_wo_fork(t_pipex *pipex, t_data *data_base, int inf, int out)
 	if (pipex->limiter)
 		if (heredoc(pipex, pipex->limiter, data_base))
 			return (1);
-	// if (g_err_no != 0)
-	// 	return (0);
 	if (pipex->infile != 0)
 		inf = dup(STDIN_FILENO);
 	if (pipex->outfile != 1)
@@ -73,7 +81,7 @@ void	no_pipe(t_pipex *pipex, t_data *data_base)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (pipex->limiter)
+		if (pipex->limiter && !pipex->heredoc)
 			read_here_doc(pipex, pipex->limiter, data_base);
 		dup2(pipex->infile, STDIN_FILENO);
 		dup2(pipex->outfile, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: atseruny <atseruny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:14:20 by miaghabe          #+#    #+#             */
-/*   Updated: 2025/07/23 18:28:03 by atseruny         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:54:07 by atseruny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,12 @@ void	read_here_doc(t_pipex *pipex, t_limiter *cpy, t_data *db)
 	}
 }
 
-int	heredoc(t_pipex *pipex, t_limiter *cpy, t_data *db)
+int	waiting_heredoc(pid_t pid)
 {
-	pid_t	pid;
-	int		status;
-	int		count;
+	int	status;
+	int	count;
 
 	count = 0;
-	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		read_here_doc(pipex, cpy, db);
-		exit(0);
-	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_err_no = WEXITSTATUS(status);
@@ -100,6 +90,26 @@ int	heredoc(t_pipex *pipex, t_limiter *cpy, t_data *db)
 	return (count);
 }
 
+int	heredoc(t_pipex *pipex, t_limiter *cpy, t_data *db)
+{
+	pid_t	pid;
+	int		count;
+
+	count = 0;
+	signal(SIGINT, SIG_IGN);
+	pid = fork();
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		read_here_doc(pipex, cpy, db);
+		exit(0);
+	}
+	count = waiting_heredoc(pid);
+	pipex->heredoc = 1;
+	return (count);
+}
+
 void	commands(t_token *cpy, t_pipex *pipex, t_data *db)
 {
 	pipex->infile = 0;
@@ -111,8 +121,6 @@ void	commands(t_token *cpy, t_pipex *pipex, t_data *db)
 		else if ((cpy->type == OUTFILE || cpy->type == OUTFILE_APPEND)
 			&& !check_outfile(cpy, pipex, db))
 			return ;
-		else if (cpy->type == LIMITER)
-			add_lim(&pipex->limiter, ft_strdup(cpy->value));
 		cpy = cpy->next;
 	}
 }
